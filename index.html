@@ -356,7 +356,7 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
 /* === Moon drift orbital animation (SVG) === */
 .orbit-drift{margin:1.5rem 0;padding:1.2rem 1.5rem;background:var(--panel2);border:1px solid var(--line);border-radius:6px;}
 .orbit-drift-title{font-family:var(--display);font-size:1.2rem;font-weight:500;color:var(--gold-bright);margin-bottom:.3rem;text-align:left;}
-.orbit-drift-sub{font-size:1.08rem;color:var(--dim);text-align:center;width:100%;margin:1rem 0;}
+.orbit-drift-sub{width:100%;}
 .orbit-drift-svg{display:block;width:100%;height:480px;margin:0;}
 .orbit-drift-controls{margin-top:.8rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
 .orbit-drift-controls button{margin:0 .3rem;}
@@ -1050,7 +1050,10 @@ select.cal-select:focus{
   <!-- Orbital drift animation -->
   <div class="orbit-drift">
     <div class="orbit-drift-title">Two orbits — a 355-day year against the sun</div>
-    <div class="orbit-drift-sub">Schematic of <strong>seasonal</strong> drift: outer ring = the solar year (365¼ days); inner ring = a 355-day Roman year with no intercalation. Roman “March” slides against the seasons. This is <em>not</em> a picture of the live moon still locking the Kalends — that lock was already off once months had fixed lengths (see above).<br><br><span id="orbitExplain">Year 0: both orbits aligned. March = spring on both rings. This animation shows seasonal drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.</span></div>
+    <div class="orbit-drift-sub">
+      <p>Schematic of <strong>seasonal</strong> drift: outer ring = the solar year (365¼ days); inner ring = a 355-day Roman year with no intercalation. Roman "March" slides against the seasons. This is <em>not</em> a picture of the live moon still locking the Kalends — that lock was already off once months had fixed lengths (see above).</p>
+      <p id="orbitExplain">Year 0: both orbits aligned. March = spring on both rings. This animation shows seasonal drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.</p>
+    </div>
     <svg class="orbit-drift-svg" id="orbitSvg" viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="orbit-drift-legend">
       <span><span class="dot" style="background:var(--gold);"></span>Solar year (365¼ d)</span>

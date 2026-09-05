@@ -18,11 +18,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Show files to be uploaded (diagnostic)
+        run: |
+          echo "PWD: $(pwd)"
+          echo "Listing repository root (showing whether index.html is present):"
+          ls -la .
+          echo "Recursive listing (first 200 lines):"
+          ls -laR . | sed -n '1,200p'
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the repository root (adjust if your index.html is in a subfolder)
+          # Change this if your site files are in a subfolder, e.g. 'docs/'
           path: './'
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

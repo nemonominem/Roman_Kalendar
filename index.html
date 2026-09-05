@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Roman Kalendar — From Moon Phases to Consuls</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1c1f26;
+  --bg-grad:#262a33;
+  --panel:#2a2e38;
+  --panel2:#303440;
+  --panel3:#383d4a;
+  --ink:#cbc4b3;
+  --ink-bright:#ebe4d3;
+  --dim:#9a958a;
+  --dimmer:#6e6960;
+  --gold:#b8893d;
+  --gold-bright:#d4af6a;
+  --red:#b8543f;
+  --red-dim:#8e4035;
+  --green:#6b8e5a;
+  --blue:#5d7b9c;
+  --line:#3d4250;
+  --line-light:#4a5060;
+  --serif:'EB Garamond',Georgia,'Times New Roman',serif;
+  --display:'Cinzel',Georgia,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(ellipse at top, var(--bg-grad) 0%, var(--bg) 65%);
+  color:var(--ink);
+  font-family:var(--sans);
+  line-height:1.7;
+  font-size:17px;
+  overflow-x:hidden;
+}
+
+/* === Tab Navigation === */
+nav.tabs{
+  position:sticky;top:0;
+  background:rgba(28,31,38,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:0 1rem;
+  z-index:100;
+  display:flex;flex-wrap:wrap;
+  gap:0;
+  align-items:stretch;
+  justify-content:center;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);
+}
+nav.tabs .nav-brand{
+  font-family:var(--display);
+  color:var(--gold);
+  font-size:1.08rem;
+  letter-spacing:.18em;
+  padding:.7rem .8rem .7rem 0;
+  border-right:1px solid var(--line);
+  margin-right:.3rem;
+  display:flex;align-items:center;
+}
+nav.tabs .tab{
+  background:transparent;
+  color:var(--dim);
+  border:none;
+  border-bottom:2px solid transparent;
+  border-radius:0;
+  padding:.7rem .7rem;
+  font-family:var(--sans);
+  font-size:1.03rem;
+  font-weight:500;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:color .2s,border-color .2s,background .2s;
+  white-space:nowrap;
+}
+nav.tabs .tab:hover{
+  color:var(--ink-bright);
+  background:rgba(184,137,61,.06);
+}
+nav.tabs .tab.active{
+  color:var(--gold-bright);
+  border-bottom-color:var(--gold);
+  background:rgba(184,137,61,.08);
+}
+
+/* Tab content sections */
+.tab-section{display:none;}
+.tab-section.active{display:block;}
+.tab-section > section:first-child{margin-top:1.5rem;}
+
+main{max-width:1080px;margin:0 auto;padding:0 1.25rem 4rem;}
+section{margin:2.5rem 0;}
+
+/* === Typography === */
+h1{
+  font-family:var(--display);
+  font-size:2.6rem;
+  font-weight:600;
+  color:var(--gold-bright);
+  letter-spacing:.04em;
+  line-height:1.15;
+}
+h2{
+  font-family:var(--display);
+  font-size:1.5rem;
+  font-weight:500;
+  color:var(--gold);
+  letter-spacing:.03em;
+  margin-bottom:1.2rem;
+  padding-bottom:.6rem;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+h2::after{
+  content:'';position:absolute;
+  left:0;bottom:-1px;
+  width:60px;height:2px;
+  background:var(--gold);
+}
+h2 .secnum{
+  color:var(--dimmer);
+  font-size:1.0em;
+  margin-right:.5rem;
+}
+h3{
+  font-family:var(--display);
+  font-size:1.3rem;
+  font-weight:500;
+  color:var(--gold-bright);
+  margin:1.4rem 0 .5rem;
+  letter-spacing:.04em;
+}
+p{margin:.7rem 0;}
+ul{margin:.7rem 0 .7rem 1.4rem;}
+li{margin:.3rem 0;}
+strong{color:var(--ink-bright);font-weight:600;}
+em{color:var(--ink);}
+
+.red{color:var(--red);} .green{color:var(--green);} .blue{color:var(--blue);} .dim{color:var(--dim);}
+
+/* === Hero (compact) === */
+.tag{
+  display:inline-block;
+  background:rgba(184,137,61,.12);
+  border:1px solid rgba(184,137,61,.3);
+  border-radius:3px;
+  padding:.05rem .4rem;
+  font-size:1.15em;
+  color:var(--gold-bright);
+}
+
+/* === Hero (compact) === */
+.hero{
+  text-align:center;
+  padding:2rem 1rem 1.5rem;
+  position:relative;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:100px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero h1{
+  font-size:1.8rem;
+  margin-bottom:.2rem;
+}
+.hero .subtitle{
+  color:var(--dim);
+  font-size:1.2rem;
+  margin-top:.3rem;
+}
+.hero .roman-live{
+  font-family:var(--display);
+  font-size:1.1rem;
+  color:var(--gold-bright);
+  margin-top:.9rem;
+  letter-spacing:.02em;
+}
+.hero .roman-live-sub{
+  color:var(--dim);
+  font-size:1.15rem;
+  margin-top:.2rem;
+  font-family:var(--sans);
+}
+.hero .fecit{
+  color:var(--dimmer);
+  font-size:1.1rem;
+  margin-top:.6rem;
+  font-family:var(--display);
+  letter-spacing:.06em;
+}
+
+/* === Panels (sub-titles, not boxes) === */
+.panel{
+  margin:1.8rem 0 .5rem;
+  padding:0;
+}
+.panel > h3{
+  font-family:var(--display);
+  font-size:1.3rem;
+  font-weight:500;
+  color:var(--gold-bright);
+  margin:0 0 .6rem;
+  letter-spacing:.04em;
+  border-bottom:1px solid rgba(184,137,61,.25);
+  padding-bottom:.3rem;
+}
+.list-label{
+  font-family:var(--display);
+  font-size:1.15rem;
+  font-weight:600;
+  color:var(--gold-bright);
+  letter-spacing:.03em;
+}
+.note{
+  font-size:1.1rem;
+  color:var(--dim);
+  margin:1rem 0;
+}
+/* em: non-italic everywhere, EXCEPT footnotes (.note) and source names (footer) */
+em{font-style:normal;}
+.note em{font-style:italic;}
+footer em{font-style:italic;}
+.legend{
+  display:flex;gap:1.2rem;flex-wrap:wrap;
+  font-size:1.08rem;
+  color:var(--dim);
+  margin:.5rem 0;
+}
+
+/* === Tables === */
+table{
+  border-collapse:collapse;
+  width:100%;
+  margin:1rem 0;
+  font-size:1.05rem;
+}
+th,td{
+  border:1px solid var(--line);
+  padding:.5rem .7rem;
+  text-align:left;
+}
+th{
+  background:var(--panel2);
+  color:var(--gold);
+  font-family:var(--display);
+  font-weight:500;
+  font-size:1.1rem;
+  letter-spacing:.03em;
+}
+tbody tr:hover{background:rgba(184,137,61,.05);}
+
+/* === Interactive elements === */
+.interactive{
+  margin:1.2rem 0;
+}
+input[type=text],input[type=number],input[type=date],select{
+  background:var(--bg);
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:.45rem .6rem;
+  font-family:var(--sans);
+  font-size:1.03rem;
+  transition:border-color .2s;
+}
+input:focus,select:focus{outline:none;border-color:var(--gold);}
+button{
+  background:linear-gradient(135deg,var(--gold),var(--gold-bright));
+  color:#1c1f26;
+  border:none;
+  border-radius:4px;
+  padding:.5rem 1rem;
+  font-family:var(--sans);
+  font-weight:600;
+  font-size:1.1rem;
+  cursor:pointer;
+  transition:filter .2s,transform .1s;
+  letter-spacing:.02em;
+}
+button:hover{filter:brightness(1.12);}
+button:active{transform:translateY(1px);}
+button.secondary{
+  background:var(--panel3);
+  color:var(--ink);
+  border:1px solid var(--line-light);
+}
+button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
+.result{
+  margin-top:.8rem;
+  padding:.8rem 1rem;
+  background:var(--bg);
+  border:1px dashed var(--line);
+  border-left:3px solid var(--gold);
+  border-radius:0 4px 4px 0;
+  color:var(--gold-bright);
+  min-height:1.2em;
+  font-size:1.2rem;
+}
+
+/* === Month grid (Republican) === */
+.monthgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin:1rem 0;}
+.mcell{
+  border:1px solid var(--line);
+  border-radius:5px;
+  padding:.5rem .3rem;
+  text-align:center;
+  font-size:1.08rem;
+  cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+}
+.mcell:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.3);}
+.mcell.full{background:rgba(107,142,90,.15);border-color:var(--green);}
+.mcell.hollow{background:rgba(184,84,63,.12);border-color:var(--red);}
+.mcell .days{color:var(--dim);font-size:1.1rem;font-family:var(--sans);}
+
+/* === Drift animation === */
+.eqx{position:relative;height:70px;background:var(--bg);border:1px solid var(--line);border-radius:5px;margin:.6rem auto;max-width:700px;overflow:hidden;}
+.eqx .marker{position:absolute;top:0;bottom:0;width:3px;background:var(--gold);transition:left 2s ease;box-shadow:0 0 8px var(--gold);z-index:2;}
+.eqx .eqx-scale{position:absolute;top:0;left:0;right:0;bottom:28px;display:flex;}
+.eqx .eqx-scale .em{flex:1;border-right:1px solid var(--line);font-family:var(--sans);font-size:1.15rem;color:var(--dim);text-align:center;line-height:42px;overflow:hidden;white-space:nowrap;}
+.eqx .eqx-scale .em:last-child{border-right:none;}
+.eqx .eqx-label{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:1.1rem;color:var(--gold-bright);font-family:var(--sans);white-space:nowrap;}
+
+/* === Moon drift orbital animation (SVG) === */
+.orbit-drift{margin:1.5rem 0;padding:0;}
+.orbit-drift-title{font-family:var(--display);font-size:1.2rem;font-weight:500;color:var(--gold-bright);margin-bottom:.3rem;text-align:center;}
+.orbit-drift-sub{font-size:1.08rem;color:var(--dim);text-align:center;max-width:820px;margin:1rem auto;}
+.orbit-drift-svg{display:block;width:100%;max-width:820px;height:480px;margin:0 auto;}
+.orbit-drift-controls{margin-top:.8rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.orbit-drift-controls button{margin:0 .3rem;}
+.orbit-drift-legend{display:flex;justify-content:center;gap:1.5rem;margin-top:.5rem;font-size:1.05rem;color:var(--dim);}
+.orbit-drift-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.3rem;vertical-align:middle;}.orbit-explain{text-align:center;max-width:820px;margin:1rem auto;font-size:1.1rem;color:var(--ink);}.orbit-year{font-family:var(--display);font-size:1.2rem;font-weight:600;color:var(--gold-bright);min-width:100px;text-align:center;}.orbit-year-label{font-size:1.15rem;color:var(--ink);text-align:center;margin-top:.4rem;}
+
+/* === Fasti letters === */
+.F{color:var(--blue);} .N{color:var(--red);} .C{color:var(--green);} .NP{color:var(--gold);} .EN{color:#b0846d;} .QRCF{color:var(--dim);}
+.tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--dim);}
+.fasti{font-size:1.1rem;}.fasti td{padding:.3rem .5rem;}
+
+
+/* === Double Calendar (center feature) === */
+.dual-cal{
+  background:linear-gradient(180deg,var(--panel) 0%,var(--bg-grad) 100%);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:1.5rem 1.5rem;
+  margin:1rem 0;
+  position:relative;
+  overflow:hidden;
+}
+.dual-cal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);
+}
+.cal-title{
+  font-family:var(--display);
+  font-size:1.3rem;
+  color:var(--gold-bright);
+  text-align:center;
+  margin-bottom:.3rem;
+  letter-spacing:.03em;
+}
+.cal-subtitle{
+  text-align:center;
+  color:var(--dim);
+  font-size:1.1rem;
+  margin-bottom:1.5rem;
+  font-family:var(--sans);
+}
+
+/* Controls bar */
+.cal-controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.8rem;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:1rem;
+  padding:.8rem;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+.cal-controls label{
+  font-family:var(--sans);
+  font-size:1.1rem;
+  color:var(--dim);
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+}
+.cal-controls select,.cal-controls input{
+  font-size:1.1rem;
+  padding:.35rem .5rem;
+}
+.ref-toggle{
+  display:inline-flex;
+  background:var(--panel3);
+  border:1px solid var(--line);
+  border-radius:5px;
+  overflow:hidden;
+}
+.ref-toggle button{
+  background:transparent;
+  color:var(--dim);
+  border:none;
+  border-radius:0;
+  padding:.35rem .8rem;
+  font-size:1.1rem;
+}
+.ref-toggle button.active{
+  background:var(--gold);
+  color:#1c1f26;
+}
+.ref-toggle button:not(.active):hover{color:var(--ink);background:rgba(184,137,61,.1);}
+
+/* Date chips */
+.cal-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  justify-content:center;
+  margin:.8rem 0 1.2rem;
+}
+.chip{
+  background:var(--panel3);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:.3rem .8rem;
+  font-family:var(--sans);
+  font-size:1.05rem;
+  color:var(--dim);
+  cursor:pointer;
+  transition:all .2s;
+  white-space:nowrap;
+}
+.chip:hover{
+  border-color:var(--gold);
+  color:var(--gold-bright);
+  background:rgba(184,137,61,.08);
+}
+.chip.active{
+  border-color:var(--gold);
+  color:var(--gold-bright);
+  background:rgba(184,137,61,.15);
+}
+
+/* Free text input */
+.cal-freetext{
+  display:flex;
+  gap:.5rem;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:1.2rem;
+}
+.cal-freetext input{
+  width:300px;
+  max-width:90%;
+  text-align:center;
+}
+.cal-freetext .hint{
+  font-family:var(--sans);
+  font-size:1.1rem;
+  color:var(--dimmer);
+  text-align:center;
+  margin-top:-.5rem;
+  margin-bottom:1rem;
+}
+
+/* Calendar panels */
+.cal-panels{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+  position:relative;
+}
+.cal-panel{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:1rem;
+  overflow-x:auto;
+}
+.cal-panel-header{
+  font-family:var(--display);
+  font-size:1.08rem;
+  color:var(--gold);
+  text-align:center;
+  padding-bottom:.6rem;
+  margin-bottom:.8rem;
+  border-bottom:1px solid var(--line);
+  letter-spacing:.04em;
+}
+.cal-panel-header .year-info{
+  display:block;
+  font-family:var(--sans);
+  font-size:1.1rem;
+  color:var(--dim);
+  margin-top:.2rem;
+  letter-spacing:0;
+}
+
+/* Mini-month grid */
+.mini-months{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:.6rem;
+}
+.mini-month{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:.4rem;
+  text-align:center;
+}
+.mini-month.intercalary{
+  border-color:var(--red-dim);
+  background:rgba(184,84,63,.05);
+}
+.mini-month-name{
+  font-family:var(--display);
+  font-size:1.1rem;
+  color:var(--gold);
+  letter-spacing:.02em;
+  margin-bottom:.3rem;
+  text-transform:uppercase;
+}
+.mini-month.intercalary .mini-month-name{color:var(--red);}
+.mini-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:1px;
+}
+.mini-day{
+  font-family:var(--sans);
+  font-size:1.05rem;
+  padding:2px 0;
+  text-align:center;
+  color:var(--dim);
+  border-radius:2px;
+  cursor:pointer;
+  transition:background .15s;
+  position:relative;
+  line-height:1.3;
+}
+.mini-day:hover{background:rgba(184,137,61,.15);color:var(--ink);}
+.mini-day.kal{color:var(--gold-bright);font-weight:700;background:rgba(184,137,61,.15);border:1px solid rgba(184,137,61,.4);}
+.mini-day.non{color:var(--blue);font-weight:700;background:rgba(93,123,156,.15);border:1px solid rgba(93,123,156,.4);}
+.mini-day.ide{color:var(--red);font-weight:700;background:rgba(184,84,63,.15);border:1px solid rgba(184,84,63,.4);}
+/* Countdown ranges — background tints showing which anchor we're counting towards */
+.mini-day.to-kal{background:rgba(184,137,61,.06);}
+.mini-day.to-non{background:rgba(93,123,156,.06);}
+.mini-day.to-ide{background:rgba(184,84,63,.06);}
+.mini-day.yearstart{
+  outline:2px solid var(--gold-bright);
+  outline-offset:-1px;
+  font-weight:700;
+  color:var(--gold-bright);
+  background:rgba(184,137,61,.18);
+}
+.mini-day.yearstart::after{
+  content:'⟨';
+  position:absolute;
+  top:-1px;right:-1px;
+  font-size:.8rem;
+  color:var(--gold-bright);
+  line-height:1;
+}
+.mini-day.selected{
+  background:var(--gold);
+  color:#1c1f26;
+  font-weight:700;
+  box-shadow:0 0 6px rgba(184,137,61,.5);
+  z-index:2;
+}
+.mini-day.empty{visibility:hidden;}
+.mini-day.rom-day{font-size:.8rem;line-height:1.15;}
+.mini-day .doy{
+  font-size:.92rem;
+  color:var(--dimmer);
+  display:block;
+  line-height:1;
+}
+.mini-day.selected .doy{color:#3a3320;}
+
+/* Key events & festivals drop-downs */
+.cal-select-group{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+  margin:1rem 0;
+}
+@media(max-width:760px){.cal-select-group{grid-template-columns:1fr;}}
+.cal-select-wrap{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:.8rem;
+}
+.cal-select-wrap label{
+  font-family:var(--display);
+  font-size:1.1rem;
+  color:var(--gold-bright);
+  display:block;
+  margin-bottom:.4rem;
+}
+select.cal-select{
+  width:100%;
+  font-family:var(--sans);
+  font-size:1.1rem;
+  padding:.5rem .6rem;
+  background:var(--bg);
+  color:var(--ink-bright);
+  border:1px solid var(--line);
+  border-radius:4px;
+  cursor:pointer;
+}
+select.cal-select:focus{
+  outline:none;
+  border-color:var(--gold);
+}
+
+/* Selected date info */
+.cal-selected-info{
+  margin-top:1.2rem;
+  padding:1.2rem 1.5rem;
+  background:var(--bg);
+  border:2px solid var(--gold);
+  border-radius:8px;
+  text-align:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.25);
+}
+.cal-selected-info .sel-label{
+  font-family:var(--display);
+  font-size:1.1rem;
+  color:var(--gold);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:.8rem;
+}
+.cal-selected-info .sel-columns{
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:1rem;
+  align-items:start;
+}
+.cal-selected-info .sel-columns::before,
+.cal-selected-info .sel-columns::after{content:none;}
+.cal-selected-info .sel-col{
+  text-align:center;
+}
+.cal-selected-info .sel-col + .sel-col{
+  border-left:1px solid var(--line);
+  padding-left:1rem;
+}
+.cal-selected-info .sel-col-label{
+  font-family:var(--sans);
+  font-size:1.15rem;
+  color:var(--dimmer);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-bottom:.4rem;
+}
+.cal-selected-info .roman-name{
+  font-family:var(--display);
+  font-size:1.15rem;
+  color:var(--gold-bright);
+  letter-spacing:.02em;
+  line-height:1.3;
+}
+.cal-selected-info .modern-name{
+  font-family:var(--sans);
+  font-size:1.1rem;
+  color:var(--ink-bright);
+  margin-top:0;
+  font-weight:500;
+  line-height:1.3;
+}
+.cal-selected-info .doy-info{
+  font-family:var(--sans);
+  font-size:.9rem;
+  color:var(--dimmer);
+  margin-top:.8rem;
+  padding-top:.6rem;
+  border-top:1px solid var(--line);
+}
+@keyframes selPulse{
+  0%{box-shadow:0 4px 16px rgba(0,0,0,.25),0 0 0 0 rgba(184,137,61,.4);}
+  50%{box-shadow:0 4px 16px rgba(0,0,0,.25),0 0 0 6px rgba(184,137,61,0);}
+  100%{box-shadow:0 4px 16px rgba(0,0,0,.25),0 0 0 0 rgba(184,137,61,0);}
+}
+.cal-selected-info.pulse{
+  animation:selPulse .6s ease-out;
+}
+
+/* Moon phase axis */
+.moon-axis{margin:1.5rem 0;padding:1.2rem 1.5rem;background:var(--panel);border:1px solid var(--line);border-radius:8px;}
+.moon-axis-title{font-family:var(--display);font-size:1.1rem;color:var(--gold-bright);margin-bottom:.8rem;text-align:center;}
+.moon-axis-track{position:relative;height:80px;margin:0 2rem;}
+.moon-axis-line{position:absolute;top:40px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--line),var(--gold),var(--line));border-radius:1px;}
+.moon-axis-marker{position:absolute;top:0;width:80px;text-align:center;transform:translateX(-40px);}
+.moon-axis-marker .moon-icon{font-size:2rem;display:block;line-height:1;}
+.moon-axis-marker .moon-label{font-family:var(--display);font-size:1.05rem;color:var(--gold-bright);display:block;margin-top:.2rem;}
+.moon-axis-marker .moon-day{font-family:var(--sans);font-size:1.15rem;color:var(--dim);display:block;}
+.moon-axis-marker .moon-num{font-family:var(--display);font-size:1.1rem;color:var(--ink-bright);display:block;}
+.moon-axis-desc{margin-top:1rem;font-size:1.05rem;color:var(--ink);line-height:1.7;}
+.moon-axis-desc p{margin:.5rem 0;}
+
+/* Month origin table */
+.month-origins{margin:1.5rem 0;}
+.month-origins table{width:100%;border-collapse:collapse;font-size:1.05rem;}
+.month-origins th{background:var(--panel3);color:var(--gold-bright);font-family:var(--display);font-size:1.08rem;padding:.6rem .8rem;text-align:left;border:1px solid var(--line);}
+.month-origins td{padding:.5rem .8rem;border:1px solid var(--line);color:var(--ink);}
+.month-origins td:first-child{font-family:var(--display);color:var(--gold-bright);white-space:nowrap;}
+.month-origins tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* Festival calendar */
+.festival-cal{margin:1.5rem 0;}
+.festival-cal .fmonth{margin-bottom:1.2rem;}
+.festival-cal .fmonth-name{font-family:var(--display);font-size:1.15rem;color:var(--gold-bright);margin-bottom:.4rem;border-bottom:1px solid var(--line);padding-bottom:.2rem;}
+.festival-cal .festival-item{display:inline-block;margin:.2rem .5rem .2rem 0;padding:.2rem .6rem;background:var(--panel2);border:1px solid var(--line);border-radius:4px;font-size:1.05rem;}
+.festival-cal .festival-item .fday{font-family:var(--display);color:var(--gold);margin-right:.3rem;}
+.festival-cal .festival-item.major{border-color:var(--gold);background:rgba(184,137,61,.1);}
+.festival-cal .festival-desc{margin:.4rem 0 .8rem 1rem;font-size:1.05rem;color:var(--dim);line-height:1.6;}
+
+/* Month comparison axes (full vs hollow) */
+.month-compare{margin:1.5rem 0;padding:1.2rem 1.5rem;background:var(--panel);border:1px solid var(--line);border-radius:8px;}
+.month-compare-title{font-family:var(--display);font-size:1.1rem;color:var(--gold-bright);margin-bottom:.3rem;text-align:center;}
+.month-compare-sub{font-size:1.05rem;color:var(--dim);text-align:center;margin-bottom:1rem;}
+.month-compare-row{margin-bottom:1.2rem;}
+.month-compare-row:last-child{margin-bottom:0;}
+.month-compare-label{font-family:var(--display);font-size:1.05rem;color:var(--ink-bright);margin-bottom:.3rem;}
+.month-compare-label .full-tag{color:var(--green);}
+.month-compare-label .hollow-tag{color:var(--red);}
+.month-compare-track{position:relative;height:60px;margin:0 1rem;}
+.month-compare-line{position:absolute;top:30px;left:0;right:0;height:2px;background:var(--line-light);border-radius:1px;}
+.month-compare-tick{position:absolute;top:22px;width:2px;height:16px;background:var(--dim);}
+.month-compare-tick.kalends{background:var(--gold);height:22px;top:19px;}
+.month-compare-tick.nones{background:var(--blue);height:22px;top:19px;}
+.month-compare-tick.ides{background:var(--red);height:22px;top:19px;}
+.month-compare-num{position:absolute;top:0;width:40px;text-align:center;transform:translateX(-20px);font-family:var(--display);font-size:1.1rem;color:var(--ink-bright);}
+.month-compare-name{position:absolute;bottom:0;width:60px;text-align:center;transform:translateX(-30px);font-family:var(--sans);font-size:1.15rem;color:var(--dim);}
+.month-compare-name.k{color:var(--gold);}
+.month-compare-name.n{color:var(--blue);}
+.month-compare-name.i{color:var(--red);}
+
+/* Quiz */
+.quiz-q{margin:1rem 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:6px;}
+.quiz-q-num{font-family:var(--display);font-size:1.1rem;color:var(--gold-bright);margin-right:.5rem;}
+.quiz-q-text{font-size:1.08rem;color:var(--ink);margin-bottom:.5rem;}
+.quiz-q .quizopt{display:block;margin:.3rem 0;padding:.35rem .6rem;border:1px solid var(--line);border-radius:4px;cursor:pointer;transition:all .2s;font-size:1.05rem;}
+.quiz-q .quizopt:hover{border-color:var(--line-light);}
+.quiz-q .quizopt input{margin-right:.5rem;}
+.quiz-q .quizopt.correct{background:rgba(107,142,90,.15);border-color:var(--green);}
+.quiz-q .quizopt.wrong{background:rgba(184,84,63,.12);border-color:var(--red);}
+.quiz-q .quizopt.reveal{background:rgba(184,137,61,.10);border-color:var(--gold);}
+.quiz-feedback{font-size:1.05rem;margin-top:.5rem;padding:.4rem .6rem;border-radius:4px;}
+.quiz-feedback.ok{color:var(--green);background:rgba(107,142,90,.08);}
+.quiz-feedback.no{color:var(--red);background:rgba(184,84,63,.08);}
+.quizopt{display:block;margin:.4rem 0;padding:.3rem .5rem;border:1px solid var(--line);border-radius:4px;cursor:pointer;transition:border-color .2s;}
+.quizopt:hover{border-color:var(--line-light);}
+.quizopt input{margin-right:.5rem;}
+
+footer{
+  border-top:1px solid var(--line);
+  margin-top:5rem;
+  padding:2rem 1rem;
+  font-size:1.08rem;
+  color:var(--dim);
+  text-align:center;
+}
+footer p{max-width:700px;margin:.5rem auto;}
+
+/* Responsive */
+@media(max-width:760px){
+  .cal-panels{grid-template-columns:1fr;}
+  .mini-months{grid-template-columns:repeat(2,1fr);}
+  .hero h1{font-size:1.4rem;}
+  body{font-size:17px;}
+  main{padding:0 .8rem 3rem;}
+  nav.tabs .nav-brand{display:none;}
+  nav.tabs .tab{padding:.5rem .4rem;font-size:1.1rem;}
+  .cal-selected-info .sel-columns{grid-template-columns:1fr;gap:.6rem;}
+  .cal-selected-info .sel-col + .sel-col{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:.6rem;}
+}
+@media(max-width:480px){
+  .mini-months{grid-template-columns:1fr;}
+  .cal-freetext input{width:100%;}
+}
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <span class="nav-brand">SPQR</span>
+  <button class="tab active" data-tab="dualcal">Dual Kalendar</button>
+  <button class="tab" data-tab="rhythm">Rhythm of Time</button>
+  <button class="tab" data-tab="beginning">Lunar Origin</button>
+  <button class="tab" data-tab="republican">Republican</button>
+  <button class="tab" data-tab="daynames">Day Names</button>
+  <button class="tab" data-tab="religion">Fasti</button>
+  <button class="tab" data-tab="reform">Reform</button>
+  <button class="tab" data-tab="names">Renamed</button>
+  <button class="tab" data-tab="consuls">Consuls</button>
+  <button class="tab" data-tab="converter">Convert</button>
+</nav>
+<main>
+
+<section class="hero">
+  <h1>The Roman Kalendar</h1>
+  <p class="subtitle">From Moon Phases to Consuls — how a 10-month lunar scheme became the year we still live in.</p>
+  <p class="roman-live" id="romanToday">…</p>
+  <p class="roman-live-sub" id="romanTodaySub"></p>
+  <p class="fecit">Aegidius Stephanus Demaneo fecit</p>
+</section>
+
+<!-- ===== DOUBLE CALENDAR (center feature) ===== -->
+<div class="tab-section active" id="ts-dualcal">
+<section id="dualcal">
+  <h2><span class="secnum">I</span>Roman Kalendar vs. Modern Calendar</h2>
+  <p>See a full Roman year and its modern equivalent, side by side. Switch the <strong>reference</strong> to make either the modern or the Roman year set the total day count — and watch the <em class="red">annus confusionis</em> of 46 BC (445 days!) stretch the modern calendar across two years.</p>
+  <p class="note">Month names, lengths, and the civil year start all change automatically with the period. Before 44 BC the 7th month is <em>Quintilis</em>, not <em>Iulius</em>; before 8 BC the 8th is <em>Sextilis</em> (30 days), not <strong>Augustus</strong> (31). Before 153 BC the consular year began on <strong>Kal. Mart. (1 March)</strong>, marked with ⟨; from 153 BC it began on <strong>Kal. Ian. (1 January)</strong>. The calendar type (Republican / Annus Confusionis / Julian) is shown in each panel header.</p>
+
+  <div class="dual-cal">
+    <div class="cal-title">Roman ↔ Modern · Full Year</div>
+    <div class="cal-subtitle">Centered on the Ides of March, 44 BC — the day Caesar was assassinated</div>
+
+    <div class="cal-controls">
+      <label>Reference:
+        <span class="ref-toggle" id="refToggle">
+          <button data-ref="modern" class="active">Modern Year</button>
+          <button data-ref="roman">Roman Year</button>
+        </span>
+      </label>
+      <label>Year:
+        <input type="number" id="calYear" value="-44" step="1" style="width:90px">
+      </label>
+      <button id="calGo">Show Year</button>
+      <button class="secondary" id="calPrev">◀ Prev</button>
+      <button class="secondary" id="calNext">Next ▶</button>
+    </div>
+
+
+    <div class="cal-freetext">
+      <input type="text" id="calFreetext" placeholder="e.g. 15 March 44 BC or Ides of March 44 BC or 46 BC">
+      <button id="calParse">Go to Date</button>
+    </div>
+    <p class="hint">Accepts: 15 March 44 BC, March 15 44 BC, Ides of March 44 BC, Kalends of January 45 BC, 2026, AD 79, AUC 709</p>
+
+    <div class="cal-select-group">
+      <div class="cal-select-wrap">
+        <label for="keyEventsSelect">Key Events</label>
+        <select id="keyEventsSelect" class="cal-select">
+          <option value="">— Select an event —</option>
+        </select>
+      </div>
+      <div class="cal-select-wrap">
+        <label for="keyFestivalsSelect">Key Regular Festivals</label>
+        <select id="keyFestivalsSelect" class="cal-select">
+          <option value="">— Select a festival —</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="cal-panels">
+      <div class="cal-panel">
+        <div class="cal-panel-header" id="romanPanelHeader">Roman Calendar<span class="year-info" id="romanYearInfo"></span></div>
+        <div class="mini-months" id="romanCalGrid"></div>
+      </div>
+      <div class="cal-panel">
+        <div class="cal-panel-header" id="modernPanelHeader">Modern Calendar<span class="year-info" id="modernYearInfo"></span></div>
+        <div class="mini-months" id="modernCalGrid"></div>
+      </div>
+    </div>
+
+    <div class="cal-selected-info" id="calSelectedInfo">
+      <div class="sel-label">Selected Date</div>
+      <div class="sel-columns">
+        <div class="sel-col">
+          <div class="sel-col-label">Roman</div>
+          <div class="roman-name" id="selRomanName">Idus Martiae, anno DCCX ab Urbe condita</div>
+        </div>
+        <div class="sel-col">
+          <div class="sel-col-label">Modern</div>
+          <div class="modern-name" id="selModernName">15 March 44 BC</div>
+        </div>
+      </div>
+      <div class="doy-info" id="selDoyInfo">Day 74 of 365 · Julian calendar</div>
+    </div>
+  </div>
+</section>
+</div><!-- /ts-dualcal -->
+
+<!-- ===== RHYTHM OF TIME ===== -->
+<div class="tab-section" id="ts-rhythm">
+<section id="rhythm">
+  <h2><span class="secnum">II</span>The Rhythm of Roman Time</h2>
+  <p>The Roman Kalendar was not an abstract timekeeping device. It was the <strong>skeleton of Roman society</strong> — an organiser of civic and religious life that told you not <em>what day it was</em>, but <em>what was coming</em>. Understanding this rhythm is the key to understanding why Romans counted backwards, why the Kalends/Nones/Ides system survived long after the moon was forgotten, and why the calendar looked the way it did.</p>
+
+  <div class="panel">
+    <h3>A buggy Kalendar — but built on the best available technology</h3>
+    <p>It is tempting to judge the pre-Julian Roman calendar as a failure — a chaotic system where politicians manipulated intercalation, seasons drifted by months, and the year was sometimes 445 days long. But this misses the point. The Roman calendar should be understood as a <strong>technical solution to a real problem, built with the tools and knowledge available</strong>, and progressively patched over centuries — much like a long-running software project that accumulates bugs, workarounds, and legacy constraints.</p>
+    <p>The fundamental constraint was this: <strong>Romans had no accurate way to measure the solar year</strong>. They had no telescopes, no precision instruments, no knowledge of the 365.2422-day tropical year. What they <em>did</em> have was the <strong>moon</strong> — the most visible, regular clock in the sky. Every ~29.5 days, the moon cycles through its phases: new crescent, first quarter, full, last quarter, and back. This was an <strong>observable</strong> — you could look up and verify it with your own eyes, no instruments needed. So the earliest Roman calendar was built on what could be <em>observed</em>, not what could be <em>calculated</em>.</p>
+    <p class="note">It is worth noting that <strong>other civilisations had already solved the solar year problem</strong> by the time Rome's calendar was taking shape. The Babylonians had been tracking the solar year with remarkable precision since at least the 8th century BC, using centuries of eclipse records and systematic observations. The Chinese had developed a sophisticated lunisolar calendar with regular intercalation by the Zhou dynasty (~1046 BC). The Indian Vedanga Jyotisha (~1200 BC) described a six-year yuga cycle for aligning lunar and solar months. The Maya were independently developing precise solar observations in Mesoamerica by the 1st millennium BC. Egypt had operated a 365-day civil calendar since at least the 3rd millennium BC. <strong>The knowledge existed — Rome simply did not adopt it until Caesar.</strong> The moon was not the best technology available worldwide; it was the best that early Romans had access to and chose to use. This is a story not of ignorance but of cultural conservatism: Rome inherited its lunar calendar from its agricultural roots and stuck with it for centuries after better systems were known, because the Kalends/Nones/Ides structure was too deeply embedded in civic life to change — until a dictator with absolute power decided to replace it.</p>
+    <p>The Kalends were anchored to the <strong>new moon</strong> — the first sighting of the thin crescent after the dark phase. The pontiffs would literally watch the sky and "call out" (<em>calare</em>) the new month when they saw it. This was the calendar's <strong>ground truth</strong>: an astronomical observation that anyone could verify. Whatever else went wrong — whatever political manipulation, whatever drift, whatever bugs accumulated in the system — <strong>the phase of the moon anchoring the Kalends was at least right</strong>. If the pontiffs said "the new crescent is visible, today is the Kalends," you could look up and confirm it. This is why the Kalends survived every reform, every crisis, every reorganisation: they were tied to an <em>observable</em>, and observables are robust. The Nones and Ides, too, began as observations — the first-quarter moon and the full moon — and even after they became fixed conventional dates, the <em>structure</em> they provided (three anchors per month, counting backwards between them) was an inheritance from a time when the sky itself was the clock.</p>
+    <p>The "bugs" came from the gap between the lunar month (~29.5 days) and the solar year (~365.25 days). Twelve lunar months give ~354 days — 11 days short of the solar year. Numa's 355-day year was a reasonable approximation, but the 11-day gap compounded year after year. The Mercedonius intercalation was a <em>patch</em> — a manual workaround inserted by the Pontifex Maximus, much like a hotfix applied to a running system. The problem was that this patch was <strong>human-controlled</strong>, not automatic: a pontiff could skip it, delay it, or manipulate it for political ends. By 46 BC, the accumulated bugs had made the calendar three months ahead of the seasons — a system so broken that Caesar had to do a full rewrite (the 445-day <em>annus confusionis</em> followed by the Julian reform).</p>
+    <p><strong>What was still wrong was the solar cycle</strong> — the actual year length. The Kalends kept tracking the moon correctly (each Kalends was still the "calling" of a new lunar month), but the <em>months themselves shifted</em> against the seasons. The Kalends of March was still the new moon — but <strong>March itself had moved</strong>. What was once a spring month might now fall in winter, or summer, depending on how far the drift had gone. The lunar anchor was sound; the solar frame around it was broken. The full year did not even have the right length — 355 days instead of ~365 — so every year the months slid ~10 days earlier against the sun, and the Mercedonius patch only partially corrected this. <strong>The moon was right; the year was wrong; and because the year was wrong, the months drifted through the seasons like a ship with a working compass but no map.</strong></p>
+    <p>But even Caesar's rewrite kept the Kalends. He replaced the <em>engine</em> — lunar observation → solar calculation — but kept the <em>interface</em>: months still started on the Kalends, days were still counted backwards from the next anchor. The observable anchor had become so deeply embedded in Roman civic life that it could not be removed, only re-pointed. The moon was no longer consulted, but the structure it had given — Kalends, Nones, Ides, backward counting — was permanent. <strong>The bug was in the year length; the architecture was sound.</strong></p>
+  </div>
+
+  <div class="panel">
+    <h3>The Kalendar as Almanac — feed it, defend it, protect it</h3>
+    <p>The word "calendar" itself comes from <em>Kalendae</em> — the Roman name for the first day of each month, when debts were due and pontiffs announced the new moon. But the Roman <em>Kalendar</em> was far more than what we think of as a calendar today. It was, in essence, a <strong>religious-agricultural-military almanac</strong> — a single instrument that synchronised Roman society with the three forces that kept it alive:</p>
+    <ul>
+      <li><span class="list-label">Agriculture — feed it.</span> The vast majority of Romans were farmers. The Kalendar told them when to sow, when to prune, when to harvest, when to drive flocks to summer pasture and bring them back. Festivals like the <em>Robigalia</em> (25 April — sacrifice to avert wheat rust), the <em>Consualia</em> (21 August — rest the plough-oxen), and the <em>Vinalia</em> (23 April — taste the new wine) were not abstract rituals: they were the <em>operational schedule</em> of Roman agriculture. A mistake in timing meant hunger.</li>
+      <li><span class="list-label">War — defend it.</span> The campaigning season opened in March (Mars = war) and closed in October (<em>Armilustrium</em> — purify the weapons). The Kalendar told the state when to raise <em>legiones</em>, when consuls should depart for their provinces, when to expect the army back. The entire military cycle — levies, marches, battles, withdrawal, winter quarters — was timed by the calendar. As Rome's empire expanded, the 153 BC shift of the year-start from March to January was itself a military logistics decision: consuls needed extra months to reach Spain, Greece, or Asia before spring.</li>
+      <li><span class="list-label">Religion — protect it.</span> The gods had to be honoured at the right time, or Rome would lose their favour. The <em>Saturnalia</em>, <em>Lupercalia</em>, <em>Cerealia</em>, <em>Vestalia</em> — each was a contract between the state and the divine, and the Kalendar was the schedule of those contracts. Missing a festival was not just a scheduling error; it was a <em>religious failure</em> that could bring plague, defeat, or famine. The <em>dies fasti/nefasti</em> system (which days courts could meet, which were sacred) was the Kalendar's way of preventing civic business from clashing with divine obligations.</li>
+      <li><span class="list-label">Debt — pay it.</span> The word <em>Kalendae</em> itself was tied to debt: on the Kalends, payments fell due, loans were settled, interest was reckoned. The Romans even used <em>ad kalendas Graecas</em> ("on the Greek Kalends" — a day that doesn't exist) to mean "never." The Kalendar was the financial clock of the Roman economy, synchronising creditors and debtors across the city and beyond.</li>
+    </ul>
+    <p>In a very real sense, the Roman Kalendar was both a <strong>practical almanac</strong> and a <strong>civic agenda</strong> — a single document that combined agricultural guidance, military scheduling, religious obligation, and financial deadlines. As an almanac, it told you <em>what to do when</em>: when to plant, when to march, when to sacrifice. As an agenda, it told you <em>what was coming and how much time you had to prepare</em>: how many days until the next festival, the next levy, the next payment due. The Roman Kalendar told farmers when to plant, generals when to march, priests when to sacrifice, and creditors when to collect — all in one system, all keyed to the same rhythm of Kalends, Nones, and Ides. When we reduce it to "a way of numbering days," we miss that it was the <strong>operating system of an entire civilisation</strong>.</p>
+  </div>
+
+  <div class="panel">
+    <h3>Why backwards counting? — the rhythm of sacred and civic time</h3>
+    <p>Why count <em>down</em> from the next feast, rather than <em>up</em> from the start? Because Roman time was <strong>eschatological</strong> — it ran <em>towards</em> the next sacred event. The Kalends, Nones, and Ides were not just markers; each was a day of <strong>specific sacrifices and rituals</strong>. The Kalends opened the month with offerings to Juno. The Nones were when the people assembled to hear announcements (<em>nonae</em> = "ninth day before the Ides", but also the day of the <em>nundinae</em> countdown). The Ides honoured Jupiter.</p>
+    <p>Counting backwards from the next feast meant that every day carried its <strong>liturgical meaning</strong> — you always knew how many days until the next sacrifice, the next assembly, the next market. This is the same structure as the Christian calendar of saints' days or the Islamic countdown to Ramadan: the calendar tells you not just <em>what day it is</em>, but <em>what is coming</em>. For a Roman farmer, this meant knowing when to prepare for the Terminalia (23 Feb), the Robigalia (25 April, to avert wheat rust), or the Saturnalia (17 December). For a Roman citizen, it meant knowing when the <em>comitia</em> could meet (only on <em>dies comitiales</em>), when courts were open (<em>dies fasti</em>), or when no business was permitted (<em>dies nefasti</em>).</p>
+    <p><strong>The Kalendar as organiser, not archive.</strong> This is perhaps the most fundamental difference between the Roman calendar and ours. Our modern calendar is primarily a <em>historical</em> instrument: we use it to locate events in the past ("July 14th, 1789") or to plan far into the future. The Roman calendar had a different purpose. It was above all an <strong>organiser of civic and religious life</strong> — a device for telling you how many days were left until the next festival, the next sacrifice, the next assembly, the next market day. The calendar's job was not to locate you in a historical timeline but to structure your <em>present</em>: when to pray, when to vote, when to trade, when to rest.</p>
+    <p>The Kalends themselves hark back to this original <strong>agricultural function</strong>. In the earliest lunar calendar, the pontiffs "called out" (<em>calare</em>) the new moon and counted the days to the Nones — but the underlying purpose was practical: when to sow, when to reap, when to prune, when to drive the flocks to summer pasture. These were decisions of <strong>dramatic consequence</strong> — sowing too early or too late could mean a failed harvest and starvation. The moon was the most readily observable regular clock in the sky, and its phases gave farmers a reliable rhythm long before any written calendar existed. So the Kalends–Nones–Ides structure began life as an <strong>agricultural agenda</strong> keyed to the lunar cycle, and only later — as Rome urbanised and its civic life grew more complex — accumulated its religious, military, and financial layers on top of that original farming core. The Kalendar that Caesar reformed in 46 BC was, at its deepest root, a farmer's agenda that had become the operating system of an empire.</p>
+  </div>
+  <div class="panel">
+    <h3>The nundinal cycle — the Roman "week"</h3>
+    <p>Romans had no 7-day week until late antiquity. Instead, market days (<em>nundinae</em>) recurred every <strong>8 days</strong>, marked with the letters <strong>A–H</strong> on painted calendars (ABCDEFGH; A = market day). The cycle ran independently of months and years — one of the very few regular rhythms cutting across the lunar-month structure. The <em>nundinae</em> were when farmers came to the city to sell, buy, and hear political news. Augustus later forbade holding <em>comitia</em> on market days, to separate commerce from politics.</p>
+  </div>
+</section>
+</div><!-- /ts-rhythm -->
+
+<div class="tab-section" id="ts-beginning">
+<section id="beginning">
+  <h2><span class="secnum">III</span>The Lunar Beginning</h2>
+  <p>Tradition credited <strong>Romulus</strong> with a calendar of just <strong>10 months and 304 days</strong>, beginning in <strong>March</strong> — with an uncounted winter gap. His successor <strong>Numa Pompilius</strong> added <strong>January</strong> and <strong>February</strong>, reaching 12 lunar months and 355 days.</p>
+  <p>This is why the month names look wrong: <em>September</em> is the "7th" month (septem), <em>October</em> the 8th, <em>November</em> the 9th, <em>December</em> the 10th — but only if you start counting from <strong>March</strong>. The civic year originally began in <strong>March</strong> (the month of Mars, when campaigning season opened). In <strong>153 BC</strong>, consuls began entering office on <strong>1 January</strong> instead, so they could reach their provinces before the summer campaign — making January the official civil year start. The dual calendar above marks this shift: the civil year start day (⟨) moves from March 1 to January 1 at the 153 BC boundary.</p>
+  <p>The moon phase names survived inside the month itself: <span class="tag">Kalends</span> (new moon — the "calling", kalare, of the new month), <span class="tag">Nones</span> (first-quarter moon) and <span class="tag">Ides</span> (full moon).</p>
+
+  <!-- Moon phase axis -->
+  <div class="moon-axis">
+    <div class="moon-axis-title">The lunar month — Kalends, Nones, Ides and the moon</div>
+    <div class="moon-axis-track">
+      <div class="moon-axis-line"></div>
+      <div class="moon-axis-marker" style="left:0%;">
+        <span class="moon-icon">🌑</span>
+        <span class="moon-label">Kalendae</span>
+        <span class="moon-num">Day I</span>
+        <span class="moon-day">New moon</span>
+      </div>
+      <div class="moon-axis-marker" style="left:22%;">
+        <span class="moon-icon">🌓</span>
+        <span class="moon-label">Nonae</span>
+        <span class="moon-num">Day V or VII</span>
+        <span class="moon-day">First quarter</span>
+      </div>
+      <div class="moon-axis-marker" style="left:50%;">
+        <span class="moon-icon">🌕</span>
+        <span class="moon-label">Idus</span>
+        <span class="moon-num">Day XIII or XV</span>
+        <span class="moon-day">Full moon</span>
+      </div>
+      <div class="moon-axis-marker" style="left:78%;">
+        <span class="moon-icon">🌗</span>
+        <span class="moon-num">Day XX or XXII</span>
+        <span class="moon-day">Last quarter</span>
+      </div>
+      <div class="moon-axis-marker" style="left:100%;">
+        <span class="moon-icon">🌑</span>
+        <span class="moon-label">Kalendae</span>
+        <span class="moon-num">Next month</span>
+        <span class="moon-day">New moon</span>
+      </div>
+    </div>
+    <div class="moon-axis-desc">
+      <p>In the original lunar calendar, the pontiffs <em>observed</em> the sky. When the thin crescent of the new moon appeared, they "called out" (<em>calare</em>) the beginning of the month — hence <strong>Kalends</strong>. The <strong>Nones</strong> (<em>nonae</em>, "ninth") marked the first quarter, nine days before the Ides (counting inclusively). The <strong>Ides</strong> (possibly from Etruscan <em>iduare</em>, "to divide") fell on the full moon — the midpoint of the month, sacred to Jupiter, when the <em>rex sacrorum</em> performed the monthly sacrifice.</p>
+      <p>After the Nones, every day was counted <em>backwards</em> from the Ides; after the Ides, backwards from the next Kalends. The axis above shows a 29-day "hollow" month: Nones = day V, Ides = day XIII. In the four "full" 31-day months (March, May, July, October), Nones = day VII and Ides = day XV.</p>
+      <p><strong>Did the calendar still track the moon?</strong> Only at the very beginning. A true lunar month averages ~29.53 days, but the Republican months were fixed at 29 or 31 days — not observational. Numa's 355-day year was already ~10 days longer than 12 lunar months (~354). By the late Republic, the Kalends, Nones, and Ides had become <strong>conventional fossilised names</strong> with no relation to the actual moon. The lunar structure survived only as an archaeological layer.</p>
+    </div>
+  </div>
+
+  <!-- Equinox drift bar -->
+  <div class="interactive">
+    <h3>The drift — and how it was abused</h3>
+    <p>Because the true lunar-solar correction is ≈ 11 days/year, the pontiffs' political discretion made the calendar a tool. Allies got long years, opponents short ones; seasons slid badly. By Julius Caesar's time the calendar was <strong>≈ 3 months ahead of the seasons</strong>.</p>
+    <p>The bar below shows the Roman calendar year (January → December). The gold marker is the <strong>vernal equinox</strong> (~21 March). Press play to watch it slide backwards through the calendar as the years pass without proper intercalation — from its correct position in March, through February, January, and into December.</p>
+    <div class="eqx">
+      <div class="eqx-scale" id="driftScale"></div>
+      <div class="marker" id="driftMarker"></div>
+      <div class="eqx-label" id="driftLabel">Spring equinox: 21 March (correct)</div>
+    </div>
+    <div style="text-align:center;margin-top:.8rem;"><button id="driftBtn">Animate the drift (300 BC → 46 BC)</button></div>
+  </div>
+
+  <!-- Orbital drift animation -->
+  <div class="orbit-drift">
+    <div class="orbit-drift-title">Two orbits — the moon is right, the year is wrong</div>
+    <div class="orbit-drift-sub">Two elliptical orbits viewed from above. The outer ring = the solar year (365¼ days, fixed). The inner ring = the Roman year (355 days, drifting ~10 days/year). The moon (🌑→🌓→🌕) cycles correctly on both — but the Roman "March" marker slides backwards around the solar orbit.</div>
+    <svg class="orbit-drift-svg" id="orbitSvg" viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="orbit-drift-legend">
+      <span><span class="dot" style="background:var(--gold);"></span>Solar year (365¼ d)</span>
+      <span><span class="dot" style="background:var(--red);"></span>Roman year (355 d)</span>
+      <span>🌑 Kalends · 🌓 Nones · 🌕 Ides</span>
+    </div>
+    <div class="orbit-drift-controls">
+      <button id="orbitPlay">▶ Play drift (37 years)</button>
+      <button id="orbitReset">↺ Reset</button>
+      <span class="orbit-year" id="orbitYear">300 BC</span>
+    </div>
+    <p id="orbitExplain" class="orbit-explain">Year 0: both orbits aligned. March = spring on both rings. The moon phases (dark = new/Kalends, bright = full/Ides) cycle correctly on both orbits.</p>
+  </div>
+
+</section>
+</div><!-- /ts-beginning -->
+
+<div class="tab-section" id="ts-republican">
+<section id="republican">
+  <h2><span class="secnum">IV</span>The Republican Calendar (355 days)</h2>
+  <p>The pre-Julian Republican year had four <span class="green">"full" months</span> of 31 days and the rest <span class="red">"hollow"</span> months of 29 days — except February, with 28 in common years:</p>
+  <div class="monthgrid" id="repMonthGrid"></div>
+  <div class="legend"><span class="green">■ full (31)</span><span class="red">■ hollow (29)</span><span class="dim">■ February (28) — the odd one out</span></div>
+  <p>Total: <strong>355 days</strong> — about 10 short of the solar year. The <strong>Pontifex Maximus</strong> therefore inserted an extra "leap month", the <strong>Mercedonius / Intercalaris</strong> of 27 or 28 days, between 23/24 February and the end of February, roughly every other year.</p>
+  <p class="note">The consequences of this 10-day gap — and the political abuse of intercalation — are shown in the orbital drift animation in the <strong>Lunar Origin</strong> tab, where the moon's orbit and the solar year diverge year by year.</p>
+  <div class="panel">
+    <h3>Why February stays short — and why the leap day sits at Feb 24, not the end</h3>
+    <p>February (<em>Februa</em> = purifications; Lupercalia) was the <strong>"clean-up" month of the dead</strong>, and — being the last month of the old March-started year — the leftover imbalance and the intercalation landed on it.</p>
+    <p>But the leap day was <strong>not</strong> appended at the end of February (day 29). It was inserted on <strong>24 February</strong> — the day the Romans called <em>ante diem VI Kalendas Martias</em>, "the 6th day before the Kalends of March". Why there?</p>
+    <p>The answer lies in Roman religion and counting. The <strong>Terminalia</strong> (23 February) was the festival of <em>Terminus</em>, the boundary god — it marked the <strong>end of the religious year</strong>. The day after Terminalia, 24 February, was the <strong>Regifugium</strong> ("king's flight"), commemorating the expulsion of Tarquinius Superbus. These were the <strong>last sacred days of the old year</strong>, before the new cycle began on 1 March. Intercalation had to happen <em>at this liminal point</em> — after Terminalia closed the old year, but before March opened the new one.</p>
+    <p>Romans counted dates <strong>backwards and inclusively</strong> from the next fixed point. So 24 February = <em>a.d. VI Kal. Mart.</em> The inserted leap day was placed <em>after</em> the normal 24th — so the 24th was simply <strong>doubled</strong>: <span class="tag">bis sextum</span>, "the sixth day twice" (hence our word <strong>bissextile</strong>). In leap years, there were two consecutive days both labelled <em>a.d. VI Kal. Mart.</em> — the first was the "regular" 24th, the second was the intercalated day. This preserved the <strong>backward numbering</strong>: the days after the leap day kept their existing countdown to the next Kalends — the 25th remained <em>a.d. V Kal. Mart.</em> ("5th day to the Kalends, counted inclusively"), the 26th <em>a.d. IV Kal. Mart.</em>, and so on. The leap day was inserted <em>before</em> the countdown resumed, not at its end. This reveals something fundamental about Roman time: <strong>the year did not start with a new month — it started with the countdown <em>towards</em> the next Kalends</strong>. Roman time was always <em>forward-looking</em>, oriented towards the next sacred anchor. That forward-looking expectation — how many days until the next Kalends — was what could not be disturbed. Inserting the leap day at the countdown's beginning (doubling the 6th) rather than at its end kept every subsequent number intact, so no one had to relearn when the next festival, sacrifice, or market day fell.</p>
+    <p class="note">This is also why Caesar, when he created the Julian calendar in 45 BC, kept the same insertion point: the Julian leap day falls after <em>a.d. VI Kal. Mart.</em> (24 Feb), not on 29 February as in our modern system. The extra day was still conceptually a "doubled sixth" — <em>bis sextum</em> — even though February now had 29 days in leap years. Only much later, in the Gregorian reform, did the leap day shift to the 29th.</p>
+  </div>
+</section>
+</div><!-- /ts-republican -->
+
+<div class="tab-section" id="ts-daynames">
+<section id="daynames">
+  <h2><span class="secnum">V</span>How Romans Named a Day</h2>
+  <p>Romans did not number days 1, 2, 3… from the start of the month. Instead, every day was named by <strong>counting backwards, inclusively</strong>, from the next fixed anchor point. There were three anchors, inherited from lunar observation:</p>
+  <ul>
+    <li><strong>Kalends</strong> — the 1st (new moon). From <em>kalare</em>, "to call out" — the pontiff announced the new moon.</li>
+    <li><strong>Nones</strong> — the <strong>5th</strong>, except in March, May, July and October, where it is the <strong>7th</strong> (first-quarter moon). The Nones marked the <em>dies nefasti</em> after which no new business could be begun until the Ides.</li>
+    <li><strong>Ides</strong> — the <strong>13th</strong>, except in those same four months, where it is the <strong>15th</strong> (full moon). The Ides were sacred to Jupiter — the <em>rex sacrorum</em> sacrificed a sheep on the Capitoline.</li>
+  </ul>
+  <div class="panel">
+    <h3>Why March, May, July, and October are different — the legacy of Romulus's "full" months</h3>
+    <p>You will have noticed the exception: in <strong>March, May, July, and October</strong>, the Nones fall on the <strong>VII</strong> (7th) and the Ides on the <strong>XV</strong> (15th) — two days later than in all other months (Nones = V, Ides = XIII). Why?</p>
+    <p>These four months were the original <strong>"full" (<em>pleni</em>) 31-day months</strong> in Romulus's 10-month calendar. The remaining six were <strong>"hollow" (<em>cavi</em>) 29-day months</strong>. The extra two days in the full months pushed the first-quarter moon (Nones) from day V to day VII, and the full moon (Ides) from day XIII to day XV — so that the lunar phase markers would still land at roughly the right moon phase in a longer month.</p>
+    <p>When Numa Pompilius added <strong>January</strong> and <strong>February</strong>, he gave them the short-month pattern (Nones = V, Ides = XIII) — as if they were hollow months, which structurally they were. This distinction — full vs. hollow — was then <strong>frozen</strong> and survived every subsequent reform: the Republican intercalary system, Caesar's Julian reform, and even the Augustan reshuffle. Long after the lunar connection was completely forgotten, Romans still counted "ante diem III Idus Martias" differently from "ante diem III Idus Aprilis" — because March was a "full" month and April was not. The moon was gone, but its fingerprint remained.</p>
+  </div>
+
+  <!-- Full vs Hollow month comparison axis -->
+  <div class="month-compare">
+    <div class="month-compare-title">Full vs. Hollow months — the two patterns side by side</div>
+    <div class="month-compare-sub">Kalends (gold) · Nones (blue) · Ides (red) — with Roman day numbers</div>
+
+    <!-- Full month: 31 days, Nones=VII, Ides=XV -->
+    <div class="month-compare-row">
+      <div class="month-compare-label"><span class="full-tag">FULL month (31 days)</span> — March, May, July, October</div>
+      <div class="month-compare-track">
+        <div class="month-compare-line"></div>
+        <!-- Kalends at day I = 0% -->
+        <div class="month-compare-tick kalends" style="left:0%;"></div>
+        <div class="month-compare-num" style="left:0%;">I</div>
+        <div class="month-compare-name k" style="left:0%;">Kal.</div>
+        <!-- Nones at day VII = 6/30 = 20% -->
+        <div class="month-compare-tick nones" style="left:20%;"></div>
+        <div class="month-compare-num" style="left:20%;">VII</div>
+        <div class="month-compare-name n" style="left:20%;">Non.</div>
+        <!-- Ides at day XV = 14/30 = 46.7% -->
+        <div class="month-compare-tick ides" style="left:46.7%;"></div>
+        <div class="month-compare-num" style="left:46.7%;">XV</div>
+        <div class="month-compare-name i" style="left:46.7%;">Id.</div>
+        <!-- Day XX at 19/30 = 63.3% -->
+        <div class="month-compare-tick" style="left:63.3%;"></div>
+        <div class="month-compare-num" style="left:63.3%;">XX</div>
+        <!-- Day XXV at 24/30 = 80% -->
+        <div class="month-compare-tick" style="left:80%;"></div>
+        <div class="month-compare-num" style="left:80%;">XXV</div>
+        <!-- Next Kalends at day XXXI = 100% -->
+        <div class="month-compare-tick kalends" style="left:100%;"></div>
+        <div class="month-compare-num" style="left:100%;">XXXI</div>
+        <div class="month-compare-name k" style="left:100%;">Kal.</div>
+      </div>
+    </div>
+
+    <!-- Hollow month: 29 days, Nones=V, Ides=XIII -->
+    <div class="month-compare-row">
+      <div class="month-compare-label"><span class="hollow-tag">HOLLOW month (29 days)</span> — all other months</div>
+      <div class="month-compare-track">
+        <div class="month-compare-line"></div>
+        <!-- Kalends at day I = 0% -->
+        <div class="month-compare-tick kalends" style="left:0%;"></div>
+        <div class="month-compare-num" style="left:0%;">I</div>
+        <div class="month-compare-name k" style="left:0%;">Kal.</div>
+        <!-- Nones at day V = 4/28 = 14.3% -->
+        <div class="month-compare-tick nones" style="left:14.3%;"></div>
+        <div class="month-compare-num" style="left:14.3%;">V</div>
+        <div class="month-compare-name n" style="left:14.3%;">Non.</div>
+        <!-- Ides at day XIII = 12/28 = 42.9% -->
+        <div class="month-compare-tick ides" style="left:42.9%;"></div>
+        <div class="month-compare-num" style="left:42.9%;">XIII</div>
+        <div class="month-compare-name i" style="left:42.9%;">Id.</div>
+        <!-- Day XVIII at 17/28 = 60.7% -->
+        <div class="month-compare-tick" style="left:60.7%;"></div>
+        <div class="month-compare-num" style="left:60.7%;">XVIII</div>
+        <!-- Day XXIII at 22/28 = 78.6% -->
+        <div class="month-compare-tick" style="left:78.6%;"></div>
+        <div class="month-compare-num" style="left:78.6%;">XXIII</div>
+        <!-- Next Kalends at day XXIX = 100% -->
+        <div class="month-compare-tick kalends" style="left:100%;"></div>
+        <div class="month-compare-num" style="left:100%;">XXIX</div>
+        <div class="month-compare-name k" style="left:100%;">Kal.</div>
+      </div>
+    </div>
+
+    <p style="margin-top:.8rem;font-size:1.05rem;color:var(--ink);">In the <strong>full</strong> month, the Nones are pushed 2 days later (V→VII) and the Ides 2 days later (XIII→XV), so the three lunar markers — new moon, first quarter, full moon — stay roughly aligned with the moon's phases despite the extra 2 days. After the Ides, both months count backwards to the next Kalends: <em>a.d. XVIII Kal.</em>, <em>a.d. XVII Kal.</em>, … <em>pridie Kal.</em> The hollow month has 16 days after the Ides; the full month has 17 — one more countdown step.</p>
+  </div>
+
+  <p>The day itself is <span class="tag">ante diem</span> ("towards the day of") plus a countdown: <em>ante diem III Kalendas Martias</em> = "the 3rd day before the Kalends of March" = <strong>February 27</strong>. The day immediately before a fixed point is <span class="tag">pridie</span> ("the eve"). Crucially, Romans counted <strong>inclusively</strong> — the anchor day itself counts as day 1, so "III Kalends" means two days before the Kalends, not three.</p>
+  <p class="note">For a deeper discussion of <em>why</em> Romans counted backwards — the eschatological structure of Roman time, the calendar as organiser of civic life, and the agricultural origins of the Kalends — see the <strong>Rhythm of Time</strong> tab.</p>
+</section>
+</div><!-- /ts-daynames -->
+
+<div class="tab-section" id="ts-religion">
+<section id="religion">
+  <h2><span class="secnum">VI</span>The Religious Dimension of the Fasti</h2>
+  <p>Inscribed calendars (like the <strong>Fasti Antiates Maiores</strong>, c. 60 BC — which still shows <em>QVI/SEX</em>, not July/August, plus an "INTER" column for intercalation) marked <strong>every single day</strong> with a letter — a fully religious classification:</p>
+  <table class="fasti">
+    <tr><th>Letter</th><th>Meaning</th><th>Business?</th></tr>
+    <tr><td class="F tooltip" title="Dies fasti: legal business allowed">F</td><td>dies <em>fastus</em> — court assemblies allowed</td><td>Yes, law courts open</td></tr>
+    <tr><td class="N tooltip" title="Dies nefastus: religiously unusable">N</td><td>dies <em>nefastus</em> — no public business; festivals</td><td>No</td></tr>
+    <tr><td class="C tooltip" title="Dies comitiales: assemblies may be held">C</td><td>dies <em>comitialis</em> — assemblies may be held</td><td>Yes (assemblies)</td></tr>
+    <tr><td class="NP tooltip" title="Nefastus publicum: major public holiday">NP</td><td><em>nefastus publicum</em> — major public holidays</td><td>No</td></tr>
+    <tr><td class="EN tooltip" title="Endoterxus/Intercisus: partly usable">EN</td><td><em>endoterxus/intercisus</em> — "cut" day, partly usable</td><td>Partly</td></tr>
+    <tr><td class="QRCF tooltip" title="Quando Rex Comitiavit Fas">QRCF</td><td><em>quando rex comitiavit fas</em> — fas when the rex sacrorum has comitiated</td><td>After a ritual moment</td></tr>
+  </table>
+  <p class="note">Ovid's <em>Fasti</em> — a poem walking through the calendar month by month — is our richest source on this religious layer: Lupercalia (Feb 15), Matralia, Saturnalia, and much more.</p>
+  <div class="interactive">
+    <h3>A Roman-style February — day-letter column</h3>
+    <p class="note">Hover any letter for its meaning. This is one month (February) of a rendered "painted calendar":</p>
+    <table class="fasti" id="fastiFeb"></table>
+    <p class="note">The letters F/N/C are a religious shading over the whole month — <em>and</em> one reason why February is the "purge" month, hence its 28 days and the leap-day position (23/24 Feb, bis sextum).</p>
+  </div>
+
+  <!-- Festival calendar -->
+  <div class="panel">
+    <h3>The festival year — how the calendar unfolded</h3>
+    <p>The Roman year was not a flat sequence of days. It was a <strong>landscape of peaks and valleys</strong> — sacred days, festivals, games, and market days that gave rhythm to public and private life. Here are the most important festivals, month by month, showing how the calendar wove together agriculture, war, religion, and politics:</p>
+    <div class="festival-cal">
+      <div class="fmonth">
+        <div class="fmonth-name">Ianuarius</div>
+        <span class="festival-item"><span class="fday">IX</span>Carmentalia</span>
+        <span class="festival-item"><span class="fday">XI, XV</span>Compitalia</span>
+        <p class="festival-desc">Carmentalia honoured Carmenta, goddess of childbirth and prophecy. Compitalia, celebrated at crossroads shrines (<em>compita</em>), marked the end of the agricultural year — slaves and masters feasted together in a ritual of social inversion.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Februarius</div>
+        <span class="festival-item major"><span class="fday">XIII–XXI</span>Parentalia</span>
+        <span class="festival-item major"><span class="fday">XV</span>Lupercalia</span>
+        <span class="festival-item"><span class="fday">XXI</span>Feralia</span>
+        <span class="festival-item major"><span class="fday">XXIII</span>Terminalia</span>
+        <span class="festival-item"><span class="fday">XXIV</span>Regifugium</span>
+        <p class="festival-desc"><strong>Parentalia</strong> (13–21 Feb): nine days honouring dead ancestors — families brought offerings to tombs; temples closed; marriages forbidden. <strong>Lupercalia</strong> (15 Feb): the most ancient and raucous festival — the <em>Luperci</em> ran naked through Rome whipping women with goat-skin thongs to ensure fertility. <strong>Terminalia</strong> (23 Feb): festival of Terminus, god of boundaries — it marked the end of the religious year. <strong>Regifugium</strong> (24 Feb): commemorated the expulsion of the kings.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Martius</div>
+        <span class="festival-item"><span class="fday">I</span>Matronalia</span>
+        <span class="festival-item major"><span class="fday">XIX–XXIII</span>Quinquatrus</span>
+        <p class="festival-desc"><strong>Matronalia</strong> (1 March): the "women's Kalends" — husbands gave gifts to wives. <strong>Quinquatrus</strong> (19–23 March): five-day festival of Mars and Minerva — the <em>salii</em> (leaping priests) danced through Rome; gladiatorial games honoured Mars. This opened the campaigning season — consuls' departure for war was timed around it.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Aprilis</div>
+        <span class="festival-item"><span class="fday">XII–XIX</span>Cerealia</span>
+        <span class="festival-item"><span class="fday">XV</span>Fordicidia</span>
+        <span class="festival-item major"><span class="fday">XXI</span>Parilia</span>
+        <span class="festival-item major"><span class="fday">XXIII</span>Vinalia</span>
+        <span class="festival-item major"><span class="fday">XXV</span>Robigalia</span>
+        <p class="festival-desc"><strong>Cerealia</strong> (12–19 April): festival of Ceres, goddess of grain. <strong>Parilia</strong> (21 April): the birthday of Rome — shepherds purified flocks by driving them between fires; the founding date (753 BC) was celebrated. <strong>Robigalia</strong> (25 April): sacrifice to Robigus, god of wheat rust — a dog and sheep were sacrificed to protect young crops. <strong>Vinalia</strong> (23 April): the first wine of the previous vintage was tasted.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Maius</div>
+        <span class="festival-item major"><span class="fday">IX, XI, XIII</span>Lemuria</span>
+        <span class="festival-item"><span class="fday">XIV</span>Argei</span>
+        <p class="festival-desc"><strong>Lemuria</strong> (9, 11, 13 May): three days to placate restless ghosts (<em>lemures</em>) — the <em>paterfamilias</em> rose at midnight, washed his hands, and spat out black beans, saying "I send these; with these I redeem myself and mine." Rome's festival of the dead in the first half of the year, complementing the Parentalia in February.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Iunius</div>
+        <span class="festival-item major"><span class="fday">VII–XV</span>Vestalia</span>
+        <span class="festival-item"><span class="fday">XI</span>Matralia</span>
+        <p class="festival-desc"><strong>Vestalia</strong> (7–15 June): festival of Vesta, goddess of the hearth — the inner sanctum of her temple was opened to matrons; bakers and millers honoured the flame that baked Rome's bread. Donkeys were garlanded and rested from milling.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Iulius</div>
+        <span class="festival-item"><span class="fday">XXIII</span>Neptunalia</span>
+        <p class="festival-desc"><strong>Neptunalia</strong> (23 July): festival of Neptune — huts of foliage were built for shade during the hottest, driest part of summer; Romans feasted outdoors, propitiating water sources as the heat peaked.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">Augustus</div>
+        <span class="festival-item"><span class="fday">XIX</span>Vinalia Rustica</span>
+        <span class="festival-item major"><span class="fday">XXI</span>Consualia</span>
+        <span class="festival-item major"><span class="fday">XXIII</span>Volcanalia</span>
+        <span class="festival-item"><span class="fday">XXV</span>Opiconsivia</span>
+        <p class="festival-desc"><strong>Consualia</strong> (21 Aug): festival of Consus, god of stored grain — horses and asses were garlanded and rested from ploughing. Linked to the Rape of the Sabine Women, blending harvest with foundation myth. <strong>Volcanalia</strong> (23 Aug): festival of Vulcan — praying the god of fire would spare the city's granaries during the dry season. His temple stood outside the walls, keeping fire at a safe distance.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">September</div>
+        <span class="festival-item major"><span class="fday">IV–XIX</span>Ludi Romani</span>
+        <p class="festival-desc"><strong>Ludi Romani</strong> (4–19 Sep): the oldest and grandest Roman games — dedicated to Jupiter Optimus Maximus. Chariot races, theatre, and gladiatorial combats filled nearly two weeks; originally vowed during the early Republic's wars.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">October</div>
+        <span class="festival-item"><span class="fday">XII</span>Augustalia</span>
+        <span class="festival-item major"><span class="fday">XIX</span>Armilustrium</span>
+        <p class="festival-desc"><strong>Armilustrium</strong> (19 Oct): the ritual "cleansing of weapons" — the <em>salii</em> danced again, and the sacred shields were purified. This marked the <strong>end of the campaigning season</strong>: soldiers stored arms for winter; no battles until Quinquatrus reopened the season in March.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">November</div>
+        <span class="festival-item"><span class="fday">XIII</span>Epulum Iovis</span>
+        <p class="festival-desc"><strong>Epulum Iovis</strong> (13 Nov): a solemn feast for Jupiter — senators and magistrates dined on the Capitoline, with the god's statue present as a guest. A festival of civic piety during the quiet season between harvest and Saturnalia.</p>
+      </div>
+      <div class="fmonth">
+        <div class="fmonth-name">December</div>
+        <span class="festival-item major"><span class="fday">XVII–XXIII</span>Saturnalia</span>
+        <span class="festival-item"><span class="fday">XIX</span>Opalia</span>
+        <span class="festival-item"><span class="fday">XXI</span>Divalia</span>
+        <p class="festival-desc"><strong>Saturnalia</strong> (17–23 Dec): the most famous Roman festival — a week of <strong>role reversal and revelry</strong>. Slaves wore the freedman's cap and were served by masters; gambling was permitted in public; courts and schools closed; gifts (<em>sigillaria</em>) were exchanged. It honoured Saturn, god of the Golden Age — a mythic time of abundance. Rooted in the agricultural calendar, it survived into Christian tradition as the Christmas season.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /ts-religion -->
+
+<div class="tab-section" id="ts-reform">
+<section id="reform">
+  <h2><span class="secnum">VII</span>Caesar's Reform (46–44 BC)</h2>
+  <p>By 46 BC the calendar was <strong>3 months ahead of the seasons</strong>. Caesar, advised by the Alexandrian astronomer <strong>Sosigenes</strong>, discarded the lunar scheme entirely:</p>
+  <p class="note"><strong>Sosigenes and the Alexandrian tradition.</strong> Caesar did not invent the solar calendar from scratch — he borrowed it from the world's leading astronomical centre. <strong>Alexandria</strong>, in Ptolemaic Egypt, had been the intellectual heir of <strong>Babylonian astronomy</strong> for centuries. The Babylonians had been tracking the solar year with remarkable precision since at least the 8th century BC; their data was transmitted to Greece and then to Alexandria, where the great Library and the Museum (a research institute) produced astronomers like <strong>Hipparchus</strong> (who calculated the tropical year as 365.2467 days — within 6 minutes of the modern value) and later <strong>Ptolemy</strong>. Sosigenes worked in this tradition: he knew the solar year was approximately 365¼ days, and he advised Caesar to adopt a simple, robust rule — 365 days normally, with an extra day every fourth year. This was not new science; it was <em>established Alexandrian knowledge applied to Roman administration</em>. Caesar's genius was not astronomical but political: he had the power to impose the reform and the 445-day correction that preceded it.</p>
+  <ul>
+    <li><strong>46 BC — the "last year of confusion"</strong> (<em>annus confusionis</em>): <strong>445 days</strong>, with extra intercalary months inserted to realign the civil year with the solar year.</li>
+    <li>From <strong>1 January 45 BC</strong>: a purely <strong>solar year of 365 days + 1 leap day every 4 years</strong> (Julian year = 365.25 days). The lunar leap month was abolished; the "missing" 10 days were permanently distributed so months got 30/31 days (Feb 28/29).</li>
+    <li>Leap day: placed <em>after</em> Feb 23 — doubling the VI Kal. Mart. (<em>bis sextum</em>).</li>
+  </ul>
+  <table>
+    <tr><th>Month</th><th>Republican</th><th>Caesar (45 BC)</th><th>After 8 BC</th></tr>
+    <tr><td>Ianuarius</td><td>29</td><td>31</td><td>31</td></tr>
+    <tr><td>Februarius</td><td>28</td><td>28 / 29 leap</td><td>28 / 29 leap</td></tr>
+    <tr><td>Martius</td><td>31</td><td>31</td><td>31</td></tr>
+    <tr><td>Aprilis</td><td>29</td><td>30</td><td>30</td></tr>
+    <tr><td>Maius</td><td>31</td><td>31</td><td>31</td></tr>
+    <tr><td>Iunius</td><td>29</td><td>30</td><td>30</td></tr>
+    <tr><td>Quintilis → Iulius</td><td>31</td><td>31</td><td>31</td></tr>
+    <tr><td>Sextilis → Augustus</td><td>29</td><td>30</td><td class="green">31</td></tr>
+    <tr><td>September</td><td>29</td><td class="green">31</td><td>30</td></tr>
+    <tr><td>October</td><td>31</td><td>31</td><td>31</td></tr>
+    <tr><td>November</td><td>29</td><td>30</td><td>30</td></tr>
+    <tr><td>December</td><td>29</td><td>31</td><td>31</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>355</strong></td><td><strong>365/366</strong></td><td><strong>365/366</strong></td></tr>
+  </table>
+  <p class="note">Caesar's original Julian calendar gave <strong>Sextilis 30 days and September 31</strong>. After <strong>Augustus</strong> renamed Sextilis to <strong>Augustus</strong> in 8 BC, he transferred one day from September to August — so that his month would be no shorter than Caesar's (Iulius = 31). This is why August has 31 days and September only 30 today. The exact distribution of Caesar's original +10 days is debated; the reconstruction above follows the most widely cited modern scholarship (Bickerman, Rüpke).</p>
+  <div class="panel">
+    <h3>The leap-year blunder — 36 years of too many leap days</h3>
+    <p>Caesar's rule was simple: add one extra day every <strong>fourth</strong> year. But the pontiffs who administered the calendar after Caesar's assassination (44 BC) misread the instruction. They applied the rule as "every <strong>third</strong> year" — because Romans counted <em>inclusively</em>: if year 1 is a leap year, then the "fourth year" counting inclusively is year 3 (1, 2, 3, 4 — but "1 to 4" = 3 intervals). The result was a leap year every 3 years instead of every 4 — <strong>too many leap days</strong>, causing the calendar to drift <em>behind</em> the sun (the opposite of the earlier drift).</p>
+    <p>From 45 BC to approximately 9 BC, this error accumulated: roughly 12 leap days were inserted when only 9 should have been — 3 extra days. <strong>Augustus</strong> recognised the problem and corrected it in two stages:</p>
+    <ul>
+      <li><strong>~9 BC — AD 8: skip all leap years.</strong> Augustus ordered that no leap days be inserted for roughly 12–16 years, to "burn off" the 3 excess days. This was the corrective phase.</li>
+      <li><strong>From AD 8: resume the correct 4-year cycle.</strong> After the correction, the Julian calendar functioned as intended for the next 1,600 years — until the Gregorian reform of 1582 addressed the remaining ~11-minute-per-year error (365.25 vs 365.2422).</li>
+    </ul>
+    <p class="note">The irony is rich: Caesar fixed the <em>under</em>-counting of the Republican calendar (355 vs 365), only for his successors to introduce an <em>over</em>-counting bug (leap every 3 instead of 4 years). The entire episode — from 45 BC to AD 8, some 53 years — was needed to get the Julian calendar actually running correctly. A striking reminder that even a "scientific" calendar needs disciplined administration: the science was right (Sosigenes knew 365¼), but the <em>implementation</em> was wrong, and it took two generations to debug.</p>
+  </div>
+  <div class="panel">
+    <h3>Why move the year start to January? Politics.</h3>
+    <p>Since <strong>153 BC</strong>, consuls entered office on <strong>1 January</strong>. A January start let newly elected consuls leave Rome and reach their <strong>provinces</strong> in time to campaign in the summer — <strong>March (Mars)</strong> was the month of war when the campaign season opened. The reform also stabilised military logistics: predictable dates for <em>levies</em>, provincial <em>proconsul</em> command handovers. Exactly the kind of chaos Caesar himself exploited before crossing the Rubicon.</p>
+  </div>
+</section>
+</div><!-- /ts-reform -->
+
+<div class="tab-section" id="ts-names">
+<section id="names">
+  <h2><span class="secnum">VIII</span>Months Renamed & Reshaped</h2>
+  <p>After Caesar's death, <strong>Quintilis</strong> (the "5th" month) was renamed <strong>Iulius</strong> (July) in <strong>44 BC</strong> in his honour. Later, <strong>Sextilis</strong> was renamed <strong>Augustus</strong> (August) in <strong>8 BC</strong> — and to make sure Augustus's month was no shorter than Caesar's (both would have 31 days), Augustus transferred <strong>one day from September (31→30) to August (30→31)</strong>. This is the only change to month lengths after Caesar's original reform, and it persists to this day.</p>
+  <p>The dual calendar above reflects these changes automatically: before 44 BC, month 7 appears as <em>Quintilis</em>; from 44 BC, as <em>Iulius</em>. Before 8 BC, month 8 appears as <em>Sextilis</em> with 30 days; from 8 BC, as <strong>Augustus</strong> with 31.</p>
+  <p>Other imperial renamings were attempted but did not stick: Tiberius rejected a proposal to rename September and October after his mother and father; Caligula briefly tried <em>Germanicus</em>; Domitian tried <em>Domitianus</em>; and Commodus renamed all twelve months after his own twelve titles — all reversed after his assassination.</p>
+  <p class="note">This is why our months are an oddly mixed set: four named after gods (January, March, May, June), two after festivals (February, April), two after emperors (July, August), and four still bearing their old position numbers (September–December) from the March-start year.</p>
+
+  <!-- Month origins table -->
+  <div class="month-origins">
+    <h3>Where do all the month names come from?</h3>
+    <p>The names preserve the layered history of the calendar — from gods and agriculture to numbers and political renamings:</p>
+    <table>
+      <thead><tr><th>Month</th><th>Origin</th><th>Etymology &amp; notes</th></tr></thead>
+      <tbody>
+        <tr><td>Ianuarius</td><td>God</td><td><em>Janus</em>, the two-faced god of doors, gates, and beginnings. He looks forward and back.</td></tr>
+        <tr><td>Februarius</td><td>Religion</td><td><em>Februa</em>, the festival of purification. From <em>februum</em>, a purificatory instrument.</td></tr>
+        <tr><td>Martius</td><td>God</td><td><em>Mars</em>, god of war. Originally the <strong>first month</strong> — campaigning season opened in spring.</td></tr>
+        <tr><td>Aprilis</td><td>Agriculture?</td><td>From <em>aperire</em> "to open" (buds opening) — the traditional derivation, though some ancient scholars derive it from Aphrodite (Greek influence). The etymology is debated.</td></tr>
+        <tr><td>Maius</td><td>Goddess</td><td><em>Maia</em>, goddess of growth; or <em>maiores</em> "elders" — honouring ancestors.</td></tr>
+        <tr><td>Iunius</td><td>Goddess</td><td><em>Juno</em>, queen of gods; or <em>iuniores</em> "young people" — month of young growth.</td></tr>
+        <tr><td>Quintilis → Iulius</td><td>Number → politics</td><td>"Fifth" (<em>quintus</em>). <strong>Renamed Iulius</strong> in 44 BC for Julius Caesar, born this month.</td></tr>
+        <tr><td>Sextilis → Augustus</td><td>Number → politics</td><td>"Sixth" (<em>sextus</em>). <strong>Renamed Augustus</strong> in 8 BC. One day moved from September to August so it would not be shorter than July.</td></tr>
+        <tr><td>September</td><td>Number</td><td>"Seventh" (<em>septem</em>). Never renamed — Tiberius refused: "what if thirteen Caesars each want a month?"</td></tr>
+        <tr><td>October</td><td>Number</td><td>"Eighth" (<em>octo</em>). Month of <em>Armilustrium</em> (19 Oct) — weapons purified as campaigns closed.</td></tr>
+        <tr><td>November</td><td>Number</td><td>"Ninth" (<em>novem</em>).</td></tr>
+        <tr><td>December</td><td>Number</td><td>"Tenth" (<em>decem</em>). Home of <em>Saturnalia</em>, the great winter festival of reversal.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div><!-- /ts-names -->
+
+<div class="tab-section" id="ts-consuls">
+<section id="consuls">
+  <h2><span class="secnum">IX</span>Dating by Consuls</h2>
+  <p>Romans did <strong>not</strong> number years sequentially. Instead, each year was identified by its <strong>eponymous consuls</strong>: "the year of Marcus Tullius [Cicero] and Gaius Antonius" = 63 BC. Over 3,000 consular pairs were recorded in lists called <strong>fasti consulares</strong>, inscribed on marble and displayed in the Forum.</p>
+
+  <div class="panel">
+    <h3>Consuls and imperium — the military heart of the Republic</h3>
+    <p>In the Republic, the two consuls were not merely civil magistrates. They held <strong>imperium</strong> — supreme military and executive command, conferred by the <em>lex curiata</em> and ratified by the <em>auspicia</em> (divine approval). This imperium was <strong>geographically limited</strong>: inside the <em>pomerium</em> (Rome's sacred boundary), consuls could not command armies or exercise military authority — their imperium was <em>domi</em> ("at home", civilian). Outside the pomerium, it became <em>militiae</em> ("in the field", military). Crossing the pomerium to leave Rome was, symbolically, the act that transformed a consul from magistrate into general.</p>
+    <p>This is why the year began in <strong>March</strong>. The consuls entered office, performed the <em>auspicia</em>, received their provinces by <em>senatus consultum</em>, and then <strong>left Rome</strong> to take command. March — the month of <strong>Mars</strong> — was when passes cleared, roads dried, and the campaign season opened. The calendar year and the military cycle were the same thing.</p>
+    <p>As Rome expanded beyond Italy (after the Punic Wars), this created a logistical problem. Consuls needed to reach distant provinces — Spain, Greece, Asia Minor, Africa — before the campaign season. A March start left too little time. So in <strong>153 BC</strong>, the Senate moved the consular year-start to <strong>1 January</strong>. This gave consuls two extra months to travel to their provinces before spring. The shift from March to January was, at its core, a <strong>military logistics decision</strong> driven by imperial expansion.</p>
+  </div>
+
+  <div class="panel">
+    <h3>From two consuls to many — the breakdown of consular dating</h3>
+    <p>In the early and middle Republic, two consuls served for the entire year, and dating by their pair was simple: "<em>Cicerone et Antonio consulibus</em>" unambiguously identified 63 BC. But as Rome's empire grew, this system came under strain:</p>
+    <ul>
+      <li><strong>Extraordinary commands</strong> — by the late Republic, generals like Marius, Sulla, Pompey, and Caesar held multi-year commands that bypassed the annual consulship. The consulship became a political stepping-stone rather than the apex of military power.</li>
+      <li><strong>Suffect consuls</strong> — under the Empire, if a consul died or resigned mid-year, a <em>consul suffectus</em> (replacement) was appointed. By the 1st century AD, it became common for consuls to serve only <strong>part of the year</strong>, with suffect consuls taking over. Some years had <strong>4, 6, or even up to 10–12 consuls</strong> in succession.</li>
+      <li><strong>Ordinary vs. suffect</strong> — the two consuls who entered on 1 January were the <em>consules ordinarii</em>, whose names gave the year its official designation. Suffect consuls who replaced them during the year were recorded in the <em>fasti</em>, but the year was still named after the <em>ordinarii</em>. Under Hadrian and later, suffect consulships proliferated as honorary appointments, diluting the office's prestige.</li>
+    </ul>
+    <p>This complicated dating enormously. A document might say "<em>III Kal. Apr., Sabino et Praesentio consulibus</em>" — but which 24 March? If the suffect pair changed mid-year, different parts of the same year had different consular names. Scholars must cross-reference the <em>fasti consulares</em> to resolve these ambiguities. By late antiquity, consular dating was gradually replaced by <strong>regnal years</strong> of emperors and, ultimately, by the <strong>indiction cycle</strong> (a 15-year tax cycle instituted by Diocletian).</p>
+  </div>
+
+  <div class="panel">
+    <h3>From consular years to era systems</h3>
+    <p>For long-span mathematics and chronology, consular dating was insufficient. Several era systems were used:</p>
+    <ul>
+      <li><strong>Olympiads</strong> — from 776 BC, each Olympiad being 4 years. Used by Greek historians (Polybius, Diodorus).</li>
+      <li><strong>Ab Urbe Condita</strong> (AUC) — "from the founding of the City", counted from 753 BC. Used by Roman historians (Livy, Tacitus), though rarely in everyday documents.</li>
+      <li><strong>Diocletian era</strong> — from AD 284 (Diocletian's accession). This was the base from which the <strong>Christian reckoning</strong> (AD/BC) was calculated by Dionysius Exiguus in AD 525, who deliberately wanted to avoid dating from a persecutor of Christians.</li>
+      <li><strong>Indictions</strong> — a 15-year cycle used for tax assessment, standard in late antiquity and throughout the Middle Ages.</li>
+    </ul>
+    <p class="note">The last ordinary consuls were appointed in <strong>AD 541</strong> (Basilius, under Justinian). After that, years were designated "<em>post consulatum Basilii</em>" or by indiction number — the end of a system that had named Roman years for over a millennium.</p>
+  </div>
+
+  <div class="interactive">
+    <h3>AUC calculator</h3>
+    <label>Year (AD, or negative for BC): <input type="number" id="aucYear" value="2026" step="1"></label>
+    <button id="aucBtn">Convert to AUC</button>
+    <div class="result" id="aucOut"></div>
+    <p class="note">AUC = AD year + 753; for BC years: AUC = 753 − BC + 1 (no year 0). Example: 45 BC (Caesar's first Julian year) = AUC 709.</p>
+  </div>
+</section>
+</div><!-- /ts-consuls -->
+
+<div class="tab-section" id="ts-converter">
+<section id="converter">
+  <h2><span class="secnum">X</span>Try It Yourself</h2>
+  <div class="interactive">
+    <h3>Gregorian → Roman date</h3>
+    <label>Pick a date: <input type="date" id="convDate" value="2026-03-15"></label>
+    <button id="convBtn">Convert</button>
+    <div class="result" id="convOut"></div>
+    <p class="note">Same algorithm as the dual calendar above — try the Ides of March, 44 BC, the day Caesar was assassinated.</p>
+  </div>
+  <div class="interactive">
+    <h3>Test your knowledge — 12 questions on the Roman Kalendar</h3>
+    <div id="quizContainer"></div>
+    <div id="quizScore" class="result" style="margin-top:1rem;"></div>
+    <button id="quizCheckBtn">Check all answers</button>
+    <button id="quizResetBtn">Reset</button>
+  </div>
+</section>
+</div><!-- /ts-converter -->
+
+</main>
+<footer>
+<p>Sources: Censorinus, <em>De die natali</em>; Macrobius, <em>Saturnalia</em>; Suetonius; Dio Cassius; Ovid, <em>Fasti</em>; modern: Jörg Rüpke, <em>The Roman Kalendar from Numa to Constantine</em>; E. J. Bickerman, <em>Chronology of the Ancient World</em>; A. K. Michels, <em>The Calendar of the Roman Republic</em>; G. Hacquard, <em>Guide Romain Antique</em>, Hachette (1952).</p>
+<p class="note">Single self-contained page · vanilla JS · Google Fonts only. Date formulas use the Julian day-count; the pre-Julian calendar's exact operation is uncertain, so its reconstruction here is the standard documented approximation.</p>
+</footer>
+
+<script>
+// ==================== CORE DATA ====================
+const MONTHS = [
+ {name:'Ianuarius',gen:'Ianuarias',nom:'Ianuariae',len:31,nones:5,ides:13},
+ {name:'Februarius',gen:'Februarias',nom:'Februariae',len:28,nones:5,ides:13},
+ {name:'Martius',gen:'Martias',nom:'Martiae',len:31,nones:7,ides:15},
+ {name:'Aprilis',gen:'Apriles',nom:'Apriles',len:30,nones:5,ides:13},
+ {name:'Maius',gen:'Maias',nom:'Maiae',len:31,nones:7,ides:15},
+ {name:'Iunius',gen:'Iunias',nom:'Iuniae',len:30,nones:5,ides:13},
+ {name:'Iulius',gen:'Iulias',nom:'Iuliae',len:31,nones:7,ides:15},
+ {name:'Augustus',gen:'Augustas',nom:'Augustae',len:31,nones:5,ides:13},
+ {name:'September',gen:'Septembres',nom:'Septembres',len:30,nones:5,ides:13},
+ {name:'October',gen:'Octobres',nom:'Octobres',len:31,nones:7,ides:15},
+ {name:'November',gen:'Novembres',nom:'Novembres',len:30,nones:5,ides:13},
+ {name:'December',gen:'Decembres',nom:'Decembres',len:31,nones:5,ides:13}
+];
+const JULIAN_MONTHS = MONTHS.map(m=>({...m,days:m.len}));
+const REPUBLICAN_MONTHS = [
+ {name:'Ianuarius',gen:'Ianuarias',nom:'Ianuariae',days:29,nones:5,ides:13},
+ {name:'Februarius',gen:'Februarias',nom:'Februariae',days:28,nones:5,ides:13},
+ {name:'Martius',gen:'Martias',nom:'Martiae',days:31,nones:7,ides:15},
+ {name:'Aprilis',gen:'Apriles',nom:'Apriles',days:29,nones:5,ides:13},
+ {name:'Maius',gen:'Maias',nom:'Maiae',days:31,nones:7,ides:15},
+ {name:'Iunius',gen:'Iunias',nom:'Iuniae',days:29,nones:5,ides:13},
+ {name:'Quintilis',gen:'Quintiles',nom:'Quintiles',days:31,nones:7,ides:15},
+ {name:'Sextilis',gen:'Sextiles',nom:'Sextiles',days:29,nones:5,ides:13},
+ {name:'September',gen:'Septembres',nom:'Septembres',days:29,nones:5,ides:13},
+ {name:'October',gen:'Octobres',nom:'Octobres',days:31,nones:7,ides:15},
+ {name:'November',gen:'Novembres',nom:'Novembres',days:29,nones:5,ides:13},
+ {name:'December',gen:'Decembres',nom:'Decembres',days:29,nones:5,ides:13}
+];
+const MONTHS_46BC = [
+ {name:'Ianuarius',gen:'Ianuarias',nom:'Ianuariae',days:29,nones:5,ides:13},
+ {name:'Februarius',gen:'Februarias',nom:'Februariae',days:28,nones:5,ides:13},
+ {name:'Mercedonius',gen:'Mercedonias',nom:'Mercedonae',days:27,nones:5,ides:13,intercalary:true},
+ {name:'Martius',gen:'Martias',nom:'Martiae',days:31,nones:7,ides:15},
+ {name:'Aprilis',gen:'Apriles',nom:'Apriles',days:29,nones:5,ides:13},
+ {name:'Maius',gen:'Maias',nom:'Maiae',days:31,nones:7,ides:15},
+ {name:'Iunius',gen:'Iunias',nom:'Iuniae',days:29,nones:5,ides:13},
+ {name:'Quintilis',gen:'Quintiles',nom:'Quintiles',days:31,nones:7,ides:15},
+ {name:'Sextilis',gen:'Sextiles',nom:'Sextiles',days:29,nones:5,ides:13},
+ {name:'September',gen:'Septembres',nom:'Septembres',days:29,nones:5,ides:13},
+ {name:'October',gen:'Octobres',nom:'Octobres',days:31,nones:7,ides:15},
+ {name:'November',gen:'Novembres',nom:'Novembres',days:29,nones:5,ides:13},
+ {name:'Intercalaris I',gen:'Intercalares I',nom:'Intercalares I',days:33,nones:5,ides:13,intercalary:true},
+ {name:'Intercalaris II',gen:'Intercalares II',nom:'Intercalares II',days:30,nones:5,ides:13,intercalary:true},
+ {name:'December',gen:'Decembres',nom:'Decembres',days:29,nones:5,ides:13}
+];
+const MODERN_MONTHS = [
+ {name:'January',days:31},{name:'February',days:28},{name:'March',days:31},
+ {name:'April',days:30},{name:'May',days:31},{name:'June',days:30},
+ {name:'July',days:31},{name:'August',days:31},{name:'September',days:30},
+ {name:'October',days:31},{name:'November',days:30},{name:'December',days:31}
+];
+const MONTH_NAMES_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function roman(n){
+ if(n<=0) return '·';
+ const M=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+ let s=''; for(const [v,r] of M){ while(n>=v){s+=r;n-=v;} } return s;
+}
+function aucFromAd(y){ return y>0 ? y+753 : 754+y; }
+function consularNote(){ return 'no ordinary consuls since AD 541 — dates after that were "post consulatum"'; }
+function isJulianLeap(y){ const a=y<=0?y+1:y; return a%4===0; }
+function isGregorianLeap(y){
+ const a=y<=0?y+1:y;
+ if(a > 1582) return (a%4===0 && a%100!==0) || a%400===0;
+ return a % 4 === 0;
+}
+function yearLabel(y){
+ if(y < 0) return Math.abs(y) + ' BC';
+ if(y === 0) return '1 BC';
+ return y === 1 ? 'AD 1' : 'AD ' + y;
+}
+function aucLabel(y){ return 'AUC ' + roman(aucFromAd(y)); }
+
+// Roman day name - works with any month definition
+// Case rules: Kalendae/Nonae/Idus (day itself) = NOMINATIVE pl. fem.
+//             ante diem/pridie + Kalendas/Nonas/Idus = ACCUSATIVE pl. fem.
+function romanDayFlex(m, day, nextGen, bis){
+ const mNom = m.nom || m.gen; // fallback to gen if nom missing
+ function label(anchorName){
+  if(day===1) return 'Kalendae '+mNom;
+  if(day===m.nones) return 'Nonae '+mNom;
+  if(day===m.ides) return 'Idus '+mNom;
+  if(day<m.nones){
+   const diff = m.nones - day + 1;
+   if(diff===2) return 'pridie Nonas '+m.gen;
+   return 'ante diem '+roman(diff)+' Nonas '+m.gen;
+  }
+  if(day<m.ides){
+   const diff = m.ides - day + 1;
+   if(diff===2) return 'pridie Idus '+m.gen;
+   return 'ante diem '+roman(diff)+' Idus '+m.gen;
+  }
+  return null;
+ }
+ const pre = label();
+ if(pre) return pre;
+ // after ides: count to next month's Kalends
+ const mlen = (m.days || m.len) + (bis ? 1 : 0);
+ let diff = mlen - day + 2;
+ if(bis && day<=24) diff -= 1;
+ const bisLbl = (bis && day===24) ? ' bis sextum' : '';
+  if(diff===2) return 'pridie Kalendas '+nextGen;
+  return 'ante diem '+roman(diff)+' Kalendas '+nextGen+bisLbl;
+}
+
+// Short abbreviation for calendar cells: Kal, Non, Id, XVIII K, p K, etc.
+function romanDayAbbr(m, day, nextGen, bis){
+  if(day===1) return 'Kal';
+  if(day===m.nones) return 'Non';
+  if(day===m.ides) return 'Id';
+  if(day<m.nones){
+    const diff = m.nones - day + 1;
+    if(diff===2) return 'p Non';
+    return roman(diff)+' Non';
+  }
+  if(day<m.ides){
+    const diff = m.ides - day + 1;
+    if(diff===2) return 'p Id';
+    return roman(diff)+' Id';
+  }
+  const mlen = (m.days || m.len) + (bis ? 1 : 0);
+  let diff = mlen - day + 2;
+  if(bis && day<=24) diff -= 1;
+  const bisLbl = (bis && day===24) ? ' bis' : '';
+  if(diff===2) return 'p Kal'+bisLbl;
+  return roman(diff)+' Kal'+bisLbl;
+}
+
+// Compute full Roman date for a given year/monthIdx/day
+function romanDateForYear(year, monthIdx, day){
+  const months = getRomanYearMonths(year);
+  if(monthIdx >= months.length) return '';
+  const m = months[monthIdx];
+  const nextM = months[monthIdx+1] || months[0];
+  const bis = (m.name==='Februarius' && m.days===29);
+  return romanDayFlex(m, day, nextM.gen, bis);
+}
+
+// Original romanDay for legacy code
+function romanDay(mi, day, bis){
+ const m = MONTHS[mi];
+ const nextGen = MONTHS[(mi+1)%12].gen;
+ return romanDayFlex(m, day, nextGen, bis);
+}
+
+// ==================== HERO: today in Roman form ====================
+(function(){
+ const t = new Date();
+ const mi = t.getMonth(), day = t.getDate(), y = t.getFullYear();
+ const bis = (mi===1 && isGregorianLeap(y));
+ const rd = romanDay(mi, day, bis);
+ const auc = roman(aucFromAd(y));
+ document.getElementById('romanToday').textContent = rd + ', anno ' + auc + ' ab Urbe condita';
+ document.getElementById('romanTodaySub').textContent =
+   '= ' + day + ' ' + MONTHS[mi].name + ' ' + y + ' · Julian day-count for this Gregorian date. ' + consularNote() + '.';
+})();
+
+// ==================== REPUBLICAN MONTH GRID ====================
+(function(){
+ const pre = [
+  {n:'Martius',d:31},{n:'Aprilis',d:29},{n:'Maius',d:31},{n:'Iunius',d:29},
+  {n:'Quintilis',d:31},{n:'Sextilis',d:29},{n:'September',d:29},{n:'October',d:31},
+  {n:'November',d:29},{n:'December',d:29},{n:'Ianuarius',d:29},{n:'Februarius',d:28}
+ ];
+ const g = document.getElementById('repMonthGrid');
+ pre.forEach(m=>{
+  const cls = m.d===31 ? 'full' : (m.n==='Februarius' ? '' : 'hollow');
+  const cell = document.createElement('div');
+  cell.className = 'mcell '+cls;
+  cell.innerHTML = '<strong>'+m.n+'</strong><br><span class="days">'+m.d+' days</span>';
+  g.appendChild(cell);
+ });
+})();
+
+// ==================== DRIFT ANIMATION ====================
+(function(){
+ const btn = document.getElementById('driftBtn');
+ const marker = document.getElementById('driftMarker');
+ const label = document.getElementById('driftLabel');
+ const scale = document.getElementById('driftScale');
+ // Build month scale
+ const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ monthNames.forEach(n=>{
+  const d = document.createElement('div');
+  d.className = 'em';
+  d.textContent = n;
+  scale.appendChild(d);
+ });
+ let running = false;
+ // Equinox at ~21 March = month index 2, day 21/31 ≈ (2 + 20/30) / 12 ≈ 0.188 → ~18.8%
+ // By 46 BC it had drifted ~80 days backwards → from March to ~December/January
+ const startPct = 18.8;
+ const endPct = 4.0;
+ const labels = [
+  {p:18.8, t:'Spring equinox: 21 March (correct, 300 BC)'},
+  {p:15.5, t:'Equinox drifts to ~10 February'},
+  {p:12.0, t:'Equinox drifts to ~30 January'},
+  {p:8.0, t:'Equinox drifts to ~10 January'},
+  {p:4.0, t:'Equinox in late December — calendar 3 months ahead of seasons (46 BC)'}
+ ];
+ btn.addEventListener('click', ()=>{
+  if(running) return; running = true;
+  marker.style.transition = 'none';
+  marker.style.left = startPct + '%';
+  label.textContent = labels[0].t;
+  let i = 0;
+  function nextStep(){
+   if(i >= labels.length-1){ running=false; return; }
+   i++;
+   marker.style.transition = 'left 1.8s ease';
+   marker.style.left = labels[i].p + '%';
+   label.textContent = labels[i].t;
+   setTimeout(nextStep, 2000);
+  }
+  setTimeout(nextStep, 800);
+ });
+})();
+
+// ==================== ORBITAL DRIFT ANIMATION (SVG) ====================
+(function(){
+ const svg = document.getElementById('orbitSvg');
+ const playBtn = document.getElementById('orbitPlay');
+ const resetBtn = document.getElementById('orbitReset');
+ const explain = document.getElementById('orbitExplain');
+ const yearEl = document.getElementById('orbitYear');
+ if(!svg) return;
+ const START_BC = 300;
+
+ const NS = 'http://www.w3.org/2000/svg';
+ const CX = 410, CY = 240;
+ const RX_OUTER = 350, RY_OUTER = 150;
+ const RX_INNER = 305, RY_INNER = 128;
+ const NUM_YEARS = 37;
+ const DRIFT = 365.25 - 355;
+ const LUNAR = 29.53;
+ const SOLAR = 365.25;
+
+ function el(tag, attrs) {
+  const e = document.createElementNS(NS, tag);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+ }
+ function pt(rx, ry, deg) {
+  const a = deg * Math.PI / 180;
+  return [CX + rx * Math.cos(a), CY + ry * Math.sin(a)];
+ }
+ function arc(rx, ry, s, e) {
+  const [sx, sy] = pt(rx, ry, s);
+  const [ex, ey] = pt(rx, ry, e);
+  const la = (e - s) > 180 ? 1 : 0;
+  return `M ${sx} ${sy} A ${rx} ${ry} 0 ${la} 1 ${ex} ${ey}`;
+ }
+ function sName(d) {
+  if(d < 30) return 'late winter';
+  if(d < 60) return 'mid-winter';
+  if(d < 80) return 'deep winter';
+  return 'early winter (nearly 3 months off)';
+ }
+
+ function buildOrbit(yi) {
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const defs = el('defs', {});
+  defs.innerHTML = '<filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  svg.appendChild(defs);
+
+  // Season arcs
+  const seasons = [
+   {s:200,e:290,c:'rgba(107,142,90,0.12)',l:'Spring'},
+   {s:290,e:380,c:'rgba(184,137,61,0.12)',l:'Summer'},
+   {s:20,e:110,c:'rgba(184,84,63,0.12)',l:'Autumn'},
+   {s:110,e:200,c:'rgba(93,123,156,0.12)',l:'Winter'}
+  ];
+  seasons.forEach(s => {
+   svg.appendChild(el('path', {d: arc(RX_OUTER, RY_OUTER, s.s, s.e), fill:'none', stroke:s.c, 'stroke-width':'24'}));
+   const mid = (s.s + s.e) / 2;
+   const [lx, ly] = pt(RX_OUTER + 30, RY_OUTER + 25, mid);
+   const t = el('text', {x:lx, y:ly, fill:'#9a958a', 'font-family':'sans-serif', 'font-size':'14', 'text-anchor':'middle'});
+   t.textContent = s.l; svg.appendChild(t);
+  });
+
+  // Orbits
+  svg.appendChild(el('ellipse', {cx:CX, cy:CY, rx:RX_OUTER, ry:RY_OUTER, fill:'none', stroke:'#b8893d', 'stroke-width':'1.5', 'stroke-dasharray':'4 3'}));
+  svg.appendChild(el('ellipse', {cx:CX, cy:CY, rx:RX_INNER, ry:RY_INNER, fill:'none', stroke:'#b8543f', 'stroke-width':'1.5', 'stroke-dasharray':'4 3'}));
+
+  // Earth
+  svg.appendChild(el('circle', {cx:CX, cy:CY, r:12, fill:'#5d7b9c', filter:'url(#glow)'}));
+  const et = el('text', {x:CX, y:CY+30, fill:'#9a958a', 'font-family':'sans-serif', 'font-size':'13', 'text-anchor':'middle'});
+  et.textContent = 'Terra'; svg.appendChild(et);
+
+  // Solar orbit moons (12 cycles, fixed)
+  const mCol = ['#2a2a3e','#7a7a9e','#e8e4d3','#7a7a9e'];
+  const mSz = [4, 5, 7, 5];
+  for(let m = 0; m < 12; m++) {
+   const ang = (m * LUNAR / SOLAR) * 360;
+   const [x, y] = pt(RX_OUTER, RY_OUTER, ang);
+   svg.appendChild(el('circle', {cx:x, cy:y, r:mSz[m%4], fill:mCol[m%4], opacity:'0.8'}));
+  }
+
+  // Roman orbit moons (12 cycles, shifted by drift)
+  const dd = DRIFT * yi;
+  for(let m = 0; m < 12; m++) {
+   let ang = ((m * LUNAR - dd) / SOLAR) * 360;
+   while(ang < 0) ang += 360;
+   const [x, y] = pt(RX_INNER, RY_INNER, ang);
+   svg.appendChild(el('circle', {cx:x, cy:y, r:mSz[m%4]-0.5, fill:mCol[m%4], opacity:'0.7', stroke:'#b8543f', 'stroke-width':'0.5'}));
+  }
+
+  // March markers
+  const marchAng = (80 / SOLAR) * 360;
+  const [mx, my] = pt(RX_OUTER, RY_OUTER, marchAng);
+  svg.appendChild(el('circle', {cx:mx, cy:my, r:8, fill:'#6b8e5a', stroke:'#b8893d', 'stroke-width':'2'}));
+  const mt = el('text', {x:mx+16, y:my-8, fill:'#6b8e5a', 'font-family':'serif', 'font-size':'14', 'font-weight':'bold'});
+  mt.textContent = 'March (solar)'; svg.appendChild(mt);
+
+  let rAng = ((80 - dd) / SOLAR) * 360;
+  while(rAng < 0) rAng += 360;
+  const [rx2, ry2] = pt(RX_INNER, RY_INNER, rAng);
+  svg.appendChild(el('circle', {cx:rx2, cy:ry2, r:8, fill:'#b8543f', stroke:'#b8893d', 'stroke-width':'2'}));
+  const rt = el('text', {x:rx2+14, y:ry2+18, fill:'#b8543f', 'font-family':'serif', 'font-size':'14', 'font-weight':'bold'});
+  rt.textContent = 'March (Roman)'; svg.appendChild(rt);
+
+  if(yi > 0) {
+   svg.appendChild(el('line', {x1:mx, y1:my, x2:rx2, y2:ry2, stroke:'#b8893d', 'stroke-width':'1', 'stroke-dasharray':'2 2', opacity:'0.5'}));
+  }
+
+  const rdd = Math.round(dd);
+  const bcYear = START_BC - yi;
+  if(yearEl) yearEl.textContent = bcYear + ' BC';
+  if(yi === 0) explain.innerHTML = 'Both orbits aligned. March = spring on both rings. The moon phases (dark = new/Kalends, bright = full/Ides) cycle correctly on both orbits.';
+  else explain.innerHTML = 'The Roman year has drifted <span style="color:var(--gold-bright);font-weight:600;">~' + rdd + ' days</span>. The moon still cycles correctly (Kalends = new moon), but the Roman "March" marker has slid backwards — it now falls in <span style="color:var(--gold-bright);font-weight:600;">' + sName(rdd) + '</span>. The moon is right; the year is wrong.';
+ }
+
+ let running = false, cur = 0;
+ buildOrbit(0);
+ playBtn.addEventListener('click', () => {
+  if(running) return; running = true; cur = 0; buildOrbit(0);
+  function step() { if(cur >= NUM_YEARS) { running = false; return; } cur++; buildOrbit(cur); setTimeout(step, 700); }
+  setTimeout(step, 1000);
+ });
+ resetBtn.addEventListener('click', () => { running = false; cur = 0; buildOrbit(0); });
+})();
+
+// ==================== FASTI FEBRUARY ====================
+(function(){
+ const days = [
+  ['K','N',1],['a.d. VI','N',2],['V','N',3],['IV','N',4],['III','N',5],['prid. N','C',6],['NON','C',7],
+  ['VIII','F',8],['VII','F',9],['VI','C',10],['V','C',11],['IV','EN',12],['III','F',13],['prid. Id','F',14],
+  ['ID','NP',15],['XVI','C',16],['XVII','C',17],['XVIII','C',18],['XIX','C',19],['XX','C',20],['XXI','C',21],
+  ['XXII','C',22],['XXIII','C',23],['VI','C',24],['V','N',25],['IV','N',26],['III','N',27],['prid. K','F',28]
+ ];
+ const cls = {F:'F',N:'N',C:'C',NP:'NP',EN:'EN'};
+ const tbl = document.getElementById('fastiFeb');
+ let html = '<tr><th>Roman day</th><th>Letter</th><th>Modern day</th></tr>';
+ days.forEach(d=>{
+  html += '<tr><td>'+d[0]+' Feb.</td><td class="tooltip '+cls[d[1]]+'" title="'+d[1]+' — see the table above">'+d[1]+'</td><td>'+roman(d[2])+' ('+d[2]+')</td></tr>';
+ });
+ tbl.innerHTML = html;
+})();
+
+// ==================== AUC CALCULATOR ====================
+document.getElementById('aucBtn').addEventListener('click', ()=>{
+ const y = parseInt(document.getElementById('aucYear').value, 10);
+ const out = document.getElementById('aucOut');
+ if(isNaN(y)){ out.textContent='Enter a year.'; return; }
+ const auc = aucFromAd(y);
+ out.textContent = yearLabel(y) + ' = anno ' + roman(auc) + ' (' + auc + ') ab Urbe condita';
+});
+
+// ==================== CONVERTER ====================
+document.getElementById('convBtn').addEventListener('click', ()=>{
+ const v = document.getElementById('convDate').value;
+ const out = document.getElementById('convOut');
+ if(!v){ out.textContent='Pick a date.'; return; }
+ const [ys,m,d] = v.split('-').map(Number);
+ const rd = romanDay(m-1, d, m-1===1 && isGregorianLeap(ys));
+ const auc = roman(aucFromAd(ys));
+ out.textContent = rd + ', anno ' + auc + ' ab Urbe condita = ' + d + ' ' + MONTHS[m-1].name + ' ' + yearLabel(ys);
+});
+
+// ==================== QUIZ (12 questions) ====================
+(function(){
+ const container = document.getElementById('quizContainer');
+ const scoreEl = document.getElementById('quizScore');
+ const checkBtn = document.getElementById('quizCheckBtn');
+ const resetBtn = document.getElementById('quizResetBtn');
+ if(!container) return;
+
+ const questions = [
+  {q:'When did the Roman civic year officially begin on 1 January, and why?',
+   opts:['753 BC — Rome\'s founding','153 BC — so consuls could reach their provinces before campaign season','45 BC — Caesar\'s solar reform','AD 325 — Council of Nicaea'],
+   ans:1, exp:'Since 153 BC, consuls entered office on 1 January so they could depart Rome and reach distant provinces before the campaign season opened in March.'},
+  {q:'What were the three reference days in every Roman month?',
+   opts:['Sunrise, noon, sunset','Kalends, Nones, Ides','First, middle, last','A, B, C'],
+   ans:1, exp:'Kalends (day 1), Nones (day 5 or 7), and Ides (day 13 or 15). Every other day was counted backwards from the next of these three.'},
+  {q:'On what day did the Ides fall in March, May, July, and October?',
+   opts:['The 13th','The 15th','The 20th','The 1st'],
+   ans:1, exp:'These four "full" 31-day months had Nones on the 7th and Ides on the 15th. All other months had Nones on the 5th and Ides on the 13th.'},
+  {q:'How many days were in the Republican calendar year (before Caesar)?',
+   opts:['365 days','355 days','360 days','384 days'],
+   ans:1, exp:'The Republican year was 355 days — about 10 days short of the solar year. The gap was patched with an intercalary month roughly every other year.'},
+  {q:'What was the intercalary month of the Republican calendar called?',
+   opts:['Mercedonius (or Intercalaris)','Janus','Terminalia','Saturnalia'],
+   ans:0, exp:'Mercedonius (also called Intercalaris) was 27 or 28 days, inserted after 23 February. Its insertion was controlled by the Pontifex Maximus — and often abused for political gain.'},
+  {q:'How many days long was the "year of confusion" (annus confusionis) of 46 BC?',
+   opts:['365 days','400 days','445 days','80 days'],
+   ans:2, exp:'445 days. Caesar inserted extra months to realign the calendar with the seasons before launching his new Julian calendar on 1 January 45 BC.'},
+  {q:'Who was the astronomer who helped Caesar design the Julian calendar?',
+   opts:['Hipparchus','Sosigenes of Alexandria','Ptolemy','Aristarchus'],
+   ans:1, exp:'Sosigenes of Alexandria, from the Alexandrian astronomical tradition (rooted in Babylonian and Greek science). He advised Caesar to adopt a 365¼-day solar year with a leap day every four years.'},
+  {q:'What leap-year mistake was made after Caesar\'s reform?',
+   opts:['No leap years were added at all','Leap years were added every 3rd year instead of every 4th','Leap years were added every 5th year','February was given 30 days'],
+   ans:1, exp:'The pontiffs counted inclusively, so they added a leap day every 3rd year instead of every 4th — about 3 extra days over 12 years. Augustus corrected this by skipping leap years from 9 BC to AD 8.'},
+  {q:'Quintilis was renamed in honour of which figure?',
+   opts:['Augustus','Romulus','Julius Caesar','Marcus Aurelius'],
+   ans:2, exp:'Quintilis (the "fifth" month) became Iulius (July) in 44 BC, after Caesar\'s assassination and deification.'},
+  {q:'The word "Kalendae" comes from which Latin verb?',
+   opts:['calare — to call out','calere — to be hot','calcare — to tread','calculus — small stone'],
+   ans:0, exp:'Calare, "to call out" — pontiffs would observe the new moon and publicly announce (call out) how many days until the Nones. Hence Kalendae = the "called" day.'},
+  {q:'In the Republican calendar, where exactly was the leap day (bis sextum) inserted?',
+   opts:['At the end of February (the 29th)','After 23 February — the 24th was doubled','At the beginning of February','In the middle of March'],
+   ans:1, exp:'After Terminalia (23 Feb), the 24th (a.d. VI Kal. Mart.) was doubled — "bis sextum" = "the sixth day twice." The backward-counting names of days 25–28 were preserved undisturbed.'},
+  {q:'When were the last ordinary consuls recorded, ending consular dating?',
+   opts:['AD 476 — fall of Rome','AD 541 — under Justinian','AD 325 — Council of Nicaea','AD 14 — death of Augustus'],
+   ans:1, exp:'The last ordinary consuls were appointed in AD 541 under Justinian. After that, years were dated "post consulatum" or by indiction cycles and regnal years.'}
+ ];
+
+ function build(){
+  let html = '';
+  questions.forEach((q, i) => {
+   html += '<div class="quiz-q" id="qq'+i+'">';
+   html += '<div class="quiz-q-text"><span class="quiz-q-num">'+(i+1)+'</span>'+q.q+'</div>';
+   q.opts.forEach((o, j) => {
+    html += '<label class="quizopt"><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>';
+   });
+   html += '<div class="quiz-feedback" id="qf'+i+'"></div>';
+   html += '</div>';
+  });
+  container.innerHTML = html;
+ }
+
+ build();
+
+ checkBtn.addEventListener('click', () => {
+  let score = 0;
+  questions.forEach((q, i) => {
+   const sel = document.querySelector('input[name=q'+i+']:checked');
+   const fb = document.getElementById('qf'+i);
+   const qq = document.getElementById('qq'+i);
+   const labels = qq.querySelectorAll('.quizopt');
+   labels.forEach(l => l.classList.remove('correct','wrong','reveal'));
+   if(!sel){ fb.className = 'quiz-feedback no'; fb.textContent = 'Please choose an answer.'; return; }
+   const chosen = parseInt(sel.value, 10);
+   if(chosen === q.ans){
+    score++; fb.className = 'quiz-feedback ok';
+    fb.textContent = 'Correct! ' + q.exp;
+    labels[chosen].classList.add('correct');
+   } else {
+    fb.className = 'quiz-feedback no';
+    fb.textContent = 'Not quite. The correct answer is: "' + q.opts[q.ans] + '". ' + q.exp;
+    labels[chosen].classList.add('wrong');
+    labels[q.ans].classList.add('reveal');
+   }
+  });
+  scoreEl.textContent = 'You scored ' + score + ' out of ' + questions.length + ' (' + Math.round(score/questions.length*100) + '%).';
+  scoreEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+ });
+
+ resetBtn.addEventListener('click', () => { build(); scoreEl.textContent = ''; });
+})();
+
+// ==================== DOUBLE CALENDAR ENGINE ====================
+
+// Key dates for quick-select chips
+const KEY_DATES = [
+ {label:'Founding of Rome (753 BC)', year:-753, month:2, day:21, ref:'roman'},
+ {label:'Roman Republic (509 BC)', year:-509, month:2, day:1, ref:'roman'},
+ {label:'Year start shifts to Jan (153 BC)', year:-152, month:0, day:1, ref:'modern'},
+ {label:'Annus Confusionis (445d)', year:-46, month:0, day:1, ref:'roman'},
+ {label:'Julian Reform begins', year:-45, month:0, day:1, ref:'modern'},
+ {label:'Caesar’s Death · Ides of Mar', year:-44, month:2, day:15, ref:'modern'},
+ {label:'Battle of Actium', year:-31, month:8, day:2, ref:'modern'},
+ {label:'Death of Cleopatra VII', year:-30, month:7, day:12, ref:'modern'},
+ {label:'Augustus dies', year:14, month:7, day:19, ref:'modern'},
+ {label:'Death of Tiberius', year:37, month:2, day:16, ref:'modern'},
+ {label:'Caligula assassinated', year:41, month:0, day:24, ref:'modern'},
+ {label:'Conquest of Britannia', year:43, month:4, day:1, ref:'modern'},
+ {label:'Nero dies (end of Julio-Claudian)', year:68, month:5, day:9, ref:'modern'},
+ {label:'Vespasian emperor (Flavian)', year:69, month:6, day:1, ref:'modern'},
+ {label:'Death of Trajan', year:117, month:7, day:8, ref:'modern'},
+ {label:'Death of Marcus Aurelius', year:180, month:2, day:17, ref:'modern'},
+ {label:'Milvian Bridge (Constantine)', year:312, month:9, day:28, ref:'modern'},
+ {label:'Augustus renames Aug (8 BC)', year:8, month:0, day:1, ref:'modern'},
+ {label:'Vesuvius / Pompeii', year:79, month:7, day:24, ref:'modern'},
+ {label:'Council of Nicaea', year:325, month:4, day:20, ref:'modern'},
+ {label:'Today', year:new Date().getFullYear(), month:new Date().getMonth(), day:new Date().getDate(), ref:'modern'}
+];
+
+// Key regular festivals (month index 0-11, day)
+const FESTIVALS = [
+ {label:'Parentalia (honouring ancestors)', month:1, day:13},
+ {label:'Lupercalia (purification & fertility)', month:1, day:15},
+ {label:'Terminalia (boundary god)', month:1, day:23},
+ {label:'Regifugium (expulsion of kings)', month:1, day:24},
+ {label:'Matronalia (women\'s day)', month:2, day:1},
+ {label:'Quinquatrus (Mars — campaigns open)', month:2, day:19},
+ {label:'Cerealia (grain festival)', month:3, day:12},
+ {label:'Parilia (birthday of Rome)', month:3, day:21},
+ {label:'Robigalia (avert wheat rust)', month:3, day:25},
+ {label:'Lemuria (festival of the dead)', month:4, day:9},
+ {label:'Vestalia (hearth & bakers)', month:5, day:7},
+ {label:'Neptunalia (midsummer water)', month:6, day:23},
+ {label:'Consualia (stored grain)', month:7, day:21},
+ {label:'Volcanalia (Vulcan — protect granaries)', month:7, day:23},
+ {label:'Ludi Romani (great games)', month:8, day:4},
+ {label:'Armilustrium (campaigns close)', month:9, day:19},
+ {label:'Saturnalia (role reversal)', month:11, day:17}
+];
+
+// State
+let calState = { year:-44, refType:'modern', selDoy:74, selMonthIdx:2, selDay:15 };
+
+// Civil year start label for a given year
+// Before 153 BC (y < -152): consular year began on Kal. Mart. (1 March)
+// From 153 BC (y >= -152): consular year began on Kal. Ian. (1 January)
+function civYearStartLabel(y){
+ if(y < -152) return 'Kal. Mart. (1 March)';
+ return 'Kal. Ian. (1 January)';
+}
+function civYearStartMonth(y){
+ if(y < -152) return 'Martius';
+ return 'Ianuarius';
+}
+
+// Get Roman months for a given year (-N = N BC)
+// Handles:
+//  - 46 BC: the 445-day annus confusionis (special month set)
+//  - Before 45 BC: Republican calendar (355 days, Quintilis/Sextilis, 29/31 pattern)
+//  - 45 BC onward: Julian calendar
+//    - Quintilis → Iulius: renamed 44 BC (y >= -44)
+//    - Sextilis → Augustus: renamed 8 BC (y >= 8)
+//    - Month lengths: Caesar's original had Sextilis=30, September=31;
+//      Augustus swapped them in 8 BC (Augustus=31, September=30)
+function getRomanYearMonths(y){
+ if(y === -46) return MONTHS_46BC;
+ if(y < -45) return REPUBLICAN_MONTHS;
+ // Julian period (y >= -45, i.e., 45 BC onward)
+ const leap = isJulianLeap(y);
+ // Month name transitions
+ const qName = y >= -44 ? 'Iulius' : 'Quintilis';
+ const qGen  = y >= -44 ? 'Iulias' : 'Quintiles';
+  const qNom  = y >= -44 ? 'Iuliae' : 'Quintiles';
+ const sName = y >= 8 ? 'Augustus' : 'Sextilis';
+ const sGen  = y >= 8 ? 'Augustas' : 'Sextiles';
+  const sNom  = y >= 8 ? 'Augustae' : 'Sextiles';
+ // Month length transition (Augustus reform, 8 BC)
+ const sDays   = y >= 8 ? 31 : 30;
+ const sepDays = y >= 8 ? 30 : 31;
+ return [
+  {name:'Ianuarius',  gen:'Ianuarias',  nom:'Ianuariae',  days:31,          nones:5, ides:13},
+  {name:'Februarius', gen:'Februarias', nom:'Februariae', days:leap?29:28,  nones:5, ides:13},
+  {name:'Martius',    gen:'Martias',    nom:'Martiae',    days:31,          nones:7, ides:15},
+  {name:'Aprilis',    gen:'Apriles',    nom:'Apriles',    days:30,          nones:5, ides:13},
+  {name:'Maius',      gen:'Maias',      nom:'Maiae',      days:31,          nones:7, ides:15},
+  {name:'Iunius',     gen:'Iunias',     nom:'Iuniae',     days:30,          nones:5, ides:13},
+  {name:qName,        gen:qGen,         nom:qNom,         days:31,          nones:7, ides:15},
+  {name:sName,        gen:sGen,         nom:sNom,         days:sDays,       nones:5, ides:13},
+  {name:'September',  gen:'Septembres', nom:'Septembres', days:sepDays,     nones:5, ides:13},
+  {name:'October',    gen:'Octobres',   nom:'Octobres',   days:31,          nones:7, ides:15},
+  {name:'November',   gen:'Novembres',  nom:'Novembres',  days:30,          nones:5, ides:13},
+  {name:'December',   gen:'Decembres',  nom:'Decembres',  days:31,          nones:5, ides:13}
+ ];
+}
+
+// Get modern months for a given astronomical year
+function getModernYearMonths(y){
+ const leap = isGregorianLeap(y);
+ return MODERN_MONTHS.map((m,i)=> i===1 ? {...m, days: leap?29:28} : m);
+}
+
+// Generate a sequence of months totaling exactly totalDays, starting from startYear
+function genMonthSeq(startYear, totalDays, getType){
+ const months = [];
+ let remaining = totalDays;
+ let y = startYear;
+ while(remaining > 0){
+  const yrMonths = getType(y);
+  for(const m of yrMonths){
+   if(remaining <= 0) break;
+   const days = Math.min(m.days, remaining);
+   months.push({...m, days, year:y});
+   remaining -= days;
+  }
+  y++;
+ }
+ return months;
+}
+
+// Render a mini-month
+function renderMiniMonth(m, startDoy, selectedDoy, isRoman, nextGen, bis, yearStartMonthName){
+ let html = '<div class="mini-month' + (m.intercalary ? ' intercalary' : '') + '">';
+ html += '<div class="mini-month-name">' + m.name + '</div>';
+ html += '<div class="mini-days">';
+ for(let d=1; d<=m.days; d++){
+  const doy = startDoy + d - 1;
+  let cls = 'mini-day';
+  if(isRoman){
+   if(d===1) cls += ' kal';
+   else if(d===m.nones) cls += ' non';
+   else if(d===m.ides) cls += ' ide';
+   // Countdown range tints
+   if(d>1 && d<m.nones) cls += ' to-non';
+   else if(d>m.nones && d<m.ides) cls += ' to-ide';
+   else if(d>m.ides) cls += ' to-kal';
+   // Highlight civil year start day
+   if(d===1 && yearStartMonthName && m.name === yearStartMonthName) cls += ' yearstart';
+  } else {
+   // Modern calendar always starts on Jan 1
+   if(d===1 && m.name === 'January') cls += ' yearstart';
+  }
+  if(doy === selectedDoy) cls += ' selected';
+  let title = '';
+  if(isRoman){
+   title = romanDayFlex(m, d, nextGen, bis) + ' (day ' + doy + ')';
+  } else {
+   title = d + ' ' + m.name + ' ' + yearLabel(m.year) + ' (day ' + doy + ')';
+  }
+  // Use Roman backward-counting notation for Roman calendar, Arabic for modern
+  const displayNum = isRoman ? romanDayAbbr(m, d, nextGen, bis) : d;
+  const cellCls = isRoman ? cls+' rom-day' : cls;
+  html += '<div class="'+cellCls+'" data-doy="'+doy+'" data-month="'+m.name+'" data-day="'+d+'" title="'+title+'" onclick="calDayClick('+doy+')">'+displayNum+'</div>';
+ }
+ html += '</div></div>';
+ return html;
+}
+
+
+// Main calendar update function
+function updateCalendar(){
+ const refType = calState.refType;
+ const year = calState.year;
+ let totalDays, romanMonths, modernMonths;
+
+ if(refType === 'roman'){
+  romanMonths = getRomanYearMonths(year).map(m=>({...m, year}));
+  totalDays = romanMonths.reduce((s,m)=>s+m.days, 0);
+  modernMonths = genMonthSeq(year, totalDays, getModernYearMonths);
+ } else {
+  modernMonths = getModernYearMonths(year).map(m=>({...m, year}));
+  totalDays = modernMonths.reduce((s,m)=>s+m.days, 0);
+  romanMonths = genMonthSeq(year, totalDays, getRomanYearMonths);
+ }
+
+ // Render Roman side
+ const romanGrid = document.getElementById('romanCalGrid');
+ let romanHtml = '';
+ let doy = 0;
+ const rType = year === -46 ? 'Annus Confusionis' : (year < -45 ? 'Republican' : 'Julian');
+ const romYearStartMonth = civYearStartMonth(year);
+ for(let i=0; i<romanMonths.length; i++){
+  const m = romanMonths[i];
+  const nextM = romanMonths[i+1] || romanMonths[0];
+  const bis = (m.name==='Februarius' && m.days===29);
+  romanHtml += renderMiniMonth(m, doy+1, calState.selDoy, true, nextM.gen, bis, romYearStartMonth);
+  doy += m.days;
+ }
+ romanGrid.innerHTML = romanHtml;
+
+ // Render Modern side
+ const modernGrid = document.getElementById('modernCalGrid');
+ let modernHtml = '';
+ doy = 0;
+ for(const m of modernMonths){
+  modernHtml += renderMiniMonth(m, doy+1, calState.selDoy, false, '', false, 'January');
+  doy += m.days;
+ }
+ modernGrid.innerHTML = modernHtml;
+
+ // Refresh festivals drop-down with current year's Roman dates
+ if(window._populateFestivals) window._populateFestivals();
+
+ // Update headers — include civil year start
+ const civStart = civYearStartLabel(year);
+ const romTotal = romanMonths.reduce((s,m)=>s+m.days,0);
+ document.getElementById('romanPanelHeader').innerHTML = 'Roman Calendar<span class="year-info" id="romanYearInfo">' + rType + ' · ' + yearLabel(year) + ' · ' + romTotal + ' days · Year starts: ' + civStart + '</span>';
+ const modSpan = modernMonths[modernMonths.length-1];
+ const modLabel = modernMonths.length > 12 
+  ? yearLabel(modernMonths[0].year) + ' → ' + yearLabel(modSpan.year)
+  : yearLabel(year);
+ const modTotal = modernMonths.reduce((s,m)=>s+m.days,0);
+ document.getElementById('modernPanelHeader').innerHTML = 'Modern Calendar<span class="year-info" id="modernYearInfo">' + modLabel + ' · ' + modTotal + ' days · Year starts: 1 January</span>';
+
+ // Update selected date info
+ updateSelectedInfo(romanMonths, modernMonths, totalDays);
+}
+
+// Update the selected date info panel
+function updateSelectedInfo(romanMonths, modernMonths, totalDays){
+ const doy = calState.selDoy;
+ // Find the Roman month/day for this doy
+ let rMonth = null, rDay = 0, rIdx = 0, cumDoy = 0;
+ for(let i=0; i<romanMonths.length; i++){
+  if(doy <= cumDoy + romanMonths[i].days){
+   rMonth = romanMonths[i]; rDay = doy - cumDoy; rIdx = i; break;
+  }
+  cumDoy += romanMonths[i].days;
+ }
+ if(!rMonth){ rMonth = romanMonths[romanMonths.length-1]; rDay = rMonth.days; rIdx = romanMonths.length-1; }
+
+ // Find the Modern month/day for this doy
+ let mMonth = null, mDay = 0, cumDoy2 = 0;
+ for(const m of modernMonths){
+  if(doy <= cumDoy2 + m.days){ mMonth = m; mDay = doy - cumDoy2; break; }
+  cumDoy2 += m.days;
+ }
+ if(!mMonth){ mMonth = modernMonths[modernMonths.length-1]; mDay = mMonth.days; }
+
+ // Roman name
+ const nextM = romanMonths[rIdx+1] || romanMonths[0];
+ const bis = (rMonth.name==='Februarius' && rMonth.days===29);
+ const rName = romanDayFlex(rMonth, rDay, nextM.gen, bis);
+ const auc = roman(aucFromAd(calState.year));
+ document.getElementById('selRomanName').textContent = rName + ', anno ' + auc + ' ab Urbe condita';
+ document.getElementById('selModernName').textContent = mDay + ' ' + mMonth.name + ' ' + yearLabel(mMonth.year);
+
+ const rType = calState.year === -46 ? 'Annus Confusionis' : (calState.year < -45 ? 'Republican' : 'Julian');
+ const civStart = civYearStartLabel(calState.year);
+ document.getElementById('selDoyInfo').textContent = 'Day ' + doy + ' of ' + totalDays + ' · ' + rType + ' calendar · Civil year starts: ' + civStart + ' · ' + (calState.refType==='roman'?'Roman':'Modern') + ' reference';
+
+ // Pulse animation to draw attention to the updated info
+ const infoBox = document.getElementById('calSelectedInfo');
+ if(infoBox){
+  infoBox.classList.remove('pulse');
+  void infoBox.offsetWidth; // force reflow to restart animation
+  infoBox.classList.add('pulse');
+ }
+}
+
+// Day click handler (global)
+window.calDayClick = function(doy){
+ calState.selDoy = doy;
+ updateCalendar();
+ // Scroll the info box into view so user sees the update
+ const infoBox = document.getElementById('calSelectedInfo');
+ if(infoBox){
+  infoBox.scrollIntoView({behavior:'smooth', block:'center'});
+ }
+};
+
+
+// ==================== DATE PARSER ====================
+function parseDateInput(text){
+ text = text.trim();
+ if(!text) return null;
+
+ // Try "AUC NNN" with Roman numerals
+ let m = text.match(/^AUC\s+([IVXLCDM]+)$/i);
+ if(m){
+  const romanStr = m[1].toUpperCase();
+  let val = 0; const map = {I:1,V:5,X:10,L:50,C:100,D:500,M:1000};
+  for(let i=0; i<romanStr.length; i++){
+   const cur = map[romanStr[i]], nxt = map[romanStr[i+1]]||0;
+   val += cur < nxt ? -cur : cur;
+  }
+  const auc = val;
+  const yr = auc > 753 ? auc - 753 : auc - 754;
+  return { year: yr, month: 0, day: 1, ref:'modern' };
+ }
+ // Try "AUC NNN" with Arabic numerals
+ m = text.match(/^AUC\s+(\d+)$/i);
+ if(m){
+  const auc = parseInt(m[1]);
+  const yr = auc > 753 ? auc - 753 : auc - 754;
+  return { year: yr, month: 0, day: 1, ref:'modern' };
+ }
+
+ // Try "AD NNN" or "AD NNN"
+ m = text.match(/^AD\s+(\d+)$/i);
+ if(m) return { year: parseInt(m[1]), month:0, day:1, ref:'modern' };
+
+ // Try "NNN BC" or "NNN BCE" (year only)
+ m = text.match(/^(\d+)\s*(BC|BCE)$/i);
+ if(m) return { year: -parseInt(m[1]), month:0, day:1, ref:'modern' };
+
+ // Try just a year number
+ m = text.match(/^(-?\d+)$/);
+ if(m) return { year: parseInt(m[1]), month:0, day:1, ref:'modern' };
+
+ // Try "Ides of <Month> <Year> BC/AD"
+ m = text.match(/^(?:Ides|Idus)\s+of\s+(\w+)\s+(\d+)\s*(BC|BCE|AD)?$/i);
+ if(m){
+  const mi = monthNameToIdx(m[1]);
+  if(mi>=0){
+   const y = parseYear(m[2], m[3]);
+   const months = getRomanYearMonths(y);
+   return { year:y, month:mi, day:months[mi].ides, ref:'modern' };
+  }
+ }
+
+ // Try "Nones of <Month> ..."
+ m = text.match(/^(?:Nones|Nonae)\s+of\s+(\w+)\s+(\d+)\s*(BC|BCE|AD)?$/i);
+ if(m){
+  const mi = monthNameToIdx(m[1]);
+  if(mi>=0){
+   const y = parseYear(m[2], m[3]);
+   const months = getRomanYearMonths(y);
+   return { year:y, month:mi, day:months[mi].nones, ref:'modern' };
+  }
+ }
+
+ // Try "Kalends of <Month> ..."
+ m = text.match(/^(?:Kalends|Kalendae)\s+of\s+(\w+)\s+(\d+)\s*(BC|BCE|AD)?$/i);
+ if(m){
+  const mi = monthNameToIdx(m[1]);
+  if(mi>=0) return { year: parseYear(m[2], m[3]), month:mi, day:1, ref:'modern' };
+ }
+
+ // Try "DD Month YYYY BC" or "Month DD, YYYY BC" patterns
+ // "15 March 44 BC" / "15 March 44" / "March 15, 44 BC"
+ m = text.match(/^(\d{1,2})\s+(\w+)\s+(\d+)\s*(BC|BCE|AD)?$/i);
+ if(m){
+  const mi = monthNameToIdx(m[2]);
+  if(mi>=0) return { year: parseYear(m[3], m[4]), month:mi, day:parseInt(m[1]), ref:'modern' };
+ }
+ m = text.match(/^(\w+)\s+(\d{1,2}),?\s+(\d+)\s*(BC|BCE|AD)?$/i);
+ if(m){
+  const mi = monthNameToIdx(m[1]);
+  if(mi>=0) return { year: parseYear(m[3], m[4]), month:mi, day:parseInt(m[2]), ref:'modern' };
+ }
+
+ return null;
+}
+
+function monthNameToIdx(name){
+ const lower = name.toLowerCase();
+ const full = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+ const abbr = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+ const romanN = ['ianuarius','februarius','martius','aprilis','maius','iunius','iulius','augustus','september','october','november','december'];
+ for(let i=0; i<12; i++){
+  if(lower===full[i] || lower===abbr[i] || lower===romanN[i]) return i;
+ }
+ return -1;
+}
+
+function parseYear(numStr, era){
+ const n = parseInt(numStr);
+ if(era && (era.toLowerCase()==='bc' || era.toLowerCase()==='bce')) return -n;
+ return n;
+}
+
+// Compute day-of-year from month index and day
+function doyFromMonthDay(months, mi, day){
+ let doy = 0;
+ for(let i=0; i<mi && i<months.length; i++) doy += months[i].days;
+ return doy + day;
+}
+
+
+// ==================== CALENDAR EVENT HANDLERS ====================
+
+// Reference toggle
+document.querySelectorAll('#refToggle button').forEach(btn=>{
+ btn.addEventListener('click', ()=>{
+  document.querySelectorAll('#refToggle button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  calState.refType = btn.dataset.ref;
+  // Reset selection to day 1 if current selDoy exceeds new total
+  calState.selDoy = 1;
+  calState.selMonthIdx = 0;
+  calState.selDay = 1;
+  updateCalendar();
+ });
+});
+
+// Year input + Go button
+document.getElementById('calGo').addEventListener('click', ()=>{
+ const y = parseInt(document.getElementById('calYear').value, 10);
+ if(isNaN(y)) return;
+ calState.year = y;
+ calState.selDoy = 1;
+ updateCalendar();
+});
+
+// Prev / Next year
+document.getElementById('calPrev').addEventListener('click', ()=>{
+ calState.year--;
+ document.getElementById('calYear').value = calState.year;
+ calState.selDoy = 1;
+ updateCalendar();
+});
+document.getElementById('calNext').addEventListener('click', ()=>{
+ calState.year++;
+ document.getElementById('calYear').value = calState.year;
+ calState.selDoy = 1;
+ updateCalendar();
+});
+
+// Free-text date parse
+document.getElementById('calParse').addEventListener('click', ()=>{
+ const text = document.getElementById('calFreetext').value;
+ const parsed = parseDateInput(text);
+ if(!parsed){
+  alert('Could not parse date. Try: "15 March 44 BC", "Ides of March 44 BC", "46 BC", "AUC 709"');
+  return;
+ }
+ calState.year = parsed.year;
+ calState.refType = parsed.ref;
+ document.getElementById('calYear').value = parsed.year;
+ // Update ref toggle buttons
+ document.querySelectorAll('#refToggle button').forEach(b=>{
+  b.classList.toggle('active', b.dataset.ref === parsed.ref);
+ });
+ // Compute selDoy from month/day
+ const refMonths = parsed.ref === 'roman' ? getRomanYearMonths(parsed.year) : getModernYearMonths(parsed.year);
+ calState.selDoy = doyFromMonthDay(refMonths, parsed.month, parsed.day);
+ updateCalendar();
+});
+
+// Enter key on freetext
+document.getElementById('calFreetext').addEventListener('keydown', e=>{
+ if(e.key==='Enter') document.getElementById('calParse').click();
+});
+
+// Enter key on year input
+document.getElementById('calYear').addEventListener('keydown', e=>{
+ if(e.key==='Enter') document.getElementById('calGo').click();
+});
+
+// ==================== KEY EVENTS & FESTIVALS DROP-DOWNS ====================
+(function(){
+ const eventsSel = document.getElementById('keyEventsSelect');
+ const festivalsSel = document.getElementById('keyFestivalsSelect');
+ if(!eventsSel || !festivalsSel) return;
+
+ const MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+ function modernDateStr(year, monthIdx, day){
+  const yr = year < 0 ? Math.abs(year)+' BC' : (year === 0 ? '1 BC' : 'AD '+year);
+  return day + ' ' + MONTH_ABBR[monthIdx] + ' ' + yr;
+ }
+
+ function romanDateStr(year, monthIdx, day){
+  const rName = romanDateForYear(year, monthIdx, day);
+  if(!rName) return '';
+  const auc = roman(aucFromAd(year));
+  return rName + ' · AUC ' + auc;
+ }
+
+ // Populate key events drop-down
+ KEY_DATES.forEach((kd, i)=>{
+  const mDate = modernDateStr(kd.year, kd.month, kd.day);
+  const rDate = romanDateStr(kd.year, kd.month, kd.day);
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = kd.label + ' — ' + mDate + ' · ' + rDate;
+  eventsSel.appendChild(opt);
+ });
+
+ eventsSel.addEventListener('change', ()=>{
+  const i = parseInt(eventsSel.value);
+  if(isNaN(i)) return;
+  const kd = KEY_DATES[i];
+  calState.year = kd.year;
+  calState.refType = kd.ref;
+  document.getElementById('calYear').value = kd.year;
+  document.querySelectorAll('#refToggle button').forEach(b=>{
+   b.classList.toggle('active', b.dataset.ref === kd.ref);
+  });
+  const refMonths = kd.ref === 'roman' ? getRomanYearMonths(kd.year) : getModernYearMonths(kd.year);
+  calState.selDoy = doyFromMonthDay(refMonths, kd.month, kd.day);
+  updateCalendar();
+ });
+
+ // Populate festivals drop-down (Roman date computed for current year)
+ function populateFestivals(){
+  while(festivalsSel.options.length > 1) festivalsSel.remove(1);
+  const y = calState.year;
+  FESTIVALS.forEach((f, i)=>{
+   const mDate = f.day + ' ' + MONTH_ABBR[f.month];
+   const rDate = romanDateForYear(y, f.month, f.day);
+   const opt = document.createElement('option');
+   opt.value = i;
+   opt.textContent = f.label + ' — ' + mDate + ' · ' + (rDate || '');
+   festivalsSel.appendChild(opt);
+  });
+ }
+ populateFestivals();
+ window._populateFestivals = populateFestivals;
+
+ festivalsSel.addEventListener('change', ()=>{
+  const i = parseInt(festivalsSel.value);
+  if(isNaN(i)) return;
+  const f = FESTIVALS[i];
+  const y = calState.year;
+  if(calState.refType === 'roman'){
+   calState.refType = 'modern';
+   document.querySelectorAll('#refToggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.ref === 'modern');
+   });
+  }
+  const months = getModernYearMonths(y);
+  calState.selDoy = doyFromMonthDay(months, f.month, f.day);
+  updateCalendar();
+ });
+})();
+
+// ==================== TAB SWITCHING ====================
+(function(){
+  const tabs = document.querySelectorAll('nav.tabs .tab');
+  const sections = document.querySelectorAll('.tab-section');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      const target = tab.dataset.tab;
+      // Update tab buttons
+      tabs.forEach(t=>t.classList.toggle('active', t===tab));
+      // Show/hide tab sections
+      sections.forEach(s=>{
+        s.classList.toggle('active', s.id === 'ts-'+target);
+      });
+      // Scroll to top of content area
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+  });
+})();
+
+// ==================== INITIAL RENDER ====================
+updateCalendar();
+</script>
+</body>
+</html>
+

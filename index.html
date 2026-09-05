@@ -816,7 +816,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
   <button class="tab" data-tab="reform">Reform</button>
   <button class="tab" data-tab="names">Renamed</button>
   <button class="tab" data-tab="consuls">Consuls</button>
-  <button class="tab" data-tab="converter">Convert</button>
+  <button class="tab" data-tab="converter">Quiz</button>
 </nav>
 <main>
 
@@ -1007,7 +1007,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
       <div class="marker" id="driftMarker"></div>
       <div class="eqx-label" id="driftLabel">Spring equinox: 21 March (correct)</div>
     </div>
-    <div style="text-align:center;margin-top:.8rem;"><button id="driftBtn">Animate the drift (300 BC → 46 BC)</button></div>
+    <div style="text-align:center;margin-top:.8rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;"><button id="driftBtn">Animate the drift (300 BC → 46 BC)</button><span class="orbit-year" id="driftYear">300 BC</span></div>
   </div>
 
   <!-- Orbital drift animation -->
@@ -1044,7 +1044,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
     <p>But the leap day was <strong>not</strong> appended at the end of February (day 29). It was inserted on <strong>24 February</strong> — the day the Romans called <em>ante diem VI Kalendas Martias</em>, "the 6th day before the Kalends of March". Why there?</p>
     <p>The answer lies in Roman religion and counting. The <strong>Terminalia</strong> (23 February) was the festival of <em>Terminus</em>, the boundary god — it marked the <strong>end of the religious year</strong>. The day after Terminalia, 24 February, was the <strong>Regifugium</strong> ("king's flight"), commemorating the expulsion of Tarquinius Superbus. These were the <strong>last sacred days of the old year</strong>, before the new cycle began on 1 March. Intercalation had to happen <em>at this liminal point</em> — after Terminalia closed the old year, but before March opened the new one.</p>
     <p>Romans counted dates <strong>backwards and inclusively</strong> from the next fixed point. So 24 February = <em>a.d. VI Kal. Mart.</em> The inserted leap day was placed <em>after</em> the normal 24th — so the 24th was simply <strong>doubled</strong>: <span class="tag">bis sextum</span>, "the sixth day twice" (hence our word <strong>bissextile</strong>). In leap years, there were two consecutive days both labelled <em>a.d. VI Kal. Mart.</em> — the first was the "regular" 24th, the second was the intercalated day. This preserved the <strong>backward numbering</strong>: the days after the leap day kept their existing countdown to the next Kalends — the 25th remained <em>a.d. V Kal. Mart.</em> ("5th day to the Kalends, counted inclusively"), the 26th <em>a.d. IV Kal. Mart.</em>, and so on. The leap day was inserted <em>before</em> the countdown resumed, not at its end. This reveals something fundamental about Roman time: <strong>the year did not start with a new month — it started with the countdown <em>towards</em> the next Kalends</strong>. Roman time was always <em>forward-looking</em>, oriented towards the next sacred anchor. That forward-looking expectation — how many days until the next Kalends — was what could not be disturbed. Inserting the leap day at the countdown's beginning (doubling the 6th) rather than at its end kept every subsequent number intact, so no one had to relearn when the next festival, sacrifice, or market day fell.</p>
-    <p class="note">This is also why Caesar, when he created the Julian calendar in 45 BC, kept the same insertion point: the Julian leap day falls after <em>a.d. VI Kal. Mart.</em> (24 Feb), not on 29 February as in our modern system. The extra day was still conceptually a "doubled sixth" — <em>bis sextum</em> — even though February now had 29 days in leap years. Only much later, in the Gregorian reform, did the leap day shift to the 29th.</p>
+    <p>This is also why Caesar, when he created the Julian calendar in 45 BC, kept the same insertion point: the Julian leap day falls after <em>a.d. VI Kal. Mart.</em> (24 Feb), not on 29 February as in our modern system. The extra day was still conceptually a "doubled sixth" — <em>bis sextum</em> — even though February now had 29 days in leap years. Only much later, in the Gregorian reform, did the leap day shift to the 29th.</p>
   </div>
 </section>
 </div><!-- /ts-republican -->
@@ -1577,6 +1577,7 @@ function romanDay(mi, day, bis){
  const btn = document.getElementById('driftBtn');
  const marker = document.getElementById('driftMarker');
  const label = document.getElementById('driftLabel');
+ const yearEl = document.getElementById('driftYear');
  const scale = document.getElementById('driftScale');
  // Build month scale
  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1592,17 +1593,18 @@ function romanDay(mi, day, bis){
  const startPct = 18.8;
  const endPct = 4.0;
  const labels = [
-  {p:18.8, t:'Spring equinox: 21 March (correct, 300 BC)'},
-  {p:15.5, t:'Equinox drifts to ~10 February'},
-  {p:12.0, t:'Equinox drifts to ~30 January'},
-  {p:8.0, t:'Equinox drifts to ~10 January'},
-  {p:4.0, t:'Equinox in late December — calendar 3 months ahead of seasons (46 BC)'}
+  {p:18.8, t:'Spring equinox: 21 March (correct)', y:'300 BC'},
+  {p:15.5, t:'Equinox drifts to ~10 February', y:'~200 BC'},
+  {p:12.0, t:'Equinox drifts to ~30 January', y:'~150 BC'},
+  {p:8.0, t:'Equinox drifts to ~10 January', y:'~100 BC'},
+  {p:4.0, t:'Equinox in late December — calendar 3 months ahead of seasons', y:'46 BC'}
  ];
  btn.addEventListener('click', ()=>{
   if(running) return; running = true;
   marker.style.transition = 'none';
   marker.style.left = startPct + '%';
   label.textContent = labels[0].t;
+  if(yearEl) yearEl.textContent = labels[0].y;
   let i = 0;
   function nextStep(){
    if(i >= labels.length-1){ running=false; return; }
@@ -1610,6 +1612,7 @@ function romanDay(mi, day, bis){
    marker.style.transition = 'left 1.8s ease';
    marker.style.left = labels[i].p + '%';
    label.textContent = labels[i].t;
+   if(yearEl) yearEl.textContent = labels[i].y;
    setTimeout(nextStep, 2000);
   }
   setTimeout(nextStep, 800);

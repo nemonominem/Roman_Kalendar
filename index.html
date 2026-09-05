@@ -848,6 +848,12 @@ select.cal-select:focus{
 .notes-block ol,.notes-block ul{margin:.4rem 0 .7rem 1.4rem;}
 .notes-src{margin:.8rem 0;font-size:.92rem;line-height:1.6;color:var(--dim);}
 
+/* === Artifact photos === */
+.artifact-figure{margin:1.5rem 0;text-align:center;}
+.artifact-figure img{max-width:100%;height:auto;border-radius:6px;border:1px solid var(--line);display:block;margin:0 auto;}
+.artifact-figure figcaption{font-size:.92rem;color:var(--dim);margin-top:.6rem;line-height:1.5;max-width:700px;margin-left:auto;margin-right:auto;}
+.artifact-figure figcaption a{color:var(--gold-bright);}
+
 /* Responsive */
 @media(max-width:760px){
   .moon-axis-track{height:170px;margin:0 .5rem;}
@@ -1096,6 +1102,10 @@ select.cal-select:focus{
   </div>
   <div class="panel">
     <h3>The nundinal cycle — the Roman "week"</h3>
+    <figure class="artifact-figure">
+      <img src="images/fasti-praenestini.jpg" alt="Fragments of the Fasti Praenestini mounted on panels, showing the vertical A–H nundinal letter columns beside Roman numerals" loading="lazy">
+      <figcaption>The <strong>Fasti Praenestini</strong> (1st c. AD, Verrius Flaccus) — the nundinal letters <strong>A–H</strong> run down the left edge of each panel, a Roman numeral countdown beside them. Museo Nazionale Romano, Rome. Photo: <a href="https://commons.wikimedia.org/wiki/File:Fasti_Praenestini_(14786118971).jpg" target="_blank" rel="noopener">Amphipolis</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>, resized.</figcaption>
+    </figure>
     <p>Romans had no 7-day week until late antiquity. Instead, market days (<em>nundinae</em>) recurred every <strong>8 days</strong> (the ninth day, counting inclusively — hence the name), marked with the letters <strong>A–H</strong> on painted calendars. In the oldest lunar month the eight-day beat reset from the Nones; the late-fourth-century reform (the same package as Flavius's published fasti) made the A–H cycle run <em>across</em> month and year boundaries — a continuous week, like ours, laid on top of Kalends/Nones/Ides rather than replacing them. Market day was then market day, every eight days, regardless. The <em>nundinae</em> were when farmers came to the city to sell, buy, and hear political news. Because a 355-day year is not a multiple of 8 (355 = 44×8 + 3), the letter that lands on 1 January shifts by three every ordinary year — one reason a separate late-Republican adjustment was needed to keep the nundinal cycle from colliding with the civil New Year. From the fourth century AD the seven-day week and Sunday (<em>dies solis</em> / <em>dies dominicus</em>) overlaid this older beat, and Easter closed the courts (Theodosian Code).</p>
     <p>Assemblies were barred from market days by name and by law, not mere custom — and the fix was more surgical than "no politics on market day." The pontiffs' systematic F/N letter scheme first threatened to classify <em>nundinae</em> as <em>nefastus</em> (by analogy with the Kalends and Ides, which also restricted assemblies) — but that would have shut out the legal business that rural visitors came in for as well. The <strong>lex Hortensia</strong> (287 BC, tribune Q. Hortensius) supplied the fix: nundinae were fixed as <em>dies fasti</em> — <span class="tag">F</span>, so courts could sit — but specifically <em>excluded</em> from the <span class="tag">C</span> (<em>comitialis</em>) days on which assemblies could meet. The same law closed a related loophole: it made resolutions of the plebeian assembly (<em>plebiscita</em>) binding on all citizens, patricians included, and in exchange required that assembly to meet only on regular <em>C</em>-days like everyone else — no more snap votes sprung on the crowd already gathered for market (Rüpke 2012, on Macrobius, <em>Sat.</em> 1.16).</p>
     <div class="interactive nund-wrap">
@@ -1287,6 +1297,10 @@ select.cal-select:focus{
 <section id="religion">
   <h2><span class="secnum">VII</span>The Religious Dimension of the Fasti</h2>
   <p>More than forty inscribed copies of the fasti survive, almost all from the early Principate. Only one pre-Julian copy is known: the <strong>Fasti Antiates Maiores</strong> (c. 60s BC), painted in red and black, still showing <em>QVI/SEX</em> rather than July/August, plus an INTER column for intercalation. The name <em>fasti</em> is from the days on which the praetor may speak the words <em>do, dico, addico</em> ("I give, I say, I adjudge"). Every day carries a letter — a fully religious classification:</p>
+  <figure class="artifact-figure">
+    <img src="images/fasti-antiates-maiores.jpg" alt="Surviving painted fragments of the Fasti Antiates Maiores, mounted and displayed behind glass" loading="lazy">
+    <figcaption>The <strong>Fasti Antiates Maiores</strong> — the only surviving pre-Julian calendar, painted before Caesar's reform. Museo Nazionale Romano, Rome. Photo: <a href="https://commons.wikimedia.org/wiki/File:Fasti_Antiates_Maiores_(14786905184).jpg" target="_blank" rel="noopener">Amphipolis</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>, resized.</figcaption>
+  </figure>
   <table class="fasti">
     <tr><th>Letter</th><th>Meaning</th><th>Business?</th></tr>
     <tr><td class="F tooltip" title="Dies fasti: legal business allowed">F</td><td>dies <em>fastus</em> — court assemblies allowed</td><td>Yes, law courts open</td></tr>
@@ -1440,6 +1454,10 @@ select.cal-select:focus{
 <section id="consuls">
   <h2><span class="secnum">IX</span>Dating by Consuls</h2>
   <p>Romans did <strong>not</strong> number years sequentially. Instead, each year was identified by its <strong>eponymous consuls</strong>: "the year of Marcus Tullius [Cicero] and Gaius Antonius" = 63 BC. Ordinary consular pairs from the early Republic to AD 541 run to about a thousand; suffect consuls under the Empire add many more <em>names</em>, recorded in lists called <strong>fasti consulares</strong>, inscribed on marble and displayed in the Forum.</p>
+  <figure class="artifact-figure">
+    <img src="images/fasti-capitolini.jpg" alt="Detail of the Fasti Capitolini, a marble inscription listing Roman consuls by year in red-painted lettering" loading="lazy">
+    <figcaption>The <strong>Fasti Capitolini</strong> — the marble consular list compiled under Augustus, one column of names per year. Capitoline Museums, Rome. Photo: <a href="https://commons.wikimedia.org/wiki/File:Fasti_capitolini.JPG" target="_blank" rel="noopener">Agnete</a>, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, resized.</figcaption>
+  </figure>
 
   <div class="panel">
     <h3>Consuls and imperium — the military heart of the Republic</h3>
@@ -1456,6 +1474,7 @@ select.cal-select:focus{
       <li><strong>Suffect consuls</strong> — under the Empire, if a consul died or resigned mid-year, a <em>consul suffectus</em> (replacement) was appointed. By the 1st century AD, it became common for consuls to serve only <strong>part of the year</strong>, with suffect consuls taking over. Some years had <strong>4, 6, or even up to 10–12 consuls</strong> in succession.</li>
       <li><strong>Ordinary vs. suffect</strong> — the two consuls who entered on 1 January were the <em>consules ordinarii</em>, whose names gave the year its official designation. Suffect consuls who replaced them during the year were recorded in the <em>fasti</em>, but the year was still named after the <em>ordinarii</em>. Under Hadrian and later, suffect consulships proliferated as honorary appointments, diluting the office's prestige.</li>
     </ul>
+    <p>The multiplication was political patronage, not administrative accident. After the civil war of AD 69 (the "Year of the Four Emperors" — Galba, Otho, Vitellius, Vespasian), <strong>Vespasian</strong> needed to reward the men whose support had put him on the throne and to draw potential rivals into the new regime rather than leave them outside it with a grievance. Multiplying suffect pairs let him do both at once: more pairs meant more supporters — and more dangerous men — could each be given a taste of the consulship every year, while Vespasian and his son Titus kept renewing the prestigious <em>ordinarius</em> consulship for themselves to advertise dynastic continuity. <strong>Nerva</strong>, thrust into power in AD 96 with no dynasty and no army loyal to him personally after Domitian's assassination, leaned on the same tool for the same reason: even a few months as <em>consul suffectus</em> was currency for buying loyalty during an uncertain succession.</p>
     <p>This complicated dating enormously. A document might say "<em>III Kal. Apr., Sabino et Praesentio consulibus</em>" — but which 24 March? If the suffect pair changed mid-year, different parts of the same year had different consular names. Scholars must cross-reference the <em>fasti consulares</em> to resolve these ambiguities. By late antiquity, consular dating was gradually replaced by <strong>regnal years</strong> of emperors and, ultimately, by the <strong>indiction cycle</strong> (a 15-year tax cycle instituted by Diocletian).</p>
   </div>
 

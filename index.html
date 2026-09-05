@@ -72,9 +72,9 @@ nav.tabs .tab{
   border:none;
   border-bottom:2px solid transparent;
   border-radius:0;
-  padding:.7rem .7rem;
+  padding:.65rem .55rem;
   font-family:var(--sans);
-  font-size:1.03rem;
+  font-size:1.0rem;
   font-weight:500;
   letter-spacing:.02em;
   cursor:pointer;
@@ -231,6 +231,7 @@ em{color:var(--ink);}
 em{font-style:normal;}
 .note em{font-style:italic;}
 footer em{font-style:italic;}
+.notes-block em,.notes-src em{font-style:italic;}
 .legend{
   display:flex;gap:1.2rem;flex-wrap:wrap;
   font-size:1.08rem;
@@ -330,7 +331,7 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
 
 /* === Drift animation === */
 .eqx{position:relative;height:70px;background:var(--bg);border:1px solid var(--line);border-radius:5px;margin:.6rem auto;max-width:700px;overflow:hidden;}
-.eqx .marker{position:absolute;top:0;bottom:0;width:3px;background:var(--gold);transition:left 2s ease;box-shadow:0 0 8px var(--gold);z-index:2;}
+.eqx .marker{position:absolute;top:0;bottom:0;width:3px;left:21.9%;background:var(--gold);transition:left 2s ease;box-shadow:0 0 8px var(--gold);z-index:2;}
 .eqx .eqx-scale{position:absolute;top:0;left:0;right:0;bottom:28px;display:flex;}
 .eqx .eqx-scale .em{flex:1;border-right:1px solid var(--line);font-family:var(--sans);font-size:1.15rem;color:var(--dim);text-align:center;line-height:42px;overflow:hidden;white-space:nowrap;}
 .eqx .eqx-scale .em:last-child{border-right:none;}
@@ -775,6 +776,11 @@ select.cal-select:focus{
 .quizopt:hover{border-color:var(--line-light);}
 .quizopt input{margin-right:.5rem;}
 
+.notes-block{margin:1.4rem 0 1.8rem;}
+.notes-block h3{margin-top:0;}
+.notes-block ol,.notes-block ul{margin:.4rem 0 .7rem 1.4rem;}
+.notes-src{margin:.8rem 0;font-size:1.05rem;color:var(--dim);}
+
 footer{
   border-top:1px solid var(--line);
   margin-top:5rem;
@@ -808,32 +814,31 @@ footer .note{font-style:italic;margin:.8rem auto;}
 <nav class="tabs">
   <span class="nav-brand">SPQR</span>
   <button class="tab active" data-tab="dualcal">Dual Kalendar</button>
-  <button class="tab" data-tab="rhythm">Rhythm of Time</button>
   <button class="tab" data-tab="beginning">Lunar Origin</button>
+  <button class="tab" data-tab="rhythm">Rhythm of Time</button>
   <button class="tab" data-tab="republican">Republican</button>
   <button class="tab" data-tab="daynames">Day Names</button>
+  <button class="tab" data-tab="names">Month Names</button>
   <button class="tab" data-tab="religion">Fasti</button>
   <button class="tab" data-tab="reform">Reform</button>
-  <button class="tab" data-tab="names">Renamed</button>
   <button class="tab" data-tab="consuls">Consuls</button>
   <button class="tab" data-tab="converter">Quiz</button>
+  <button class="tab" data-tab="notes">Notes</button>
 </nav>
 <main>
-
 <section class="hero">
   <h1>The Roman Kalendar</h1>
-  <p class="subtitle">From Moon Phases to Consuls — how a 10-month lunar scheme became the year we still live in.</p>
+  <p class="subtitle">From Moon Phases to Consuls — how a 10-month scheme became the year we still live in.</p>
   <p class="roman-live" id="romanToday">…</p>
   <p class="roman-live-sub" id="romanTodaySub"></p>
   <p class="fecit">Aegidius Stephanus Demaneo fecit</p>
 </section>
 
-<!-- ===== DOUBLE CALENDAR (center feature) ===== -->
 <div class="tab-section active" id="ts-dualcal">
 <section id="dualcal">
   <h2><span class="secnum">I</span>Roman Kalendar vs. Modern Calendar</h2>
   <p>See a full Roman year and its modern equivalent, side by side. Switch the <strong>reference</strong> to make either the modern or the Roman year set the total day count — and watch the <em class="red">annus confusionis</em> of 46 BC (445 days!) stretch the modern calendar across two years.</p>
-  <p class="note">Month names, lengths, and the civil year start all change automatically with the period. Before 44 BC the 7th month is <em>Quintilis</em>, not <em>Iulius</em>; before 8 BC the 8th is <em>Sextilis</em> (30 days), not <strong>Augustus</strong> (31). Before 153 BC the consular year began on <strong>Kal. Mart. (1 March)</strong>, marked with ⟨; from 153 BC it began on <strong>Kal. Ian. (1 January)</strong>. The calendar type (Republican / Annus Confusionis / Julian) is shown in each panel header.</p>
+  <p class="note">Month names and the civil year start change with the period. Before 44 BC the 7th month is <em>Quintilis</em>, not <em>Iulius</em>; before 8 BC the 8th is <em>Sextilis</em>, not <strong>Augustus</strong>. From 45 BC the <em>lengths</em> of the months are already those we use today (Macrobius); 8 BC changes only the name of the 8th month. Before 153 BC the consular year began on <strong>Kal. Mart. (1 March)</strong>, marked with ⟨; from 153 BC it began on <strong>Kal. Ian. (1 January)</strong>. The calendar type (Republican / Annus Confusionis / Julian) is shown in each panel header. Reconstruction choices: <strong>Notes</strong> tab.</p>
 
   <div class="dual-cal">
     <div class="cal-title">Roman ↔ Modern · Full Year</div>
@@ -853,7 +858,6 @@ footer .note{font-style:italic;margin:.8rem auto;}
       <button class="secondary" id="calPrev">◀ Prev</button>
       <button class="secondary" id="calNext">Next ▶</button>
     </div>
-
 
     <div class="cal-freetext">
       <input type="text" id="calFreetext" placeholder="e.g. 15 March 44 BC or Ides of March 44 BC or 46 BC">
@@ -904,56 +908,12 @@ footer .note{font-style:italic;margin:.8rem auto;}
   </div>
 </section>
 </div><!-- /ts-dualcal -->
-
-<!-- ===== RHYTHM OF TIME ===== -->
-<div class="tab-section" id="ts-rhythm">
-<section id="rhythm">
-  <h2><span class="secnum">II</span>The Rhythm of Roman Time</h2>
-  <p>The Roman Kalendar was not an abstract timekeeping device. It was the <strong>skeleton of Roman society</strong> — an organiser of civic and religious life that told you not <em>what day it was</em>, but <em>what was coming</em>. Understanding this rhythm is the key to understanding why Romans counted backwards, why the Kalends/Nones/Ides system survived long after the moon was forgotten, and why the calendar looked the way it did.</p>
-
-  <div class="panel">
-    <h3>A buggy Kalendar — but built on the best available technology</h3>
-    <p>It is tempting to judge the pre-Julian Roman calendar as a failure — a chaotic system where politicians manipulated intercalation, seasons drifted by months, and the year was sometimes 445 days long. But this misses the point. The Roman calendar should be understood as a <strong>technical solution to a real problem, built with the tools and knowledge available</strong>, and progressively patched over centuries — much like a long-running software project that accumulates bugs, workarounds, and legacy constraints.</p>
-    <p>The fundamental constraint was this: <strong>Romans had no accurate way to measure the solar year</strong>. They had no telescopes, no precision instruments, no knowledge of the 365.2422-day tropical year. What they <em>did</em> have was the <strong>moon</strong> — the most visible, regular clock in the sky. Every ~29.5 days, the moon cycles through its phases: new crescent, first quarter, full, last quarter, and back. This was an <strong>observable</strong> — you could look up and verify it with your own eyes, no instruments needed. So the earliest Roman calendar was built on what could be <em>observed</em>, not what could be <em>calculated</em>.</p>
-    <p class="note">It is worth noting that <strong>other civilisations had already solved the solar year problem</strong> by the time Rome's calendar was taking shape. The Babylonians had been tracking the solar year with remarkable precision since at least the 8th century BC, using centuries of eclipse records and systematic observations. The Chinese had developed a sophisticated lunisolar calendar with regular intercalation by the Zhou dynasty (~1046 BC). The Indian Vedanga Jyotisha (~1200 BC) described a six-year yuga cycle for aligning lunar and solar months. The Maya were independently developing precise solar observations in Mesoamerica by the 1st millennium BC. Egypt had operated a 365-day civil calendar since at least the 3rd millennium BC. <strong>The knowledge existed — Rome simply did not adopt it until Caesar.</strong> The moon was not the best technology available worldwide; it was the best that early Romans had access to and chose to use. This is a story not of ignorance but of cultural conservatism: Rome inherited its lunar calendar from its agricultural roots and stuck with it for centuries after better systems were known, because the Kalends/Nones/Ides structure was too deeply embedded in civic life to change — until a dictator with absolute power decided to replace it.</p>
-    <p>The Kalends were anchored to the <strong>new moon</strong> — the first sighting of the thin crescent after the dark phase. The pontiffs would literally watch the sky and "call out" (<em>calare</em>) the new month when they saw it. This was the calendar's <strong>ground truth</strong>: an astronomical observation that anyone could verify. Whatever else went wrong — whatever political manipulation, whatever drift, whatever bugs accumulated in the system — <strong>the phase of the moon anchoring the Kalends was at least right</strong>. If the pontiffs said "the new crescent is visible, today is the Kalends," you could look up and confirm it. This is why the Kalends survived every reform, every crisis, every reorganisation: they were tied to an <em>observable</em>, and observables are robust. The Nones and Ides, too, began as observations — the first-quarter moon and the full moon — and even after they became fixed conventional dates, the <em>structure</em> they provided (three anchors per month, counting backwards between them) was an inheritance from a time when the sky itself was the clock.</p>
-    <p>The "bugs" came from the gap between the lunar month (~29.5 days) and the solar year (~365.25 days). Twelve lunar months give ~354 days — 11 days short of the solar year. Numa's 355-day year was a reasonable approximation, but the 11-day gap compounded year after year. The Mercedonius intercalation was a <em>patch</em> — a manual workaround inserted by the Pontifex Maximus, much like a hotfix applied to a running system. The problem was that this patch was <strong>human-controlled</strong>, not automatic: a pontiff could skip it, delay it, or manipulate it for political ends. By 46 BC, the accumulated bugs had made the calendar three months ahead of the seasons — a system so broken that Caesar had to do a full rewrite (the 445-day <em>annus confusionis</em> followed by the Julian reform).</p>
-    <p><strong>What was still wrong was the solar cycle</strong> — the actual year length. The Kalends kept tracking the moon correctly (each Kalends was still the "calling" of a new lunar month), but the <em>months themselves shifted</em> against the seasons. The Kalends of March was still the new moon — but <strong>March itself had moved</strong>. What was once a spring month might now fall in winter, or summer, depending on how far the drift had gone. The lunar anchor was sound; the solar frame around it was broken. The full year did not even have the right length — 355 days instead of ~365 — so every year the months slid ~10 days earlier against the sun, and the Mercedonius patch only partially corrected this. <strong>The moon was right; the year was wrong; and because the year was wrong, the months drifted through the seasons like a ship with a working compass but no map.</strong></p>
-    <p>But even Caesar's rewrite kept the Kalends. He replaced the <em>engine</em> — lunar observation → solar calculation — but kept the <em>interface</em>: months still started on the Kalends, days were still counted backwards from the next anchor. The observable anchor had become so deeply embedded in Roman civic life that it could not be removed, only re-pointed. The moon was no longer consulted, but the structure it had given — Kalends, Nones, Ides, backward counting — was permanent. <strong>The bug was in the year length; the architecture was sound.</strong></p>
-  </div>
-
-  <div class="panel">
-    <h3>The Kalendar as Almanac — feed it, defend it, protect it</h3>
-    <p>The word "calendar" itself comes from <em>Kalendae</em> — the Roman name for the first day of each month, when debts were due and pontiffs announced the new moon. But the Roman <em>Kalendar</em> was far more than what we think of as a calendar today. It was, in essence, a <strong>religious-agricultural-military almanac</strong> — a single instrument that synchronised Roman society with the three forces that kept it alive:</p>
-    <ul>
-      <li><span class="list-label">Agriculture — feed it.</span> The vast majority of Romans were farmers. The Kalendar told them when to sow, when to prune, when to harvest, when to drive flocks to summer pasture and bring them back. Festivals like the <em>Robigalia</em> (25 April — sacrifice to avert wheat rust), the <em>Consualia</em> (21 August — rest the plough-oxen), and the <em>Vinalia</em> (23 April — taste the new wine) were not abstract rituals: they were the <em>operational schedule</em> of Roman agriculture. A mistake in timing meant hunger.</li>
-      <li><span class="list-label">War — defend it.</span> The campaigning season opened in March (Mars = war) and closed in October (<em>Armilustrium</em> — purify the weapons). The Kalendar told the state when to raise <em>legiones</em>, when consuls should depart for their provinces, when to expect the army back. The entire military cycle — levies, marches, battles, withdrawal, winter quarters — was timed by the calendar. As Rome's empire expanded, the 153 BC shift of the year-start from March to January was itself a military logistics decision: consuls needed extra months to reach Spain, Greece, or Asia before spring.</li>
-      <li><span class="list-label">Religion — protect it.</span> The gods had to be honoured at the right time, or Rome would lose their favour. The <em>Saturnalia</em>, <em>Lupercalia</em>, <em>Cerealia</em>, <em>Vestalia</em> — each was a contract between the state and the divine, and the Kalendar was the schedule of those contracts. Missing a festival was not just a scheduling error; it was a <em>religious failure</em> that could bring plague, defeat, or famine. The <em>dies fasti/nefasti</em> system (which days courts could meet, which were sacred) was the Kalendar's way of preventing civic business from clashing with divine obligations.</li>
-      <li><span class="list-label">Debt — pay it.</span> The word <em>Kalendae</em> itself was tied to debt: on the Kalends, payments fell due, loans were settled, interest was reckoned. The Romans even used <em>ad kalendas Graecas</em> ("on the Greek Kalends" — a day that doesn't exist) to mean "never." The Kalendar was the financial clock of the Roman economy, synchronising creditors and debtors across the city and beyond.</li>
-    </ul>
-    <p>In a very real sense, the Roman Kalendar was both a <strong>practical almanac</strong> and a <strong>civic agenda</strong> — a single document that combined agricultural guidance, military scheduling, religious obligation, and financial deadlines. As an almanac, it told you <em>what to do when</em>: when to plant, when to march, when to sacrifice. As an agenda, it told you <em>what was coming and how much time you had to prepare</em>: how many days until the next festival, the next levy, the next payment due. The Roman Kalendar told farmers when to plant, generals when to march, priests when to sacrifice, and creditors when to collect — all in one system, all keyed to the same rhythm of Kalends, Nones, and Ides. When we reduce it to "a way of numbering days," we miss that it was the <strong>operating system of an entire civilisation</strong>.</p>
-  </div>
-
-  <div class="panel">
-    <h3>Why backwards counting? — the rhythm of sacred and civic time</h3>
-    <p>Why count <em>down</em> from the next feast, rather than <em>up</em> from the start? Because Roman time was <strong>eschatological</strong> — it ran <em>towards</em> the next sacred event. The Kalends, Nones, and Ides were not just markers; each was a day of <strong>specific sacrifices and rituals</strong>. The Kalends opened the month with offerings to Juno. The Nones were when the people assembled to hear announcements (<em>nonae</em> = "ninth day before the Ides", but also the day of the <em>nundinae</em> countdown). The Ides honoured Jupiter.</p>
-    <p>Counting backwards from the next feast meant that every day carried its <strong>liturgical meaning</strong> — you always knew how many days until the next sacrifice, the next assembly, the next market. This is the same structure as the Christian calendar of saints' days or the Islamic countdown to Ramadan: the calendar tells you not just <em>what day it is</em>, but <em>what is coming</em>. For a Roman farmer, this meant knowing when to prepare for the Terminalia (23 Feb), the Robigalia (25 April, to avert wheat rust), or the Saturnalia (17 December). For a Roman citizen, it meant knowing when the <em>comitia</em> could meet (only on <em>dies comitiales</em>), when courts were open (<em>dies fasti</em>), or when no business was permitted (<em>dies nefasti</em>).</p>
-    <p><strong>The Kalendar as organiser, not archive.</strong> This is perhaps the most fundamental difference between the Roman calendar and ours. Our modern calendar is primarily a <em>historical</em> instrument: we use it to locate events in the past ("July 14th, 1789") or to plan far into the future. The Roman calendar had a different purpose. It was above all an <strong>organiser of civic and religious life</strong> — a device for telling you how many days were left until the next festival, the next sacrifice, the next assembly, the next market day. The calendar's job was not to locate you in a historical timeline but to structure your <em>present</em>: when to pray, when to vote, when to trade, when to rest.</p>
-    <p>The Kalends themselves hark back to this original <strong>agricultural function</strong>. In the earliest lunar calendar, the pontiffs "called out" (<em>calare</em>) the new moon and counted the days to the Nones — but the underlying purpose was practical: when to sow, when to reap, when to prune, when to drive the flocks to summer pasture. These were decisions of <strong>dramatic consequence</strong> — sowing too early or too late could mean a failed harvest and starvation. The moon was the most readily observable regular clock in the sky, and its phases gave farmers a reliable rhythm long before any written calendar existed. So the Kalends–Nones–Ides structure began life as an <strong>agricultural agenda</strong> keyed to the lunar cycle, and only later — as Rome urbanised and its civic life grew more complex — accumulated its religious, military, and financial layers on top of that original farming core. The Kalendar that Caesar reformed in 46 BC was, at its deepest root, a farmer's agenda that had become the operating system of an empire.</p>
-  </div>
-  <div class="panel">
-    <h3>The nundinal cycle — the Roman "week"</h3>
-    <p>Romans had no 7-day week until late antiquity. Instead, market days (<em>nundinae</em>) recurred every <strong>8 days</strong>, marked with the letters <strong>A–H</strong> on painted calendars (ABCDEFGH; A = market day). The cycle ran independently of months and years — one of the very few regular rhythms cutting across the lunar-month structure. The <em>nundinae</em> were when farmers came to the city to sell, buy, and hear political news. Augustus later forbade holding <em>comitia</em> on market days, to separate commerce from politics.</p>
-  </div>
-</section>
-</div><!-- /ts-rhythm -->
-
 <div class="tab-section" id="ts-beginning">
 <section id="beginning">
-  <h2><span class="secnum">III</span>The Lunar Beginning</h2>
-  <p>Tradition credited <strong>Romulus</strong> with a calendar of just <strong>10 months and 304 days</strong>, beginning in <strong>March</strong> — with an uncounted winter gap. His successor <strong>Numa Pompilius</strong> added <strong>January</strong> and <strong>February</strong>, reaching 12 lunar months and 355 days.</p>
-  <p>This is why the month names look wrong: <em>September</em> is the "7th" month (septem), <em>October</em> the 8th, <em>November</em> the 9th, <em>December</em> the 10th — but only if you start counting from <strong>March</strong>. The civic year originally began in <strong>March</strong> (the month of Mars, when campaigning season opened). In <strong>153 BC</strong>, consuls began entering office on <strong>1 January</strong> instead, so they could reach their provinces before the summer campaign — making January the official civil year start. The dual calendar above marks this shift: the civil year start day (⟨) moves from March 1 to January 1 at the 153 BC boundary.</p>
-  <p>The moon phase names survived inside the month itself: <span class="tag">Kalends</span> (new moon — the "calling", kalare, of the new month), <span class="tag">Nones</span> (first-quarter moon) and <span class="tag">Ides</span> (full moon).</p>
+  <h2><span class="secnum">II</span>The Lunar Beginning</h2>
+  <p>Tradition credited <strong>Romulus</strong> with a calendar of just <strong>10 months and 304 days</strong>, beginning in <strong>March</strong> — with an uncounted winter gap. Four months had 31 days (March, May, Quintilis, October); the other six had <strong>30</strong> (not 29). His successor <strong>Numa Pompilius</strong> added <strong>January</strong> and <strong>February</strong>, cut one day from each 30-day month (odd numbers being lucky), and reached 12 months totalling 355 days. This is how the Romans told the story (Macrobius, Censorinus); it is tradition, not archaeology — see <strong>Notes</strong>.</p>
+  <p>This is why the month names look wrong: <em>September</em> is the "7th" month (septem), <em>October</em> the 8th, <em>November</em> the 9th, <em>December</em> the 10th — but only if you start counting from <strong>March</strong>. The civic year originally began in <strong>March</strong> (the month of Mars, when campaigning season opened). In <strong>153 BC</strong>, consuls began entering office on <strong>1 January</strong> instead, so they could reach their provinces before the summer campaign — making January the official civil year start. The dual calendar marks this shift: the civil year start day (⟨) moves from March 1 to January 1 at the 153 BC boundary.</p>
+  <p>The moon phase names survived inside the month itself: <span class="tag">Kalends</span> (new moon — the "calling", <em>calare</em>, of the new month), <span class="tag">Nones</span> (first-quarter moon) and <span class="tag">Ides</span> (full moon).</p>
 
   <!-- Moon phase axis -->
   <div class="moon-axis">
@@ -992,28 +952,38 @@ footer .note{font-style:italic;margin:.8rem auto;}
     </div>
     <div class="moon-axis-desc">
       <p>In the original lunar calendar, the pontiffs <em>observed</em> the sky. When the thin crescent of the new moon appeared, they "called out" (<em>calare</em>) the beginning of the month — hence <strong>Kalends</strong>. The <strong>Nones</strong> (<em>nonae</em>, "ninth") marked the first quarter, nine days before the Ides (counting inclusively). The <strong>Ides</strong> (possibly from Etruscan <em>iduare</em>, "to divide") fell on the full moon — the midpoint of the month, sacred to Jupiter, when the <em>rex sacrorum</em> performed the monthly sacrifice.</p>
-      <p>After the Nones, every day was counted <em>backwards</em> from the Ides; after the Ides, backwards from the next Kalends. The axis above shows a 29-day "hollow" month: Nones = day V, Ides = day XIII. In the four "full" 31-day months (March, May, July, October), Nones = day VII and Ides = day XV.</p>
-      <p><strong>Did the calendar still track the moon?</strong> Only at the very beginning. A true lunar month averages ~29.53 days, but the Republican months were fixed at 29 or 31 days — not observational. Numa's 355-day year was already ~10 days longer than 12 lunar months (~354). By the late Republic, the Kalends, Nones, and Ides had become <strong>conventional fossilised names</strong> with no relation to the actual moon. The lunar structure survived only as an archaeological layer.</p>
+      <p>After the Nones, every day was counted <em>backwards</em> from the Ides; after the Ides, backwards from the next Kalends. The axis above is schematic. In a 29-day "hollow" month: Nones = day V, Ides = day XIII. In the four "full" 31-day months (March, May, July, October), Nones = day VII and Ides = day XV. Both patterns then have the same countdown from the Ides to the next Kalends (seventeen days inclusive — Macrobius).</p>
     </div>
+  </div>
+
+  <div class="panel">
+    <h3>Why the Kalends stopped following the moon</h3>
+    <p>The new crescent is still a perfect observable. If the pontiffs had kept <em>waiting</em> for it, the Kalends would still have fallen on the new moon. They stopped waiting. The Kalends became a <strong>scheduled civil day</strong>, and a scheduled day cannot depend on last night's sky.</p>
+    <p><strong>A state calendar has to be knowable in advance.</strong> Debts fell due on the Kalends; festivals, court days, and the consular year were written on the fasti. Once Gnaeus Flavius published the calendar (c. 304 BC), the year was a document, not a nightly watch. You cannot collect a loan on a day that might slip because of clouds.</p>
+    <p><strong>Fixed month lengths are already not lunations.</strong> A true lunar month is ~29.53 days. Republican months were locked at 29 or 31. The next Kalends arrived because 29 or 31 days had elapsed — not because someone had seen the crescent.</p>
+    <p><strong>355 days is already wrong for twelve moons.</strong> Twelve lunations are ~354.37 days. Numa's 355-day year runs about 15 hours past the moon each year. After a decade the civil Kalends is days away from the crescent, even with no other interference.</p>
+    <p><strong>Intercalation was a solar patch, and it broke the lunar lock.</strong> Mercedonius was inserted to chase the <em>seasons</em>, not the moon. Adding ~23 days (almost, but not exactly, a lunation) throws the following Kalends off the crescent by design. Political skipping or doubling of that month made the error irregular.</p>
+    <p><strong>The ritual outlived the observation.</strong> Pontiffs still "called" the Kalends and counted out the days to the Nones (Macrobius 1.15.9–10) long after the count was predetermined. The words stayed; the sky was no longer consulted.</p>
+    <p>So two clocks diverged. The moon in the sky remained a clean observable. The state's Kalends became a named day in a pre-written year. The architecture — three anchors, counting backwards — is the fossil of the observable. The observable itself was switched off because civic time had to be printed before the year began.</p>
   </div>
 
   <!-- Equinox drift bar -->
   <div class="interactive">
     <h3>The drift — and how it was abused</h3>
-    <p>Because the true lunar-solar correction is ≈ 11 days/year, the pontiffs' political discretion made the calendar a tool. Allies got long years, opponents short ones; seasons slid badly. By Julius Caesar's time the calendar was <strong>≈ 3 months ahead of the seasons</strong>.</p>
-    <p>The bar below shows the Roman calendar year (January → December). The gold marker is the <strong>vernal equinox</strong> (~21 March). Press play to watch it slide backwards through the calendar as the years pass without proper intercalation — from its correct position in March, through February, January, and into December.</p>
+    <p>Because the true lunar-solar correction is ≈ 11 days/year, the pontiffs' political discretion made the calendar a tool. Allies got long years, opponents short ones; seasons slid badly. By Julius Caesar's time the civil year was <strong>≈ 3 months out from the seasons</strong> — the product of a cluster of skipped intercalations in the 50s–40s BC, not of 250 years without any correction.</p>
+    <p>A 355-day year is <strong>too short</strong>. Civil dates run ahead of the sun, so seasonal events fall on <em>later</em> civil dates: the true equinox moves from March toward April, May, June. (A slide into February would mean a year that was too <em>long</em>.) The bar below is a schematic of skipped intercalation, about 10 days per skipped year. Nine skipped years ≈ the 90-day error Caesar paid off in 46 BC.</p>
     <div class="eqx">
       <div class="eqx-scale" id="driftScale"></div>
       <div class="marker" id="driftMarker"></div>
-      <div class="eqx-label" id="driftLabel">Spring equinox: 21 March (correct)</div>
+      <div class="eqx-label" id="driftLabel">Spring equinox: 21 March (calendar aligned)</div>
     </div>
-    <div style="text-align:center;margin-top:.8rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;"><button id="driftBtn">Animate the drift (300 BC → 46 BC)</button><span class="orbit-year" id="driftYear">300 BC</span></div>
+    <div style="text-align:center;margin-top:.8rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;"><button id="driftBtn">Animate skipped intercalation</button><span class="orbit-year" id="driftYear">aligned</span></div>
   </div>
 
   <!-- Orbital drift animation -->
   <div class="orbit-drift">
-    <div class="orbit-drift-title">Two orbits — the moon is right, the year is wrong</div>
-    <div class="orbit-drift-sub">Two elliptical orbits viewed from above. The outer ring = the solar year (365¼ days, fixed). The inner ring = the Roman year (355 days, drifting ~10 days/year). The moon (🌑→🌓→🌕) cycles correctly on both — but the Roman "March" marker slides backwards around the solar orbit.<br><br><span id="orbitExplain">Year 0: both orbits aligned. March = spring on both rings. The moon phases (dark = new/Kalends, bright = full/Ides) cycle correctly on both orbits.</span></div>
+    <div class="orbit-drift-title">Two orbits — a 355-day year against the sun</div>
+    <div class="orbit-drift-sub">Schematic of <strong>seasonal</strong> drift: outer ring = the solar year (365¼ days); inner ring = a 355-day Roman year with no intercalation. Roman “March” slides against the seasons. This is <em>not</em> a picture of the live moon still locking the Kalends — that lock was already off once months had fixed lengths (see above).<br><br><span id="orbitExplain">Year 0: both orbits aligned. March = spring on both rings. This animation shows seasonal drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.</span></div>
     <svg class="orbit-drift-svg" id="orbitSvg" viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="orbit-drift-legend">
       <span><span class="dot" style="background:var(--gold);"></span>Solar year (365¼ d)</span>
@@ -1021,7 +991,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
       <span>🌑 Kalends · 🌓 Nones · 🌕 Ides</span>
     </div>
     <div class="orbit-drift-controls">
-      <button id="orbitPlay">▶ Play drift (37 years)</button>
+      <button id="orbitPlay">▶ Play 37 years with no intercalation</button>
       <button id="orbitReset">↺ Reset</button>
       <span class="orbit-year" id="orbitYear"></span>
     </div>
@@ -1029,40 +999,78 @@ footer .note{font-style:italic;margin:.8rem auto;}
 
 </section>
 </div><!-- /ts-beginning -->
+<div class="tab-section" id="ts-rhythm">
+<section id="rhythm">
+  <h2><span class="secnum">III</span>The Rhythm of Roman Time</h2>
+  <p>The Roman Kalendar was not an abstract timekeeping device. It was the <strong>skeleton of Roman society</strong> — an organiser of civic and religious life that told you not <em>what day it was</em>, but <em>what was coming</em>. Understanding this rhythm is the key to understanding why Romans counted backwards, why the Kalends/Nones/Ides system survived long after the moon was forgotten, and why the calendar looked the way it did.</p>
 
+  <div class="panel">
+    <h3>A buggy Kalendar — but built on the best available technology</h3>
+    <p>It is tempting to judge the pre-Julian Roman calendar as a failure — a chaotic system where politicians manipulated intercalation, seasons drifted by months, and the year was sometimes 445 days long. But this misses the point. The Roman calendar should be understood as a <strong>technical solution to a real problem, built with the tools and knowledge available</strong>, and progressively patched over centuries — much like a long-running software project that accumulates bugs, workarounds, and legacy constraints.</p>
+    <p>The fundamental constraint at the beginning was this: early Romans had no institutional way to measure the solar year. They had no telescopes and no 365.2422-day figure. What they <em>did</em> have was the <strong>moon</strong> — the most visible, regular clock in the sky. Every ~29.5 days it cycles through new crescent, first quarter, full, last quarter, and back. That is an <strong>observable</strong>: you can look up and verify it. So the earliest Roman calendar was built on what could be <em>observed</em>, not what could be <em>calculated</em>.</p>
+    <p class="note">Other civilisations had already built better solar or lunisolar years by the time Rome's calendar took shape. The Babylonians were tracking the solar year with eclipse records from at least the 8th century BC. Egypt had run a 365-day civil calendar since the 3rd millennium BC. China had lunisolar intercalation by the Zhou period. Greek astronomers (Meton, Callippus, Hipparchus) later produced year-lengths Rome could have borrowed long before Caesar. The Indian <em>Vedāṅga Jyotiṣa</em> describes a lunisolar cycle; its date is disputed (estimates range from the late 2nd millennium to about 400 BC). Maya solar counting is attested by the late 1st millennium BC but reaches its famous precision in the Classic period. <strong>The knowledge existed in the wider world — Rome did not adopt a solar year until Caesar.</strong> That is less ignorance than path-dependence: the Kalends/Nones/Ides structure was too deeply embedded in civic life to change, until a dictator with the power to replace it did so.</p>
+    <p>The Kalends <em>began</em> as the new crescent. The pontiffs watched the sky and "called out" (<em>calare</em>) the month when they saw it. That is a robust ground truth — <strong>for as long as you actually wait for the sighting</strong>. Once months had fixed lengths and the fasti were a published document, the Kalends no longer waited. The crescent in the sky was still a perfect observable; the state's Kalends was no longer attached to it. The <strong>Lunar Origin</strong> tab sets out why a civic calendar cannot keep using a nightly watch. What survived every reform was not the observation, but the <em>interface</em>: three named anchors a month, counting backwards between them.</p>
+    <p>The compounding bug was the gap between twelve lunar months (~354 days) and the solar year (~365.25). Numa's 355-day year was a reasonable lunar approximation, but it is ~10 days short of the sun each year. Mercedonius was a <em>patch</em> — a manual intercalary month inserted by the college of pontiffs (the Pontifex Maximus becoming decisive only later). The patch was <strong>human-controlled</strong>: it could be skipped, delayed, or doubled for political ends. By 46 BC a cluster of skipped intercalations had put the civil year about three months out from the seasons — broken enough that Caesar did a full rewrite (the 445-day <em>annus confusionis</em>, then the Julian year).</p>
+    <p>Even Caesar's rewrite kept the Kalends. He replaced the <em>engine</em> — lunar observation, then a broken schematic year — with solar calculation, but kept the <em>interface</em>: months still start on the Kalends, days are still counted backwards from the next anchor. The moon was no longer consulted; the structure it had given was permanent. <strong>The architecture was sound. Both the lunar lock and the year length had been allowed to fail.</strong></p>
+  </div>
+
+  <div class="panel">
+    <h3>The Kalendar as Almanac — feed it, defend it, protect it</h3>
+    <p>The word "calendar" itself comes from <em>Kalendae</em> — the Roman name for the first day of each month, when debts were due and pontiffs announced the new moon. But the Roman <em>Kalendar</em> was far more than what we think of as a calendar today. It was, in essence, a <strong>religious-agricultural-military almanac</strong> — a single instrument that synchronised Roman society with the three forces that kept it alive:</p>
+    <ul>
+      <li><span class="list-label">Agriculture — feed it.</span> The vast majority of Romans were farmers. The Kalendar told them when to sow, when to prune, when to harvest, when to drive flocks to summer pasture and bring them back. Festivals like the <em>Robigalia</em> (25 April — sacrifice to avert wheat rust), the <em>Consualia</em> (21 August — rest the plough-oxen), and the <em>Vinalia</em> (23 April — taste the new wine) were not abstract rituals: they were the <em>operational schedule</em> of Roman agriculture. A mistake in timing meant hunger.</li>
+      <li><span class="list-label">War — defend it.</span> The campaigning season opened in March (Mars = war) and closed in October (<em>Armilustrium</em> — purify the weapons). The Kalendar told the state when to raise <em>legiones</em>, when consuls should depart for their provinces, when to expect the army back. The entire military cycle — levies, marches, battles, withdrawal, winter quarters — was timed by the calendar. As Rome's empire expanded, the 153 BC shift of the year-start from March to January was itself a military logistics decision: consuls needed extra months to reach Spain, Greece, or Asia before spring.</li>
+      <li><span class="list-label">Religion — protect it.</span> The gods had to be honoured at the right time, or Rome would lose their favour. The <em>Saturnalia</em>, <em>Lupercalia</em>, <em>Cerealia</em>, <em>Vestalia</em> — each was a contract between the state and the divine, and the Kalendar was the schedule of those contracts. Missing a festival was not just a scheduling error; it was a <em>religious failure</em> that could bring plague, defeat, or famine. The <em>dies fasti/nefasti</em> system (which days courts could meet, which were sacred) was the Kalendar's way of preventing civic business from clashing with divine obligations.</li>
+      <li><span class="list-label">Debt — pay it.</span> The word <em>Kalendae</em> itself was tied to debt: on the Kalends, payments fell due, loans were settled, interest was reckoned. The Romans even used <em>ad kalendas Graecas</em> ("on the Greek Kalends" — a day that doesn't exist) to mean "never." The Kalendar was the financial clock of the Roman economy, synchronising creditors and debtors across the city and beyond.</li>
+    </ul>
+    <p>In a very real sense, the Roman Kalendar was both a <strong>practical almanac</strong> and a <strong>civic agenda</strong> — a single document that combined agricultural guidance, military scheduling, religious obligation, and financial deadlines. As an almanac, it told you <em>what to do when</em>: when to plant, when to march, when to sacrifice. As an agenda, it told you <em>what was coming and how much time you had to prepare</em>: how many days until the next festival, the next levy, the next payment due. The Roman Kalendar told farmers when to plant, generals when to march, priests when to sacrifice, and creditors when to collect — all in one system, all keyed to the same rhythm of Kalends, Nones, and Ides. When we reduce it to "a way of numbering days," we miss that it was the <strong>operating system of an entire civilisation</strong>.</p>
+  </div>
+
+  <div class="panel">
+    <h3>Why backwards counting? — the rhythm of sacred and civic time</h3>
+    <p>Why count <em>down</em> from the next feast, rather than <em>up</em> from the start? Because Roman time was <strong>eschatological</strong> — it ran <em>towards</em> the next sacred event. The Kalends, Nones, and Ides were not just markers; each was a day of <strong>specific sacrifices and rituals</strong>. The Kalends opened the month with offerings to Juno. On the Nones the <em>rex sacrorum</em> announced the month's remaining festivals (<em>nonae</em> = "ninth day before the Ides", counting inclusively). The Ides honoured Jupiter. (<em>Nundinae</em>, the eight-day market cycle, is a different word — not an etymology of Nones.)</p>
+    <p>Counting backwards from the next feast meant that every day carried its <strong>liturgical meaning</strong> — you always knew how many days until the next sacrifice, the next assembly, the next market. This is the same structure as the Christian calendar of saints' days or the Islamic countdown to Ramadan: the calendar tells you not just <em>what day it is</em>, but <em>what is coming</em>. For a Roman farmer, this meant knowing when to prepare for the Terminalia (23 Feb), the Robigalia (25 April, to avert wheat rust), or the Saturnalia (17 December). For a Roman citizen, it meant knowing when the <em>comitia</em> could meet (only on <em>dies comitiales</em>), when courts were open (<em>dies fasti</em>), or when no business was permitted (<em>dies nefasti</em>).</p>
+    <p><strong>The Kalendar as organiser, not archive.</strong> This is perhaps the most fundamental difference between the Roman calendar and ours. Our modern calendar is primarily a <em>historical</em> instrument: we use it to locate events in the past ("July 14th, 1789") or to plan far into the future. The Roman calendar had a different purpose. It was above all an <strong>organiser of civic and religious life</strong> — a device for telling you how many days were left until the next festival, the next sacrifice, the next assembly, the next market day. The calendar's job was not to locate you in a historical timeline but to structure your <em>present</em>: when to pray, when to vote, when to trade, when to rest.</p>
+    <p>The Kalends themselves hark back to this original <strong>agricultural function</strong>. In the earliest lunar calendar, the pontiffs "called out" (<em>calare</em>) the new moon and counted the days to the Nones — the purpose was practical: when to sow, when to reap, when to prune, when to drive the flocks to summer pasture. Sowing too early or too late could mean a failed harvest. The moon was the most readily observable regular clock in the sky, long before any written calendar existed. So the Kalends–Nones–Ides structure began as an <strong>agricultural agenda</strong> keyed to the lunar cycle, and later — as Rome urbanised — accumulated religious, military, and financial layers on that farming core. By the time Caesar reformed it, the agenda was still there; the moon-lock was already gone. The Kalendar of 46 BC was, at its deepest root, a farmer's agenda that had become the operating system of an empire.</p>
+  </div>
+  <div class="panel">
+    <h3>The nundinal cycle — the Roman "week"</h3>
+    <p>Romans had no 7-day week until late antiquity. Instead, market days (<em>nundinae</em>) recurred every <strong>8 days</strong> (the ninth day, counting inclusively — hence the name), marked with the letters <strong>A–H</strong> on painted calendars. The cycle ran independently of months and years. The <em>nundinae</em> were when farmers came to the city to sell, buy, and hear political news. Assemblies were customarily not held on market days so that rural citizens could trade; a separate late-Republican adjustment kept the nundinal cycle from clashing with 1 January.</p>
+  </div>
+</section>
+</div><!-- /ts-rhythm -->
 <div class="tab-section" id="ts-republican">
 <section id="republican">
   <h2><span class="secnum">IV</span>The Republican Calendar (355 days)</h2>
   <p>The pre-Julian Republican year had four <span class="green">"full" months</span> of 31 days and the rest <span class="red">"hollow"</span> months of 29 days — except February, with 28 in common years:</p>
   <div class="monthgrid" id="repMonthGrid"></div>
   <div class="legend"><span class="green">■ full (31)</span><span class="red">■ hollow (29)</span><span class="dim">■ February (28) — the odd one out</span></div>
-  <p>Total: <strong>355 days</strong> — about 10 short of the solar year. The <strong>Pontifex Maximus</strong> therefore inserted an extra "leap month", the <strong>Mercedonius / Intercalaris</strong> of 27 or 28 days, between 23/24 February and the end of February, roughly every other year.</p>
-  <p class="note">The consequences of this 10-day gap — and the political abuse of intercalation — are shown in the orbital drift animation in the <strong>Lunar Origin</strong> tab, where the moon's orbit and the solar year diverge year by year.</p>
+  <p>Total: <strong>355 days</strong> — about 10 short of the solar year. The college of pontiffs therefore inserted an extra "leap month", the <strong>Mercedonius / Intercalaris</strong>, after the Terminalia (23 February), roughly every other year. Ancient sources give it 22 or 23 days; a widely used modern reconstruction (Michels) gives 27, with February truncated. The dual calendar does not insert this month in ordinary Republican years — only in 46 BC, as part of the 445-day correction. See <strong>Notes</strong>.</p>
+  <p class="note">The consequences of this 10-day gap — and the political abuse of intercalation — are shown in the <strong>Lunar Origin</strong> tab (equinox bar and orbit schematic). Those animations show <em>seasonal</em> drift from skipped intercalation, not a live moon still locking the Kalends.</p>
   <div class="panel">
     <h3>Why February stays short — and why the leap day sits at Feb 24, not the end</h3>
     <p>February (<em>Februa</em> = purifications; Lupercalia) was the <strong>"clean-up" month of the dead</strong>, and — being the last month of the old March-started year — the leftover imbalance and the intercalation landed on it.</p>
     <p>But the leap day was <strong>not</strong> appended at the end of February (day 29). It was inserted on <strong>24 February</strong> — the day the Romans called <em>ante diem VI Kalendas Martias</em>, "the 6th day before the Kalends of March". Why there?</p>
     <p>The answer lies in Roman religion and counting. The <strong>Terminalia</strong> (23 February) was the festival of <em>Terminus</em>, the boundary god — it marked the <strong>end of the religious year</strong>. The day after Terminalia, 24 February, was the <strong>Regifugium</strong> ("king's flight"), commemorating the expulsion of Tarquinius Superbus. These were the <strong>last sacred days of the old year</strong>, before the new cycle began on 1 March. Intercalation had to happen <em>at this liminal point</em> — after Terminalia closed the old year, but before March opened the new one.</p>
     <p>Romans counted dates <strong>backwards and inclusively</strong> from the next fixed point. So 24 February = <em>a.d. VI Kal. Mart.</em> The inserted leap day was placed <em>after</em> the normal 24th — so the 24th was simply <strong>doubled</strong>: <span class="tag">bis sextum</span>, "the sixth day twice" (hence our word <strong>bissextile</strong>). In leap years, there were two consecutive days both labelled <em>a.d. VI Kal. Mart.</em> — the first was the "regular" 24th, the second was the intercalated day. This preserved the <strong>backward numbering</strong>: the days after the leap day kept their existing countdown to the next Kalends — the 25th remained <em>a.d. V Kal. Mart.</em> ("5th day to the Kalends, counted inclusively"), the 26th <em>a.d. IV Kal. Mart.</em>, and so on. The leap day was inserted <em>before</em> the countdown resumed, not at its end. This reveals something fundamental about Roman time: <strong>the year did not start with a new month — it started with the countdown <em>towards</em> the next Kalends</strong>. Roman time was always <em>forward-looking</em>, oriented towards the next sacred anchor. That forward-looking expectation — how many days until the next Kalends — was what could not be disturbed. Inserting the leap day at the countdown's beginning (doubling the 6th) rather than at its end kept every subsequent number intact, so no one had to relearn when the next festival, sacrifice, or market day fell.</p>
-    <p>This is also why Caesar, when he created the Julian calendar in 45 BC, kept the same insertion point: the Julian leap day falls after <em>a.d. VI Kal. Mart.</em> (24 Feb), not on 29 February as in our modern system. The extra day was still conceptually a "doubled sixth" — <em>bis sextum</em> — even though February now had 29 days in leap years. Only much later, in the Gregorian reform, did the leap day shift to the 29th.</p>
+    <p>This is also why Caesar, when he created the Julian calendar in 45 BC, kept the same insertion point: the Julian leap day falls after <em>a.d. VI Kal. Mart.</em> (24 Feb), not on 29 February as in our modern numbering. The extra day was still conceptually a "doubled sixth" — <em>bis sextum</em> — even though February now had 29 days in leap years. Civil numbering as "29 February" is a later habit; the Gregorian reform of 1582 did not itself move the leap day. The Roman church long continued to treat the bissextile as a doubled 24th.</p>
   </div>
 </section>
 </div><!-- /ts-republican -->
-
 <div class="tab-section" id="ts-daynames">
 <section id="daynames">
   <h2><span class="secnum">V</span>How Romans Named a Day</h2>
   <p>Romans did not number days 1, 2, 3… from the start of the month. Instead, every day was named by <strong>counting backwards, inclusively</strong>, from the next fixed anchor point. There were three anchors, inherited from lunar observation:</p>
   <ul>
     <li><strong>Kalends</strong> — the 1st (new moon). From <em>kalare</em>, "to call out" — the pontiff announced the new moon.</li>
-    <li><strong>Nones</strong> — the <strong>5th</strong>, except in March, May, July and October, where it is the <strong>7th</strong> (first-quarter moon). The Nones marked the <em>dies nefasti</em> after which no new business could be begun until the Ides.</li>
+    <li><strong>Nones</strong> — the <strong>5th</strong>, except in March, May, July and October, where it is the <strong>7th</strong> (first-quarter moon). On the Nones the <em>rex sacrorum</em> announced the month's festivals. The days <em>after</em> Kalends, Nones, and Ides (<em>dies atri</em> / <em>postriduani</em>) were unlucky for new undertakings — a different rule from <em>dies nefasti</em> (N-days, when courts were closed).</li>
     <li><strong>Ides</strong> — the <strong>13th</strong>, except in those same four months, where it is the <strong>15th</strong> (full moon). The Ides were sacred to Jupiter — the <em>rex sacrorum</em> sacrificed a sheep on the Capitoline.</li>
   </ul>
   <div class="panel">
     <h3>Why March, May, July, and October are different — the legacy of Romulus's "full" months</h3>
     <p>You will have noticed the exception: in <strong>March, May, July, and October</strong>, the Nones fall on the <strong>VII</strong> (7th) and the Ides on the <strong>XV</strong> (15th) — two days later than in all other months (Nones = V, Ides = XIII). Why?</p>
-    <p>These four months were the original <strong>"full" (<em>pleni</em>) 31-day months</strong> in Romulus's 10-month calendar. The remaining six were <strong>"hollow" (<em>cavi</em>) 29-day months</strong>. The extra two days in the full months pushed the first-quarter moon (Nones) from day V to day VII, and the full moon (Ides) from day XIII to day XV — so that the lunar phase markers would still land at roughly the right moon phase in a longer month.</p>
-    <p>When Numa Pompilius added <strong>January</strong> and <strong>February</strong>, he gave them the short-month pattern (Nones = V, Ides = XIII) — as if they were hollow months, which structurally they were. This distinction — full vs. hollow — was then <strong>frozen</strong> and survived every subsequent reform: the Republican intercalary system, Caesar's Julian reform, and even the Augustan reshuffle. Long after the lunar connection was completely forgotten, Romans still counted "ante diem III Idus Martias" differently from "ante diem III Idus Aprilis" — because March was a "full" month and April was not. The moon was gone, but its fingerprint remained.</p>
+    <p>These four months were the original <strong>"full" (<em>pleni</em>) 31-day months</strong> in Romulus's 10-month calendar. The remaining six were <strong>"hollow" (<em>cavi</em>)</strong> — <strong>30</strong> days under Romulus, then 29 after Numa cut a day from each (odd numbers being lucky). The extra two days in the full months sit <em>before</em> the Ides: they push the first-quarter marker (Nones) from day V to day VII, and the full-moon marker (Ides) from day XIII to day XV, so the phase names still land at roughly the right point in a longer month.</p>
+    <p>When Numa added <strong>January</strong> and <strong>February</strong>, he gave them the short-month pattern (Nones = V, Ides = XIII). What then <strong>froze</strong> is not "31 days ⇒ Nones on the 7th", but the four named months: March, May, Quintilis/July, October. Caesar later made January, Sextilis, and December 31 days <em>without</em> moving their Nones — he inserted the extra days after each month's festivals (Macrobius 1.14.8), so those three 31-day months still have Nones on the 5th. Long after the lunar connection was forgotten, Romans still counted <em>ante diem III Idus Martias</em> differently from <em>ante diem III Idus Aprilis</em>. The moon was gone; its fingerprint remained on four months, not on every long month.</p>
   </div>
 
   <!-- Full vs Hollow month comparison axis -->
@@ -1093,16 +1101,16 @@ footer .note{font-style:italic;margin:.8rem auto;}
         <!-- Day XXV at 24/30 = 80% -->
         <div class="month-compare-tick" style="left:80%;"></div>
         <div class="month-compare-num" style="left:80%;">XXV</div>
-        <!-- Next Kalends at day XXXI = 100% -->
+        <!-- Last day of the month = pridie Kalendas of the next month -->
         <div class="month-compare-tick kalends" style="left:100%;"></div>
         <div class="month-compare-num" style="left:100%;">XXXI</div>
-        <div class="month-compare-name k" style="left:100%;">Kal.</div>
+        <div class="month-compare-name k" style="left:100%;">prid.</div>
       </div>
     </div>
 
     <!-- Hollow month: 29 days, Nones=V, Ides=XIII -->
     <div class="month-compare-row">
-      <div class="month-compare-label"><span class="hollow-tag">HOLLOW month (29 days)</span> — all other months</div>
+      <div class="month-compare-label"><span class="hollow-tag">HOLLOW month (29 days)</span> — Republican short months (Nones V, Ides XIII)</div>
       <div class="month-compare-track">
         <div class="month-compare-line"></div>
         <!-- Kalends at day I = 0% -->
@@ -1123,24 +1131,55 @@ footer .note{font-style:italic;margin:.8rem auto;}
         <!-- Day XXIII at 22/28 = 78.6% -->
         <div class="month-compare-tick" style="left:78.6%;"></div>
         <div class="month-compare-num" style="left:78.6%;">XXIII</div>
-        <!-- Next Kalends at day XXIX = 100% -->
+        <!-- Last day = pridie Kalendas of the next month -->
         <div class="month-compare-tick kalends" style="left:100%;"></div>
         <div class="month-compare-num" style="left:100%;">XXIX</div>
-        <div class="month-compare-name k" style="left:100%;">Kal.</div>
+        <div class="month-compare-name k" style="left:100%;">prid.</div>
       </div>
     </div>
 
-    <p style="margin-top:.8rem;font-size:1.05rem;color:var(--ink);">In the <strong>full</strong> month, the Nones are pushed 2 days later (V→VII) and the Ides 2 days later (XIII→XV), so the three lunar markers — new moon, first quarter, full moon — stay roughly aligned with the moon's phases despite the extra 2 days. After the Ides, both months count backwards to the next Kalends: <em>a.d. XVIII Kal.</em>, <em>a.d. XVII Kal.</em>, … <em>pridie Kal.</em> The hollow month has 16 days after the Ides; the full month has 17 — one more countdown step.</p>
+    <p style="margin-top:.8rem;font-size:1.05rem;color:var(--ink);">In the <strong>full</strong> month, the Nones are pushed 2 days later (V→VII) and the Ides 2 days later (XIII→XV). The extra days sit <em>before</em> the Ides. After the Ides, both Republican patterns have the same countdown to the next Kalends: the day after the Ides is <em>a.d. XVII Kal.</em> in both, and the last day of the month is <em>pridie Kalendas</em> of the next month (Macrobius: seventeen days from Ides to the following Kalends in both types). The axis ends on that last day, not on the next Kalends. After Caesar, January, Sextilis, and December are 31 days with Nones still on the 5th, because he added their extra days <em>after</em> the Ides.</p>
   </div>
 
   <p>The day itself is <span class="tag">ante diem</span> ("towards the day of") plus a countdown: <em>ante diem III Kalendas Martias</em> = "the 3rd day before the Kalends of March" = <strong>February 27</strong>. The day immediately before a fixed point is <span class="tag">pridie</span> ("the eve"). Crucially, Romans counted <strong>inclusively</strong> — the anchor day itself counts as day 1, so "III Kalends" means two days before the Kalends, not three.</p>
   <p class="note">For a deeper discussion of <em>why</em> Romans counted backwards — the eschatological structure of Roman time, the calendar as organiser of civic life, and the agricultural origins of the Kalends — see the <strong>Rhythm of Time</strong> tab.</p>
 </section>
 </div><!-- /ts-daynames -->
+<div class="tab-section" id="ts-names">
+<section id="names">
+  <h2><span class="secnum">VI</span>Month Names</h2>
+  <p>The names are a layered fossil: gods and a purification festival, then position-numbers counted from March, then two political honours. That is why our year still says "October" for the tenth month while placing it eighth.</p>
+  <p>After Caesar's death, <strong>Quintilis</strong> (the "5th" month) was renamed <strong>Iulius</strong> (July) in <strong>44 BC</strong> in his honour. <strong>Sextilis</strong> was renamed <strong>Augustus</strong> (August) in <strong>8 BC</strong>. Caesar had already given Sextilis 31 days; Augustus did not steal a day from September. The dual calendar reflects the <em>names</em>: before 44 BC, month 7 is <em>Quintilis</em>; from 44 BC, <em>Iulius</em>. Before 8 BC, month 8 is <em>Sextilis</em>; from 8 BC, <strong>Augustus</strong> — both 31 days from 45 BC on.</p>
+  <p>Other imperial renamings were attempted but did not stick: Tiberius rejected a proposal to rename September and October after his mother and father ("what will you do if there are thirteen Caesars?"); Caligula briefly tried <em>Germanicus</em>; Domitian tried <em>Domitianus</em>; and Commodus renamed all twelve months after his own titles — all reversed after his assassination.</p>
+  <p class="note">This is why our months are an oddly mixed set: four named after gods (January, March, May, June), one after a purification festival (February), two after emperors (July, August), four still bearing their old position numbers from the March-start year (September–December), and April — etymology disputed (<em>aperire</em> "to open", or Aphrodite), not a festival name.</p>
 
+  <!-- Month origins table -->
+  <div class="month-origins">
+    <h3>Where do all the month names come from?</h3>
+    <p>The names preserve the layered history of the calendar — from gods and agriculture to numbers and political renamings:</p>
+    <table>
+      <thead><tr><th>Month</th><th>Origin</th><th>Etymology &amp; notes</th></tr></thead>
+      <tbody>
+        <tr><td>Ianuarius</td><td>God</td><td><em>Janus</em>, the two-faced god of doors, gates, and beginnings. He looks forward and back.</td></tr>
+        <tr><td>Februarius</td><td>Religion</td><td><em>Februa</em>, the festival of purification. From <em>februum</em>, a purificatory instrument.</td></tr>
+        <tr><td>Martius</td><td>God</td><td><em>Mars</em>, god of war. Originally the <strong>first month</strong> — campaigning season opened in spring.</td></tr>
+        <tr><td>Aprilis</td><td>Agriculture?</td><td>From <em>aperire</em> "to open" (buds opening) — the traditional derivation, though some ancient scholars derive it from Aphrodite (Greek influence). The etymology is debated.</td></tr>
+        <tr><td>Maius</td><td>Goddess</td><td><em>Maia</em>, goddess of growth; or <em>maiores</em> "elders" — honouring ancestors.</td></tr>
+        <tr><td>Iunius</td><td>Goddess</td><td><em>Juno</em>, queen of gods; or <em>iuniores</em> "young people" — month of young growth.</td></tr>
+        <tr><td>Quintilis → Iulius</td><td>Number → politics</td><td>"Fifth" (<em>quintus</em>). <strong>Renamed Iulius</strong> in 44 BC for Julius Caesar, born this month.</td></tr>
+        <tr><td>Sextilis → Augustus</td><td>Number → politics</td><td>"Sixth" (<em>sextus</em>). <strong>Renamed Augustus</strong> in 8 BC. Already 31 days from Caesar's reform; the "stolen day" story is medieval.</td></tr>
+        <tr><td>September</td><td>Number</td><td>"Seventh" (<em>septem</em>). Never renamed — Tiberius refused: "what if thirteen Caesars each want a month?"</td></tr>
+        <tr><td>October</td><td>Number</td><td>"Eighth" (<em>octo</em>). Month of <em>Armilustrium</em> (19 Oct) — weapons purified as campaigns closed.</td></tr>
+        <tr><td>November</td><td>Number</td><td>"Ninth" (<em>novem</em>).</td></tr>
+        <tr><td>December</td><td>Number</td><td>"Tenth" (<em>decem</em>). Home of <em>Saturnalia</em>, the great winter festival of reversal.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div><!-- /ts-names -->
 <div class="tab-section" id="ts-religion">
 <section id="religion">
-  <h2><span class="secnum">VI</span>The Religious Dimension of the Fasti</h2>
+  <h2><span class="secnum">VII</span>The Religious Dimension of the Fasti</h2>
   <p>Inscribed calendars (like the <strong>Fasti Antiates Maiores</strong>, c. 60 BC — which still shows <em>QVI/SEX</em>, not July/August, plus an "INTER" column for intercalation) marked <strong>every single day</strong> with a letter — a fully religious classification:</p>
   <table class="fasti">
     <tr><th>Letter</th><th>Meaning</th><th>Business?</th></tr>
@@ -1148,7 +1187,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
     <tr><td class="N tooltip" title="Dies nefastus: religiously unusable">N</td><td>dies <em>nefastus</em> — no public business; festivals</td><td>No</td></tr>
     <tr><td class="C tooltip" title="Dies comitiales: assemblies may be held">C</td><td>dies <em>comitialis</em> — assemblies may be held</td><td>Yes (assemblies)</td></tr>
     <tr><td class="NP tooltip" title="Nefastus publicum: major public holiday">NP</td><td><em>nefastus publicum</em> — major public holidays</td><td>No</td></tr>
-    <tr><td class="EN tooltip" title="Endoterxus/Intercisus: partly usable">EN</td><td><em>endoterxus/intercisus</em> — "cut" day, partly usable</td><td>Partly</td></tr>
+    <tr><td class="EN tooltip" title="Endotercisus/Intercisus: partly usable">EN</td><td><em>endotercisus</em> / <em>intercisus</em> — "cut" day, partly usable</td><td>Partly</td></tr>
     <tr><td class="QRCF tooltip" title="Quando Rex Comitiavit Fas">QRCF</td><td><em>quando rex comitiavit fas</em> — fas when the rex sacrorum has comitiated</td><td>After a ritual moment</td></tr>
   </table>
   <p class="note">Ovid's <em>Fasti</em> — a poem walking through the calendar month by month — is our richest source on this religious layer: Lupercalia (Feb 15), Matralia, Saturnalia, and much more.</p>
@@ -1156,7 +1195,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
     <h3>A Roman-style February — day-letter column</h3>
     <p class="note">Hover any letter for its meaning. This is one month (February) of a rendered "painted calendar":</p>
     <table class="fasti" id="fastiFeb"></table>
-    <p class="note">The letters F/N/C are a religious shading over the whole month — <em>and</em> one reason why February is the "purge" month, hence its 28 days and the leap-day position (23/24 Feb, bis sextum).</p>
+    <p class="note">February is a short month: Nones on the 5th, Ides on the 13th, then countdown to the Kalends of March. Letters follow Scullard's reading of the fasti. February is the "purge" month of the dead — hence 28 days and the leap-day position (23/24 Feb, <em>bis sextum</em>).</p>
   </div>
 
   <!-- Festival calendar -->
@@ -1166,9 +1205,10 @@ footer .note{font-style:italic;margin:.8rem auto;}
     <div class="festival-cal">
       <div class="fmonth">
         <div class="fmonth-name">Ianuarius</div>
-        <span class="festival-item"><span class="fday">IX</span>Carmentalia</span>
-        <span class="festival-item"><span class="fday">XI, XV</span>Compitalia</span>
-        <p class="festival-desc">Carmentalia honoured Carmenta, goddess of childbirth and prophecy. Compitalia, celebrated at crossroads shrines (<em>compita</em>), marked the end of the agricultural year — slaves and masters feasted together in a ritual of social inversion.</p>
+        <span class="festival-item"><span class="fday">IX</span>Agonalia</span>
+        <span class="festival-item major"><span class="fday">XI, XV</span>Carmentalia</span>
+        <span class="festival-item"><span class="fday">movable</span>Compitalia</span>
+        <p class="festival-desc"><strong>Agonalia</strong> (9 Jan): sacrifice of a ram to Janus at the Regia. <strong>Carmentalia</strong> (11 and 15 Jan): two feast days of Carmenta, goddess of childbirth and prophecy, observed especially by women. <strong>Compitalia</strong> is a movable feast (<em>feriae conceptivae</em>) for the Lares of the crossroads, usually in early January after Saturnalia — not a fixed date.</p>
       </div>
       <div class="fmonth">
         <div class="fmonth-name">Februarius</div>
@@ -1183,7 +1223,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
         <div class="fmonth-name">Martius</div>
         <span class="festival-item"><span class="fday">I</span>Matronalia</span>
         <span class="festival-item major"><span class="fday">XIX–XXIII</span>Quinquatrus</span>
-        <p class="festival-desc"><strong>Matronalia</strong> (1 March): the "women's Kalends" — husbands gave gifts to wives. <strong>Quinquatrus</strong> (19–23 March): five-day festival of Mars and Minerva — the <em>salii</em> (leaping priests) danced through Rome; gladiatorial games honoured Mars. This opened the campaigning season — consuls' departure for war was timed around it.</p>
+        <p class="festival-desc"><strong>Matronalia</strong> (1 March): the "women's Kalends" — husbands gave gifts to wives. <strong>Quinquatrus</strong> (19 March): named because it is the fifth day after the Ides, counting inclusively — not originally a five-day festival. It later expanded to 19–23 March as a festival of Mars and Minerva; the <em>salii</em> danced, and it marked the opening of the campaigning season.</p>
       </div>
       <div class="fmonth">
         <div class="fmonth-name">Aprilis</div>
@@ -1228,7 +1268,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
         <div class="fmonth-name">October</div>
         <span class="festival-item"><span class="fday">XII</span>Augustalia</span>
         <span class="festival-item major"><span class="fday">XIX</span>Armilustrium</span>
-        <p class="festival-desc"><strong>Armilustrium</strong> (19 Oct): the ritual "cleansing of weapons" — the <em>salii</em> danced again, and the sacred shields were purified. This marked the <strong>end of the campaigning season</strong>: soldiers stored arms for winter; no battles until Quinquatrus reopened the season in March.</p>
+        <p class="festival-desc"><strong>Augustalia</strong> (12 Oct): Imperial — games instituted in 19 BC after Augustus's return from the East, not a Republican festival. <strong>Armilustrium</strong> (19 Oct): the ritual "cleansing of weapons" — the <em>salii</em> danced again, and the sacred shields were purified. This marked the <strong>end of the campaigning season</strong>: soldiers stored arms for winter; no battles until Quinquatrus reopened the season in March.</p>
       </div>
       <div class="fmonth">
         <div class="fmonth-name">November</div>
@@ -1240,25 +1280,24 @@ footer .note{font-style:italic;margin:.8rem auto;}
         <span class="festival-item major"><span class="fday">XVII–XXIII</span>Saturnalia</span>
         <span class="festival-item"><span class="fday">XIX</span>Opalia</span>
         <span class="festival-item"><span class="fday">XXI</span>Divalia</span>
-        <p class="festival-desc"><strong>Saturnalia</strong> (17–23 Dec): the most famous Roman festival — a week of <strong>role reversal and revelry</strong>. Slaves wore the freedman's cap and were served by masters; gambling was permitted in public; courts and schools closed; gifts (<em>sigillaria</em>) were exchanged. It honoured Saturn, god of the Golden Age — a mythic time of abundance. Rooted in the agricultural calendar, it survived into Christian tradition as the Christmas season.</p>
+        <p class="festival-desc"><strong>Saturnalia</strong> (17 Dec, later 17–23): originally one day, 17 December. It grew to three days under Augustus, then five, and in popular use a week (17–23) in the later Empire — a festival of <strong>role reversal and revelry</strong>. Slaves wore the freedman's cap and were served by masters; gambling was permitted in public; courts and schools closed; gifts (<em>sigillaria</em>) were exchanged. It honoured Saturn, god of the Golden Age. Rooted in the agricultural calendar, it fed into the later Christmas season.</p>
       </div>
     </div>
   </div>
 </section>
 </div><!-- /ts-religion -->
-
 <div class="tab-section" id="ts-reform">
 <section id="reform">
-  <h2><span class="secnum">VII</span>Caesar's Reform (46–44 BC)</h2>
-  <p>By 46 BC the calendar was <strong>3 months ahead of the seasons</strong>. Caesar, advised by the Alexandrian astronomer <strong>Sosigenes</strong>, discarded the lunar scheme entirely:</p>
-  <p class="note"><strong>Sosigenes and the Alexandrian tradition.</strong> Caesar did not invent the solar calendar from scratch — he borrowed it from the world's leading astronomical centre. <strong>Alexandria</strong>, in Ptolemaic Egypt, had been the intellectual heir of <strong>Babylonian astronomy</strong> for centuries. The Babylonians had been tracking the solar year with remarkable precision since at least the 8th century BC; their data was transmitted to Greece and then to Alexandria, where the great Library and the Museum (a research institute) produced astronomers like <strong>Hipparchus</strong> (who calculated the tropical year as 365.2467 days — within 6 minutes of the modern value) and later <strong>Ptolemy</strong>. Sosigenes worked in this tradition: he knew the solar year was approximately 365¼ days, and he advised Caesar to adopt a simple, robust rule — 365 days normally, with an extra day every fourth year. This was not new science; it was <em>established Alexandrian knowledge applied to Roman administration</em>. Caesar's genius was not astronomical but political: he had the power to impose the reform and the 445-day correction that preceded it.</p>
+  <h2><span class="secnum">VIII</span>Caesar's Reform (46–44 BC)</h2>
+  <p>By 46 BC the calendar was <strong>about 3 months out from the seasons</strong>. Caesar, advised by the Alexandrian astronomer <strong>Sosigenes</strong>, discarded the lunar scheme entirely:</p>
+  <p class="note"><strong>Sosigenes and the Alexandrian tradition.</strong> Caesar did not invent the solar calendar from scratch — he borrowed it from the world's leading astronomical centre. <strong>Alexandria</strong>, in Ptolemaic Egypt, had been the intellectual heir of <strong>Babylonian astronomy</strong> for centuries. The Babylonians had been tracking the solar year with remarkable precision since at least the 8th century BC; their data was transmitted to Greece and then to Alexandria, where the great Library and the Museum (a research institute) produced astronomers like <strong>Hipparchus</strong> (who calculated the tropical year as 365.2467 days — within 6 minutes of the modern value) and, a century after Caesar, <strong>Ptolemy</strong>. Sosigenes worked in this tradition: he knew the solar year was approximately 365¼ days, and he advised Caesar to adopt a simple, robust rule — 365 days normally, with an extra day every fourth year. This was not new science; it was <em>established Alexandrian knowledge applied to Roman administration</em>. Caesar's genius was not astronomical but political: he had the power to impose the reform and the 445-day correction that preceded it.</p>
   <ul>
     <li><strong>46 BC — the "last year of confusion"</strong> (<em>annus confusionis</em>): <strong>445 days</strong>, with extra intercalary months inserted to realign the civil year with the solar year.</li>
     <li>From <strong>1 January 45 BC</strong>: a purely <strong>solar year of 365 days + 1 leap day every 4 years</strong> (Julian year = 365.25 days). The lunar leap month was abolished; the "missing" 10 days were permanently distributed so months got 30/31 days (Feb 28/29).</li>
     <li>Leap day: placed <em>after</em> Feb 23 — doubling the VI Kal. Mart. (<em>bis sextum</em>).</li>
   </ul>
   <table>
-    <tr><th>Month</th><th>Republican</th><th>Caesar (45 BC)</th><th>After 8 BC</th></tr>
+    <tr><th>Month</th><th>Republican</th><th>Caesar (45 BC)</th><th>From 8 BC (name only)</th></tr>
     <tr><td>Ianuarius</td><td>29</td><td>31</td><td>31</td></tr>
     <tr><td>Februarius</td><td>28</td><td>28 / 29 leap</td><td>28 / 29 leap</td></tr>
     <tr><td>Martius</td><td>31</td><td>31</td><td>31</td></tr>
@@ -1266,21 +1305,21 @@ footer .note{font-style:italic;margin:.8rem auto;}
     <tr><td>Maius</td><td>31</td><td>31</td><td>31</td></tr>
     <tr><td>Iunius</td><td>29</td><td>30</td><td>30</td></tr>
     <tr><td>Quintilis → Iulius</td><td>31</td><td>31</td><td>31</td></tr>
-    <tr><td>Sextilis → Augustus</td><td>29</td><td>30</td><td class="green">31</td></tr>
-    <tr><td>September</td><td>29</td><td class="green">31</td><td>30</td></tr>
+    <tr><td>Sextilis → Augustus</td><td>29</td><td>31</td><td>31</td></tr>
+    <tr><td>September</td><td>29</td><td>30</td><td>30</td></tr>
     <tr><td>October</td><td>31</td><td>31</td><td>31</td></tr>
     <tr><td>November</td><td>29</td><td>30</td><td>30</td></tr>
     <tr><td>December</td><td>29</td><td>31</td><td>31</td></tr>
     <tr><td><strong>Total</strong></td><td><strong>355</strong></td><td><strong>365/366</strong></td><td><strong>365/366</strong></td></tr>
   </table>
-  <p class="note">Caesar's original Julian calendar gave <strong>Sextilis 30 days and September 31</strong>. After <strong>Augustus</strong> renamed Sextilis to <strong>Augustus</strong> in 8 BC, he transferred one day from September to August — so that his month would be no shorter than Caesar's (Iulius = 31). This is why August has 31 days and September only 30 today. The exact distribution of Caesar's original +10 days is debated; the reconstruction above follows the most widely cited modern scholarship (Bickerman, Rüpke).</p>
+  <p class="note">Macrobius and Censorinus: Caesar added 10 days as +2 to January, Sextilis, and December, and +1 to April, June, September, and November — already the lengths we use today, including Sextilis 31 and September 30. He inserted those days <em>after</em> each month's festivals, so January/Sextilis/December have 31 days but keep Nones on the 5th. The story that Augustus stole a day from September (or February) to make his month as long as July is a medieval invention (Sacrobosco, 13th century), contradicted by those ancient sources and by a 24 BC papyrus that already has a 31-day Sextilis. In 8 BC Sextilis was <em>renamed</em> Augustus; the lengths did not change.</p>
   <div class="panel">
     <h3>The leap-year blunder — 36 years of too many leap days</h3>
     <p>Caesar's rule was simple: add one extra day every <strong>fourth</strong> year. But the pontiffs who administered the calendar after Caesar's assassination (44 BC) misread the instruction. They applied the rule as "every <strong>third</strong> year" — because Romans counted <em>inclusively</em>: if year 1 is a leap year, then the "fourth year" counting inclusively is year 3 (1, 2, 3, 4 — but "1 to 4" = 3 intervals). The result was a leap year every 3 years instead of every 4 — <strong>too many leap days</strong>, causing the calendar to drift <em>behind</em> the sun (the opposite of the earlier drift).</p>
-    <p>From 45 BC to approximately 9 BC, this error accumulated: roughly 12 leap days were inserted when only 9 should have been — 3 extra days. <strong>Augustus</strong> recognised the problem and corrected it in two stages:</p>
+    <p>From 45 BC to approximately 9 BC, this error accumulated: roughly 12 leap days were inserted when only 9 should have been — 3 extra days. <strong>Augustus</strong> recognised the problem (the exact year-by-year sequence is debated; Scaliger's reconstruction is the usual one — see <strong>Notes</strong>) and corrected it in two stages:</p>
     <ul>
-      <li><strong>~9 BC — AD 8: skip all leap years.</strong> Augustus ordered that no leap days be inserted for roughly 12–16 years, to "burn off" the 3 excess days. This was the corrective phase.</li>
-      <li><strong>From AD 8: resume the correct 4-year cycle.</strong> After the correction, the Julian calendar functioned as intended for the next 1,600 years — until the Gregorian reform of 1582 addressed the remaining ~11-minute-per-year error (365.25 vs 365.2422).</li>
+      <li><strong>~9 BC onward: skip leap years</strong> until the three extra days were burned off (commonly reconstructed as omitting 5 BC, 1 BC, and AD 4).</li>
+      <li><strong>From AD 8: resume the correct 4-year cycle.</strong> AD 8 is a leap year — the resumption, not a skipped year. After that, the Julian calendar ran as intended until the Gregorian reform of 1582 addressed the remaining ~11-minute-per-year error (365.25 vs 365.2422).</li>
     </ul>
     <p class="note">The irony is rich: Caesar fixed the <em>under</em>-counting of the Republican calendar (355 vs 365), only for his successors to introduce an <em>over</em>-counting bug (leap every 3 instead of 4 years). The entire episode — from 45 BC to AD 8, some 53 years — was needed to get the Julian calendar actually running correctly. A striking reminder that even a "scientific" calendar needs disciplined administration: the science was right (Sosigenes knew 365¼), but the <em>implementation</em> was wrong, and it took two generations to debug.</p>
   </div>
@@ -1290,44 +1329,10 @@ footer .note{font-style:italic;margin:.8rem auto;}
   </div>
 </section>
 </div><!-- /ts-reform -->
-
-<div class="tab-section" id="ts-names">
-<section id="names">
-  <h2><span class="secnum">VIII</span>Months Renamed & Reshaped</h2>
-  <p>After Caesar's death, <strong>Quintilis</strong> (the "5th" month) was renamed <strong>Iulius</strong> (July) in <strong>44 BC</strong> in his honour. Later, <strong>Sextilis</strong> was renamed <strong>Augustus</strong> (August) in <strong>8 BC</strong> — and to make sure Augustus's month was no shorter than Caesar's (both would have 31 days), Augustus transferred <strong>one day from September (31→30) to August (30→31)</strong>. This is the only change to month lengths after Caesar's original reform, and it persists to this day.</p>
-  <p>The dual calendar above reflects these changes automatically: before 44 BC, month 7 appears as <em>Quintilis</em>; from 44 BC, as <em>Iulius</em>. Before 8 BC, month 8 appears as <em>Sextilis</em> with 30 days; from 8 BC, as <strong>Augustus</strong> with 31.</p>
-  <p>Other imperial renamings were attempted but did not stick: Tiberius rejected a proposal to rename September and October after his mother and father; Caligula briefly tried <em>Germanicus</em>; Domitian tried <em>Domitianus</em>; and Commodus renamed all twelve months after his own twelve titles — all reversed after his assassination.</p>
-  <p class="note">This is why our months are an oddly mixed set: four named after gods (January, March, May, June), two after festivals (February, April), two after emperors (July, August), and four still bearing their old position numbers (September–December) from the March-start year.</p>
-
-  <!-- Month origins table -->
-  <div class="month-origins">
-    <h3>Where do all the month names come from?</h3>
-    <p>The names preserve the layered history of the calendar — from gods and agriculture to numbers and political renamings:</p>
-    <table>
-      <thead><tr><th>Month</th><th>Origin</th><th>Etymology &amp; notes</th></tr></thead>
-      <tbody>
-        <tr><td>Ianuarius</td><td>God</td><td><em>Janus</em>, the two-faced god of doors, gates, and beginnings. He looks forward and back.</td></tr>
-        <tr><td>Februarius</td><td>Religion</td><td><em>Februa</em>, the festival of purification. From <em>februum</em>, a purificatory instrument.</td></tr>
-        <tr><td>Martius</td><td>God</td><td><em>Mars</em>, god of war. Originally the <strong>first month</strong> — campaigning season opened in spring.</td></tr>
-        <tr><td>Aprilis</td><td>Agriculture?</td><td>From <em>aperire</em> "to open" (buds opening) — the traditional derivation, though some ancient scholars derive it from Aphrodite (Greek influence). The etymology is debated.</td></tr>
-        <tr><td>Maius</td><td>Goddess</td><td><em>Maia</em>, goddess of growth; or <em>maiores</em> "elders" — honouring ancestors.</td></tr>
-        <tr><td>Iunius</td><td>Goddess</td><td><em>Juno</em>, queen of gods; or <em>iuniores</em> "young people" — month of young growth.</td></tr>
-        <tr><td>Quintilis → Iulius</td><td>Number → politics</td><td>"Fifth" (<em>quintus</em>). <strong>Renamed Iulius</strong> in 44 BC for Julius Caesar, born this month.</td></tr>
-        <tr><td>Sextilis → Augustus</td><td>Number → politics</td><td>"Sixth" (<em>sextus</em>). <strong>Renamed Augustus</strong> in 8 BC. One day moved from September to August so it would not be shorter than July.</td></tr>
-        <tr><td>September</td><td>Number</td><td>"Seventh" (<em>septem</em>). Never renamed — Tiberius refused: "what if thirteen Caesars each want a month?"</td></tr>
-        <tr><td>October</td><td>Number</td><td>"Eighth" (<em>octo</em>). Month of <em>Armilustrium</em> (19 Oct) — weapons purified as campaigns closed.</td></tr>
-        <tr><td>November</td><td>Number</td><td>"Ninth" (<em>novem</em>).</td></tr>
-        <tr><td>December</td><td>Number</td><td>"Tenth" (<em>decem</em>). Home of <em>Saturnalia</em>, the great winter festival of reversal.</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-</div><!-- /ts-names -->
-
 <div class="tab-section" id="ts-consuls">
 <section id="consuls">
   <h2><span class="secnum">IX</span>Dating by Consuls</h2>
-  <p>Romans did <strong>not</strong> number years sequentially. Instead, each year was identified by its <strong>eponymous consuls</strong>: "the year of Marcus Tullius [Cicero] and Gaius Antonius" = 63 BC. Over 3,000 consular pairs were recorded in lists called <strong>fasti consulares</strong>, inscribed on marble and displayed in the Forum.</p>
+  <p>Romans did <strong>not</strong> number years sequentially. Instead, each year was identified by its <strong>eponymous consuls</strong>: "the year of Marcus Tullius [Cicero] and Gaius Antonius" = 63 BC. Ordinary consular pairs from the early Republic to AD 541 run to about a thousand; suffect consuls under the Empire add many more <em>names</em>, recorded in lists called <strong>fasti consulares</strong>, inscribed on marble and displayed in the Forum.</p>
 
   <div class="panel">
     <h3>Consuls and imperium — the military heart of the Republic</h3>
@@ -1368,7 +1373,6 @@ footer .note{font-style:italic;margin:.8rem auto;}
   </div>
 </section>
 </div><!-- /ts-consuls -->
-
 <div class="tab-section" id="ts-converter">
 <section id="converter">
   <h2><span class="secnum">X</span>Try It Yourself</h2>
@@ -1377,7 +1381,7 @@ footer .note{font-style:italic;margin:.8rem auto;}
     <label>Pick a date: <input type="date" id="convDate" value="2026-03-15"></label>
     <button id="convBtn">Convert</button>
     <div class="result" id="convOut"></div>
-    <p class="note">Same algorithm as the dual calendar above — try the Ides of March, 44 BC, the day Caesar was assassinated.</p>
+    <p class="note">The date picker is Gregorian and AD-only. For BC dates — the Ides of March 44 BC, 46 BC, AUC — use the Dual Kalendar tab (free-text box or Key Events).</p>
   </div>
   <div class="interactive">
     <h3>Test your knowledge — 12 questions on the Roman Kalendar</h3>
@@ -1388,11 +1392,67 @@ footer .note{font-style:italic;margin:.8rem auto;}
   </div>
 </section>
 </div><!-- /ts-converter -->
+<div class="tab-section" id="ts-notes">
+<section id="notes">
+  <h2><span class="secnum">XI</span>Notes — what is solid, what is reconstructed</h2>
+  <p>The Roman calendar is well documented in outline and uncertain in several mechanisms. This page follows standard reconstructions and flags the joins. Nothing below is hidden from the main tabs; this is the apparatus.</p>
 
+  <div class="notes-block panel">
+    <h3>1. Why the Kalends left the moon</h3>
+    <p>The new crescent is still a simple observable. The Kalends stopped tracking it because the state stopped <em>waiting</em> for it. A published fasti, fixed month lengths (29 or 31, not 29.53), a 355-day year (~15 hours longer than twelve lunations), and solar intercalation that was never phased to the moon all detach the civil Kalends from the sky. Macrobius still describes the ritual of "calling" the Nones on the Kalends after the count was predetermined. The architecture is a fossil of observation; the observation itself was switched off so civic time could be known in advance. Full argument: <strong>Lunar Origin</strong> tab.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>2. Romulus's 10-month year</h3>
+    <p>Macrobius and Censorinus give 10 months, 304 days, starting in March: four 31-day months and six <strong>30-day</strong> months (not 29). Numa is said to have added January and February, cut one day from each 30-day month, and reached 355 because odd numbers were lucky. This is how Romans <em>told</em> the story. There is no independent archaeological calendar of Romulus. We present it as tradition.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>3. Republican intercalation</h3>
+    <p>The 355-day common year is solid (Censorinus, Macrobius, Fasti Antiates Maiores). The intercalary month is not. Macrobius: 22 or 23 days after the Terminalia. Michels (1967): February truncated to 23 or 24 days, then a 27-day Intercalaris. The dual calendar does <strong>not</strong> insert Mercedonius in ordinary Republican years — every year before 45 BC except 46 BC is shown as a flat 355 days. That is a teaching simplification, not a claim that Romans never intercalated.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>4. The year of confusion (46 BC)</h3>
+    <p>Suetonius: 445 days, 15 months, including the ordinary intercalary month plus two extra months between November and December. The total 445 is robust. The split used here is the usual one: 355 + 23 + 33 + 34. Other splits exist (Michels-style 27-day intercalary with February truncated, then 63 extra days). We keep February at 28 and add 23+33+34 so the year sums to 445 without silently deleting the end of February.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>5. Caesar's month lengths — not Sacrobosco</h3>
+    <p>Macrobius 1.14.7–9 and Censorinus: Caesar added +2 to January, Sextilis, December and +1 to April, June, September, November. That is already August 31 / September 30. He put the extra days after each month's festivals, so January, Sextilis, and December have 31 days but Nones still on the 5th. The tale that Augustus stole a day from September (or February) is medieval (Johannes de Sacrobosco, 13th century). It is contradicted by those ancient authors, by Varro writing in 37 BC, and by a papyrus of 24 BC with a 31-day Sextilis. This page follows Macrobius, not Sacrobosco. Sextilis → Augustus in 8 BC is a <em>rename</em> only.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>6. Leap years, 45 BC – AD 8</h3>
+    <p>That the pontiffs leaped every third year by inclusive counting is well attested (Macrobius, Solinus). Which years actually leaped is reconstructed, not listed in a surviving fasti. Scaliger's scheme is the usual one: too many leaps until ~9 BC, then a pause (often 5 BC, 1 BC, AD 4 omitted), then the four-year cycle from AD 8. Alternatives exist (Bennett, Radke, and others). The dual calendar does <strong>not</strong> replay this bug: it uses proleptic Julian leaping (every fourth year in astronomical numbering) throughout. The Reform tab tells the story; the widget does not simulate it.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>7. Equinox and orbit animations</h3>
+    <p>A 355-day year is short, so seasonal events fall on <em>later</em> civil dates (equinox March → April → May → June). A slide into February would be the signature of a year that was too long. The ~90-day error of 46 BC came from a cluster of skipped intercalations in the late Republic, not from 250 years with zero correction. Both animations are schematics of skipped intercalation, not year-by-year reconstructions of 300–46 BC, and they illustrate <em>seasonal</em> drift — not a live moon still locking the Kalends.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>8. "Modern" column in the dual calendar</h3>
+    <p>For BC dates this is a teaching parallel: our month names, day-of-month numbers, Julian leaping before 1582 and Gregorian after. It is not a calendar a Roman would have used, and it does not skip ten days in October 1582. Roman names in that widget use the Julian/Republican month of the selected year, including Quintilis/Sextilis and the 445-day year of 46 BC when Roman reference is on.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>9. AUC, festivals, and other dates</h3>
+    <p><strong>AUC</strong> uses Varro's 753 BC epoch (the literary standard). Other epochs existed (Cato 751, etc.). <strong>Founding of Rome</strong> is 21 April 753 BC (Parilia), Varro's date. <strong>Festival lengths</strong> grew: Saturnalia was originally 17 December; Quinquatrus is named as the fifth day after the Ides (19 March), later a five-day festival; Ludi Romani expanded over the Republic. Augustalia (12 Oct) is Imperial (19 BC). Compitalia is movable. The Fasti February table follows Scullard's letters; some stones are fragmentary.</p>
+  </div>
+
+  <div class="notes-block panel">
+    <h3>Sources</h3>
+    <p class="notes-src">Ancient: Censorinus, <em>De die natali</em> 20; Macrobius, <em>Saturnalia</em> 1.12–16; Varro, <em>De lingua Latina</em> 6; Ovid, <em>Fasti</em>; Suetonius, <em>Divus Julius</em> 40, <em>Augustus</em> 31, 87; Dio Cassius; Fasti Antiates Maiores (Degrassi); Fasti Praenestini.</p>
+    <p class="notes-src">Modern: Agnes Kirsopp Michels, <em>The Calendar of the Roman Republic</em> (1967); E. J. Bickerman, <em>Chronology of the Ancient World</em> (2nd ed. 1980); Jörg Rüpke, <em>The Roman Calendar from Numa to Constantine</em> (2011); Denis Feeney, <em>Caesar's Calendar</em> (2007); H. H. Scullard, <em>Festivals and Ceremonies of the Roman Republic</em> (1981); Bonnie Blackburn &amp; Leofranc Holford-Strevens, <em>The Oxford Companion to the Year</em> (1999); G. Hacquard, <em>Guide Romain Antique</em>, Hachette (1952).</p>
+  </div>
+</section>
+</div><!-- /ts-notes -->
 </main>
 <footer>
-<p>Sources: Censorinus, <em>De die natali</em>; Macrobius, <em>Saturnalia</em>; Suetonius; Dio Cassius; Ovid, <em>Fasti</em>; modern: Jörg Rüpke, <em>The Roman Kalendar from Numa to Constantine</em>; E. J. Bickerman, <em>Chronology of the Ancient World</em>; A. K. Michels, <em>The Calendar of the Roman Republic</em>; G. Hacquard, <em>Guide Romain Antique</em>, Hachette (1952).</p>
-<p class="note">Single self-contained page · vanilla JS · Google Fonts only. Date formulas use the Julian day-count; the pre-Julian calendar's exact operation is uncertain, so its reconstruction here is the standard documented approximation.</p>
+<p>Sources: Censorinus, <em>De die natali</em>; Macrobius, <em>Saturnalia</em>; Varro, <em>De lingua Latina</em>; Ovid, <em>Fasti</em>; Suetonius; Dio Cassius; Fasti Antiates Maiores. Modern: A. K. Michels, <em>The Calendar of the Roman Republic</em>; E. J. Bickerman, <em>Chronology of the Ancient World</em>; Jörg Rüpke, <em>The Roman Calendar from Numa to Constantine</em>; Denis Feeney, <em>Caesar's Calendar</em>; G. Hacquard, <em>Guide Romain Antique</em>, Hachette (1952). Uncertainties: <strong>Notes</strong> tab.</p>
+<p class="note">Single self-contained page · vanilla JS · Google Fonts only. Pre-Julian years in the dual calendar use the standard 355-day year; ordinary intercalary months are not simulated (except 46 BC). See Notes.</p>
 </footer>
 
 <script>
@@ -1429,7 +1489,7 @@ const REPUBLICAN_MONTHS = [
 const MONTHS_46BC = [
  {name:'Ianuarius',gen:'Ianuarias',nom:'Ianuariae',days:29,nones:5,ides:13},
  {name:'Februarius',gen:'Februarias',nom:'Februariae',days:28,nones:5,ides:13},
- {name:'Mercedonius',gen:'Mercedonias',nom:'Mercedonae',days:27,nones:5,ides:13,intercalary:true},
+ {name:'Mercedonius',gen:'Mercedonias',nom:'Mercedonae',days:23,nones:5,ides:13,intercalary:true},
  {name:'Martius',gen:'Martias',nom:'Martiae',days:31,nones:7,ides:15},
  {name:'Aprilis',gen:'Apriles',nom:'Apriles',days:29,nones:5,ides:13},
  {name:'Maius',gen:'Maias',nom:'Maiae',days:31,nones:7,ides:15},
@@ -1440,7 +1500,7 @@ const MONTHS_46BC = [
  {name:'October',gen:'Octobres',nom:'Octobres',days:31,nones:7,ides:15},
  {name:'November',gen:'Novembres',nom:'Novembres',days:29,nones:5,ides:13},
  {name:'Intercalaris I',gen:'Intercalares I',nom:'Intercalares I',days:33,nones:5,ides:13,intercalary:true},
- {name:'Intercalaris II',gen:'Intercalares II',nom:'Intercalares II',days:30,nones:5,ides:13,intercalary:true},
+ {name:'Intercalaris II',gen:'Intercalares II',nom:'Intercalares II',days:34,nones:5,ides:13,intercalary:true},
  {name:'December',gen:'Decembres',nom:'Decembres',days:29,nones:5,ides:13}
 ];
 const MODERN_MONTHS = [
@@ -1456,7 +1516,7 @@ function roman(n){
  const M=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
  let s=''; for(const [v,r] of M){ while(n>=v){s+=r;n-=v;} } return s;
 }
-function aucFromAd(y){ return y>0 ? y+753 : 754+y; }
+function aucFromAd(y){ if(y===0) y=-1; return y>0 ? y+753 : 754+y; }
 function consularNote(){ return 'no ordinary consuls since AD 541 — dates after that were "post consulatum"'; }
 function isJulianLeap(y){ const a=y<=0?y+1:y; return a%4===0; }
 function isGregorianLeap(y){
@@ -1495,7 +1555,10 @@ function romanDayFlex(m, day, nextGen, bis){
  const pre = label();
  if(pre) return pre;
  // after ides: count to next month's Kalends
- const mlen = (m.days || m.len) + (bis ? 1 : 0);
+ // `bis` marks a leap February. Length may already be 29 (dual calendar)
+ // or 28 with bis passed separately (converter). Do not add the extra day twice.
+ let mlen = m.days || m.len;
+ if(bis && mlen < 29) mlen = 29;
  let diff = mlen - day + 2;
  if(bis && day<=24) diff -= 1;
  const bisLbl = (bis && day===24) ? ' bis sextum' : '';
@@ -1518,7 +1581,8 @@ function romanDayAbbr(m, day, nextGen, bis){
     if(diff===2) return 'p Id';
     return roman(diff)+' Id';
   }
-  const mlen = (m.days || m.len) + (bis ? 1 : 0);
+  let mlen = m.days || m.len;
+  if(bis && mlen < 29) mlen = 29;
   let diff = mlen - day + 2;
   if(bis && day<=24) diff -= 1;
   const bisLbl = (bis && day===24) ? ' bis' : '';
@@ -1528,10 +1592,10 @@ function romanDayAbbr(m, day, nextGen, bis){
 
 // Compute full Roman date for a given year/monthIdx/day
 function romanDateForYear(year, monthIdx, day){
-  const months = getRomanYearMonths(year);
-  if(monthIdx >= months.length) return '';
-  const m = months[monthIdx];
-  const nextM = months[monthIdx+1] || months[0];
+  const twelve = getRomanYearMonths(year).filter(m=>!m.intercalary);
+  if(monthIdx >= twelve.length) return '';
+  const m = {...twelve[monthIdx], year};
+  const nextM = nextMonthAfter(m);
   const bis = (m.name==='Februarius' && m.days===29);
   return romanDayFlex(m, day, nextM.gen, bis);
 }
@@ -1588,16 +1652,14 @@ function romanDay(mi, day, bis){
   scale.appendChild(d);
  });
  let running = false;
- // Equinox at ~21 March = month index 2, day 21/31 ≈ (2 + 20/30) / 12 ≈ 0.188 → ~18.8%
- // By 46 BC it had drifted ~80 days backwards → from March to ~December/January
- const startPct = 18.8;
- const endPct = 4.0;
+ // A 355-day year is SHORT, so seasonal events fall on LATER civil dates.
+ // Positions = day-of-year / 365. March 21 ≈ 21.9%; +30/60/90 days → April/May/June.
+ const startPct = 21.9;
  const labels = [
-  {p:18.8, t:'Spring equinox: 21 March (correct)', y:'300 BC'},
-  {p:15.5, t:'Equinox drifts to ~10 February', y:'~200 BC'},
-  {p:12.0, t:'Equinox drifts to ~30 January', y:'~150 BC'},
-  {p:8.0, t:'Equinox drifts to ~10 January', y:'~100 BC'},
-  {p:4.0, t:'Equinox in late December — calendar 3 months ahead of seasons', y:'46 BC'}
+  {p:21.9, t:'Spring equinox: 21 March (calendar aligned)', y:'aligned'},
+  {p:30.1, t:'After ~3 skipped years: equinox ~20 April', y:'~3 yr off'},
+  {p:38.4, t:'After ~6 skipped years: equinox ~20 May', y:'~6 yr off'},
+  {p:46.6, t:'After ~9 skipped years: equinox ~19 June — ~3 months off, the scale of 46 BC', y:'~9 yr off'}
  ];
  btn.addEventListener('click', ()=>{
   if(running) return; running = true;
@@ -1734,8 +1796,8 @@ function romanDay(mi, day, bis){
   const rdd = Math.round(dd);
   const bcYear = START_BC - yi;
   if(yearEl) yearEl.textContent = bcYear + ' BC';
-  if(yi === 0) explain.innerHTML = 'Both orbits aligned. March = spring on both rings. The moon phases (dark = new/Kalends, bright = full/Ides) cycle correctly on both orbits.';
-  else explain.innerHTML = 'The Roman year has drifted <span style="color:var(--gold-bright);font-weight:600;">~' + rdd + ' days</span>. The moon still cycles correctly (Kalends = new moon), but the Roman "March" marker has slid backwards — it now falls in <span style="color:var(--gold-bright);font-weight:600;">' + sName(rdd) + '</span>. The moon is right; the year is wrong.';
+  if(yi === 0) explain.innerHTML = 'Both orbits aligned. March = spring on both rings. This animation shows <em>seasonal</em> drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.';
+  else explain.innerHTML = 'The Roman year has drifted <span style="color:var(--gold-bright);font-weight:600;">~' + rdd + ' days</span> against the sun. Roman “March” now falls in <span style="color:var(--gold-bright);font-weight:600;">' + sName(rdd) + '</span>. Schematic only: real pontiffs did intercalate, irregularly, until the system failed in the 50s–40s BC.';
  }
 
  let running = false, cur = 0;
@@ -1750,17 +1812,21 @@ function romanDay(mi, day, bis){
 
 // ==================== FASTI FEBRUARY ====================
 (function(){
+ // February is a short month: Nones on the 5th, Ides on the 13th, then
+ // countdown to the Kalends of March. Letters follow Scullard (from the fasti).
  const days = [
-  ['K','N',1],['a.d. VI','N',2],['V','N',3],['IV','N',4],['III','N',5],['prid. N','C',6],['NON','C',7],
-  ['VIII','F',8],['VII','F',9],['VI','C',10],['V','C',11],['IV','EN',12],['III','F',13],['prid. Id','F',14],
-  ['ID','NP',15],['XVI','C',16],['XVII','C',17],['XVIII','C',18],['XIX','C',19],['XX','C',20],['XXI','C',21],
-  ['XXII','C',22],['XXIII','C',23],['VI','C',24],['V','N',25],['IV','N',26],['III','N',27],['prid. K','F',28]
+  ['Kal.','N',1],['a.d. IV Non.','N',2],['a.d. III Non.','N',3],['prid. Non.','N',4],['Non.','N',5],
+  ['a.d. VIII Id.','N',6],['a.d. VII Id.','N',7],['a.d. VI Id.','N',8],['a.d. V Id.','N',9],['a.d. IV Id.','N',10],
+  ['a.d. III Id.','N',11],['prid. Id.','N',12],['Id.','NP',13],['a.d. XVI Kal. Mart.','N',14],['a.d. XV Kal. Mart.','NP',15],
+  ['a.d. XIV Kal. Mart.','EN',16],['a.d. XIII Kal. Mart.','NP',17],['a.d. XII Kal. Mart.','C',18],['a.d. XI Kal. Mart.','C',19],['a.d. X Kal. Mart.','C',20],
+  ['a.d. IX Kal. Mart.','F',21],['a.d. VIII Kal. Mart.','C',22],['a.d. VII Kal. Mart.','NP',23],['a.d. VI Kal. Mart.','N',24],['a.d. V Kal. Mart.','C',25],
+  ['a.d. IV Kal. Mart.','EN',26],['a.d. III Kal. Mart.','NP',27],['prid. Kal. Mart.','C',28]
  ];
  const cls = {F:'F',N:'N',C:'C',NP:'NP',EN:'EN'};
  const tbl = document.getElementById('fastiFeb');
  let html = '<tr><th>Roman day</th><th>Letter</th><th>Modern day</th></tr>';
  days.forEach(d=>{
-  html += '<tr><td>'+d[0]+' Feb.</td><td class="tooltip '+cls[d[1]]+'" title="'+d[1]+' — see the table above">'+d[1]+'</td><td>'+roman(d[2])+' ('+d[2]+')</td></tr>';
+  html += '<tr><td>'+d[0]+'</td><td class="tooltip '+cls[d[1]]+'" title="'+d[1]+' — see the table above">'+d[1]+'</td><td>'+roman(d[2])+' ('+d[2]+')</td></tr>';
  });
  tbl.innerHTML = html;
 })();
@@ -1808,7 +1874,7 @@ document.getElementById('convBtn').addEventListener('click', ()=>{
    ans:1, exp:'The Republican year was 355 days — about 10 days short of the solar year. The gap was patched with an intercalary month roughly every other year.'},
   {q:'What was the intercalary month of the Republican calendar called?',
    opts:['Mercedonius (or Intercalaris)','Janus','Terminalia','Saturnalia'],
-   ans:0, exp:'Mercedonius (also called Intercalaris) was 27 or 28 days, inserted after 23 February. Its insertion was controlled by the Pontifex Maximus — and often abused for political gain.'},
+   ans:0, exp:'Mercedonius (also called Intercalaris) was inserted after 23 February. Ancient sources give 22 or 23 days; some modern reconstructions give 27. The college of pontiffs controlled it — and often abused it for political gain.'},
   {q:'How many days long was the "year of confusion" (annus confusionis) of 46 BC?',
    opts:['365 days','400 days','445 days','80 days'],
    ans:2, exp:'445 days. Caesar inserted extra months to realign the calendar with the seasons before launching his new Julian calendar on 1 January 45 BC.'},
@@ -1817,7 +1883,7 @@ document.getElementById('convBtn').addEventListener('click', ()=>{
    ans:1, exp:'Sosigenes of Alexandria, from the Alexandrian astronomical tradition (rooted in Babylonian and Greek science). He advised Caesar to adopt a 365¼-day solar year with a leap day every four years.'},
   {q:'What leap-year mistake was made after Caesar\'s reform?',
    opts:['No leap years were added at all','Leap years were added every 3rd year instead of every 4th','Leap years were added every 5th year','February was given 30 days'],
-   ans:1, exp:'The pontiffs counted inclusively, so they added a leap day every 3rd year instead of every 4th — about 3 extra days over 12 years. Augustus corrected this by skipping leap years from 9 BC to AD 8.'},
+   ans:1, exp:'The pontiffs counted inclusively, so they added a leap day every 3rd year instead of every 4th — about 3 extra days over 36 years. Augustus ordered a pause in leaping (from about 9 BC); the correct four-year cycle resumed in AD 8.'},
   {q:'Quintilis was renamed in honour of which figure?',
    opts:['Augustus','Romulus','Julius Caesar','Marcus Aurelius'],
    ans:2, exp:'Quintilis (the "fifth" month) became Iulius (July) in 44 BC, after Caesar\'s assassination and deification.'},
@@ -1880,9 +1946,9 @@ document.getElementById('convBtn').addEventListener('click', ()=>{
 
 // Key dates for quick-select chips
 const KEY_DATES = [
- {label:'Founding of Rome (753 BC)', year:-753, month:2, day:21, ref:'roman'},
+ {label:'Founding of Rome (753 BC)', year:-753, month:3, day:21, ref:'roman'},
  {label:'Roman Republic (509 BC)', year:-509, month:2, day:1, ref:'roman'},
- {label:'Year start shifts to Jan (153 BC)', year:-152, month:0, day:1, ref:'modern'},
+ {label:'Year start shifts to Jan (153 BC)', year:-153, month:0, day:1, ref:'modern'},
  {label:'Annus Confusionis (445d)', year:-46, month:0, day:1, ref:'roman'},
  {label:'Julian Reform begins', year:-45, month:0, day:1, ref:'modern'},
  {label:'Caesar’s Death · Ides of Mar', year:-44, month:2, day:15, ref:'modern'},
@@ -1897,7 +1963,7 @@ const KEY_DATES = [
  {label:'Death of Trajan', year:117, month:7, day:8, ref:'modern'},
  {label:'Death of Marcus Aurelius', year:180, month:2, day:17, ref:'modern'},
  {label:'Milvian Bridge (Constantine)', year:312, month:9, day:28, ref:'modern'},
- {label:'Augustus renames Aug (8 BC)', year:8, month:0, day:1, ref:'modern'},
+ {label:'Sextilis renamed Augustus (8 BC)', year:-8, month:7, day:1, ref:'modern'},
  {label:'Vesuvius / Pompeii', year:79, month:7, day:24, ref:'modern'},
  {label:'Council of Nicaea', year:325, month:4, day:20, ref:'modern'},
  {label:'Today', year:new Date().getFullYear(), month:new Date().getMonth(), day:new Date().getDate(), ref:'modern'}
@@ -1928,14 +1994,15 @@ const FESTIVALS = [
 let calState = { year:-44, refType:'modern', selDoy:74, selMonthIdx:2, selDay:15 };
 
 // Civil year start label for a given year
-// Before 153 BC (y < -152): consular year began on Kal. Mart. (1 March)
-// From 153 BC (y >= -152): consular year began on Kal. Ian. (1 January)
+// Historical year N BC is stored as -N (44 BC = -44).
+// Before 153 BC (y <= -154): consular year began on Kal. Mart. (1 March)
+// From 153 BC (y >= -153): consular year began on Kal. Ian. (1 January)
 function civYearStartLabel(y){
- if(y < -152) return 'Kal. Mart. (1 March)';
+ if(y < -153) return 'Kal. Mart. (1 March)';
  return 'Kal. Ian. (1 January)';
 }
 function civYearStartMonth(y){
- if(y < -152) return 'Martius';
+ if(y < -153) return 'Martius';
  return 'Ianuarius';
 }
 
@@ -1945,24 +2012,20 @@ function civYearStartMonth(y){
 //  - Before 45 BC: Republican calendar (355 days, Quintilis/Sextilis, 29/31 pattern)
 //  - 45 BC onward: Julian calendar
 //    - Quintilis → Iulius: renamed 44 BC (y >= -44)
-//    - Sextilis → Augustus: renamed 8 BC (y >= 8)
-//    - Month lengths: Caesar's original had Sextilis=30, September=31;
-//      Augustus swapped them in 8 BC (Augustus=31, September=30)
+//    - Sextilis → Augustus: renamed 8 BC (y >= -8)
+//    - Month lengths: Caesar already set the lengths we still use
+//      (Macrobius, Censorinus). 8 BC is a rename only — not a day-transfer.
 function getRomanYearMonths(y){
  if(y === -46) return MONTHS_46BC;
  if(y < -45) return REPUBLICAN_MONTHS;
  // Julian period (y >= -45, i.e., 45 BC onward)
  const leap = isJulianLeap(y);
- // Month name transitions
  const qName = y >= -44 ? 'Iulius' : 'Quintilis';
  const qGen  = y >= -44 ? 'Iulias' : 'Quintiles';
-  const qNom  = y >= -44 ? 'Iuliae' : 'Quintiles';
- const sName = y >= 8 ? 'Augustus' : 'Sextilis';
- const sGen  = y >= 8 ? 'Augustas' : 'Sextiles';
-  const sNom  = y >= 8 ? 'Augustae' : 'Sextiles';
- // Month length transition (Augustus reform, 8 BC)
- const sDays   = y >= 8 ? 31 : 30;
- const sepDays = y >= 8 ? 30 : 31;
+ const qNom  = y >= -44 ? 'Iuliae' : 'Quintiles';
+ const sName = y >= -8 ? 'Augustus' : 'Sextilis';
+ const sGen  = y >= -8 ? 'Augustas' : 'Sextiles';
+ const sNom  = y >= -8 ? 'Augustae' : 'Sextiles';
  return [
   {name:'Ianuarius',  gen:'Ianuarias',  nom:'Ianuariae',  days:31,          nones:5, ides:13},
   {name:'Februarius', gen:'Februarias', nom:'Februariae', days:leap?29:28,  nones:5, ides:13},
@@ -1971,12 +2034,24 @@ function getRomanYearMonths(y){
   {name:'Maius',      gen:'Maias',      nom:'Maiae',      days:31,          nones:7, ides:15},
   {name:'Iunius',     gen:'Iunias',     nom:'Iuniae',     days:30,          nones:5, ides:13},
   {name:qName,        gen:qGen,         nom:qNom,         days:31,          nones:7, ides:15},
-  {name:sName,        gen:sGen,         nom:sNom,         days:sDays,       nones:5, ides:13},
-  {name:'September',  gen:'Septembres', nom:'Septembres', days:sepDays,     nones:5, ides:13},
+  {name:sName,        gen:sGen,         nom:sNom,         days:31,          nones:5, ides:13},
+  {name:'September',  gen:'Septembres', nom:'Septembres', days:30,          nones:5, ides:13},
   {name:'October',    gen:'Octobres',   nom:'Octobres',   days:31,          nones:7, ides:15},
   {name:'November',   gen:'Novembres',  nom:'Novembres',  days:30,          nones:5, ides:13},
   {name:'December',   gen:'Decembres',  nom:'Decembres',  days:31,          nones:5, ides:13}
  ];
+}
+
+// Next month in the real Roman year (not the possibly truncated display sequence)
+function nextMonthAfter(m){
+ const y = (m.year != null) ? m.year : calState.year;
+ const list = getRomanYearMonths(y);
+ let idx = -1;
+ for(let i=0;i<list.length;i++){
+  if(list[i].name===m.name && !!list[i].intercalary===!!m.intercalary){ idx=i; break; }
+ }
+ if(idx>=0 && idx+1<list.length) return list[idx+1];
+ return getRomanYearMonths(y+1)[0];
 }
 
 // Get modern months for a given astronomical year
@@ -2066,7 +2141,7 @@ function updateCalendar(){
  const romYearStartMonth = civYearStartMonth(year);
  for(let i=0; i<romanMonths.length; i++){
   const m = romanMonths[i];
-  const nextM = romanMonths[i+1] || romanMonths[0];
+  const nextM = nextMonthAfter(m);
   const bis = (m.name==='Februarius' && m.days===29);
   romanHtml += renderMiniMonth(m, doy+1, calState.selDoy, true, nextM.gen, bis, romYearStartMonth);
   doy += m.days;
@@ -2123,7 +2198,7 @@ function updateSelectedInfo(romanMonths, modernMonths, totalDays){
  if(!mMonth){ mMonth = modernMonths[modernMonths.length-1]; mDay = mMonth.days; }
 
  // Roman name
- const nextM = romanMonths[rIdx+1] || romanMonths[0];
+ const nextM = nextMonthAfter(rMonth);
  const bis = (rMonth.name==='Februarius' && rMonth.days===29);
  const rName = romanDayFlex(rMonth, rDay, nextM.gen, bis);
  const auc = roman(aucFromAd(calState.year));
@@ -2194,13 +2269,14 @@ function parseDateInput(text){
  if(m) return { year: parseInt(m[1]), month:0, day:1, ref:'modern' };
 
  // Try "Ides of <Month> <Year> BC/AD"
+ // Use the canonical 12-month Ides (15 in Mar/May/Jul/Oct, else 13), not an
+ // intercalary-shifted index — 46 BC has 15 months, so months[2] is Mercedonius.
  m = text.match(/^(?:Ides|Idus)\s+of\s+(\w+)\s+(\d+)\s*(BC|BCE|AD)?$/i);
  if(m){
   const mi = monthNameToIdx(m[1]);
   if(mi>=0){
    const y = parseYear(m[2], m[3]);
-   const months = getRomanYearMonths(y);
-   return { year:y, month:mi, day:months[mi].ides, ref:'modern' };
+   return { year:y, month:mi, day:idesOfMonthIdx(mi), ref:'modern' };
   }
  }
 
@@ -2210,8 +2286,7 @@ function parseDateInput(text){
   const mi = monthNameToIdx(m[1]);
   if(mi>=0){
    const y = parseYear(m[2], m[3]);
-   const months = getRomanYearMonths(y);
-   return { year:y, month:mi, day:months[mi].nones, ref:'modern' };
+   return { year:y, month:mi, day:nonesOfMonthIdx(mi), ref:'modern' };
   }
  }
 
@@ -2243,11 +2318,15 @@ function monthNameToIdx(name){
  const full = ['january','february','march','april','may','june','july','august','september','october','november','december'];
  const abbr = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
  const romanN = ['ianuarius','februarius','martius','aprilis','maius','iunius','iulius','augustus','september','october','november','december'];
+ const extra = {quintilis:6, quinctilis:6, sextilis:7};
  for(let i=0; i<12; i++){
   if(lower===full[i] || lower===abbr[i] || lower===romanN[i]) return i;
  }
+ if(extra[lower]!==undefined) return extra[lower];
  return -1;
 }
+function idesOfMonthIdx(mi){ return (mi===2||mi===4||mi===6||mi===9) ? 15 : 13; }
+function nonesOfMonthIdx(mi){ return (mi===2||mi===4||mi===6||mi===9) ? 7 : 5; }
 
 function parseYear(numStr, era){
  const n = parseInt(numStr);

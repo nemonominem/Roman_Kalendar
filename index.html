@@ -865,10 +865,39 @@ select.cal-select:focus{
 .notes-src{margin:.8rem 0;font-size:.92rem;line-height:1.6;color:var(--dim);}
 
 /* === Artifact photos === */
-.artifact-figure{margin:1.5rem 0;text-align:center;}
-.artifact-figure img{max-width:100%;height:auto;border-radius:6px;border:1px solid var(--line);display:block;margin:0 auto;}
-.artifact-figure figcaption{font-size:.92rem;color:var(--dim);margin-top:.6rem;line-height:1.5;max-width:700px;margin-left:auto;margin-right:auto;}
+.artifact-figure{
+  float:right;clear:right;
+  width:200px;
+  margin:.2rem 0 1rem 1.5rem;
+  text-align:center;
+}
+.artifact-figure img{max-width:100%;width:100%;height:auto;border-radius:6px;border:1px solid var(--line);display:block;margin:0 auto;cursor:zoom-in;transition:opacity .15s,border-color .15s;}
+.artifact-figure img:hover{opacity:.88;border-color:var(--gold);}
+.artifact-figure figcaption{font-size:.78rem;color:var(--dim);margin-top:.5rem;line-height:1.4;text-align:left;}
 .artifact-figure figcaption a{color:var(--gold-bright);}
+/* Contain the floated figure within whichever block holds it, without clipping anything */
+.panel,section{display:flow-root;}
+@media(max-width:760px){
+  .artifact-figure{float:none;width:100%;max-width:280px;margin:1.5rem auto;}
+}
+
+/* === Image lightbox === */
+.lightbox-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(10,11,14,.92);
+  z-index:1000;
+  align-items:center;justify-content:center;
+  padding:2rem;cursor:zoom-out;
+}
+.lightbox-overlay.active{display:flex;}
+.lightbox-overlay img{max-width:95vw;max-height:90vh;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.5);}
+.lightbox-close{
+  position:absolute;top:1rem;right:1.3rem;
+  color:var(--ink-bright);background:none;border:none;
+  font-size:2.2rem;line-height:1;cursor:pointer;
+  font-family:var(--sans);
+}
+.lightbox-close:hover{color:var(--gold-bright);}
 
 /* Responsive */
 @media(max-width:760px){
@@ -1192,13 +1221,13 @@ select.cal-select:focus{
   </ul>
   <div class="panel">
     <h3>Why March, May, July, and October are different — the legacy of Romulus's "full" months</h3>
-    <p>You will have noticed the exception: in <strong>March, May, July, and October</strong>, the Nones fall on the <strong>VII</strong> (7th) and the Ides on the <strong>XV</strong> (15th) — two days later than in all other months (Nones = V, Ides = XIII). Why?</p>
-    <p>These four months were the original <strong>"full" (<em>pleni</em>) 31-day months</strong> in Romulus's 10-month calendar. The remaining six were <strong>"hollow" (<em>cavi</em>)</strong> — <strong>30</strong> days under Romulus, then 29 after Numa cut a day from each (odd numbers being lucky). The extra two days in the full months sit <em>before</em> the Ides: they push the first-quarter marker (Nones) from day V to day VII, and the full-moon marker (Ides) from day XIII to day XV, so the phase names still land at roughly the right point in a longer month.</p>
-    <p>When Numa added <strong>January</strong> and <strong>February</strong>, he gave them the short-month pattern (Nones = V, Ides = XIII). What then <strong>froze</strong> is not "31 days ⇒ Nones on the 7th", but the four named months: March, May, Quintilis/July, October. Caesar later made January, Sextilis, and December 31 days <em>without</em> moving their Nones — he inserted the extra days after each month's festivals (Macrobius 1.14.8), so those three 31-day months still have Nones on the 5th. Long after the lunar connection was forgotten, Romans still counted <em>ante diem III Idus Martias</em> differently from <em>ante diem III Idus Aprilis</em>. The moon was gone; its fingerprint remained on four months, not on every long month.</p>
     <figure class="artifact-figure">
       <img src="images/menologium-rusticum.jpg" alt="One marble face of the Menologium Rusticum Colotianum, showing three inscribed columns for January, February, and March" loading="lazy">
       <figcaption>The <strong>Menologium Rusticum Colotianum</strong> (1st c. AD, Naples Archaeological Museum) — a four-sided marble "farmer's almanac" pillar, one column per month. This face carries the exact pattern above, carved in stone: <em>MENSIS IANVAR(ius) · DIES XXXI · NON(ae) QUINT(o)</em> (Nones on the 5th) and <em>MENSIS FEBRAR(ius) · DIES XXVIII · NON(ae) QUINT(o)</em> (5th again), then <em>MENSIS MARTIVS · DIES XXXI · NON(ae) SEPTIM(o)</em> — Nones on the <strong>7th</strong>. Below that, each column lists the day/night hour-length, zodiac sign, tutelary god, and the month's farming tasks and festivals — <em>PARENTALIA</em> and <em>LVPERCALIA</em> are both legible under February. Photo: <a href="https://commons.wikimedia.org/wiki/File:CIL_VI_2305_-_Menologium_Rusticum_Colotianum_01_Ian-Mar.jpg" target="_blank" rel="noopener">Accurimbono</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, resized.</figcaption>
     </figure>
+    <p>You will have noticed the exception: in <strong>March, May, July, and October</strong>, the Nones fall on the <strong>VII</strong> (7th) and the Ides on the <strong>XV</strong> (15th) — two days later than in all other months (Nones = V, Ides = XIII). Why?</p>
+    <p>These four months were the original <strong>"full" (<em>pleni</em>) 31-day months</strong> in Romulus's 10-month calendar. The remaining six were <strong>"hollow" (<em>cavi</em>)</strong> — <strong>30</strong> days under Romulus, then 29 after Numa cut a day from each (odd numbers being lucky). The extra two days in the full months sit <em>before</em> the Ides: they push the first-quarter marker (Nones) from day V to day VII, and the full-moon marker (Ides) from day XIII to day XV, so the phase names still land at roughly the right point in a longer month.</p>
+    <p>When Numa added <strong>January</strong> and <strong>February</strong>, he gave them the short-month pattern (Nones = V, Ides = XIII). What then <strong>froze</strong> is not "31 days ⇒ Nones on the 7th", but the four named months: March, May, Quintilis/July, October. Caesar later made January, Sextilis, and December 31 days <em>without</em> moving their Nones — he inserted the extra days after each month's festivals (Macrobius 1.14.8), so those three 31-day months still have Nones on the 5th. Long after the lunar connection was forgotten, Romans still counted <em>ante diem III Idus Martias</em> differently from <em>ante diem III Idus Aprilis</em>. The moon was gone; its fingerprint remained on four months, not on every long month.</p>
   </div>
 
   <!-- Full vs Hollow month comparison axis -->
@@ -1321,11 +1350,12 @@ select.cal-select:focus{
 <div class="tab-section" id="ts-religion">
 <section id="religion">
   <h2><span class="secnum">VII</span>The Religious Dimension of the Fasti</h2>
-  <p>More than forty inscribed copies of the fasti survive, almost all from the early Principate. Only one pre-Julian copy is known: the <strong>Fasti Antiates Maiores</strong> (c. 60s BC), painted in red and black, still showing <em>QVI/SEX</em> rather than July/August, plus an INTER column for intercalation. The name <em>fasti</em> is from the days on which the praetor may speak the words <em>do, dico, addico</em> ("I give, I say, I adjudge"). Every day carries a letter — a fully religious classification:</p>
   <figure class="artifact-figure">
     <img src="images/fasti-antiates-maiores.jpg" alt="Surviving painted fragments of the Fasti Antiates Maiores, mounted and displayed behind glass" loading="lazy">
     <figcaption>The <strong>Fasti Antiates Maiores</strong> — the only surviving pre-Julian calendar, painted before Caesar's reform. Museo Nazionale Romano, Rome. Photo: <a href="https://commons.wikimedia.org/wiki/File:Fasti_Antiates_Maiores_(14786905184).jpg" target="_blank" rel="noopener">Amphipolis</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>, resized.</figcaption>
   </figure>
+  <p>More than forty inscribed copies of the fasti survive, almost all from the early Principate. Only one pre-Julian copy is known: the <strong>Fasti Antiates Maiores</strong> (c. 60s BC), painted in red and black, still showing <em>QVI/SEX</em> rather than July/August, plus an INTER column for intercalation. The name <em>fasti</em> is from the days on which the praetor may speak the words <em>do, dico, addico</em> ("I give, I say, I adjudge"). Every day carries a letter — a fully religious classification:</p>
+  <div style="clear:both"></div>
   <table class="fasti">
     <tr><th>Letter</th><th>Meaning</th><th>Business?</th></tr>
     <tr><td class="F tooltip" title="Dies fasti: legal business allowed">F</td><td>dies <em>fastus</em> — law-court business allowed</td><td>Yes, law courts open</td></tr>
@@ -1483,6 +1513,7 @@ select.cal-select:focus{
     <img src="images/fasti-capitolini.jpg" alt="Detail of the Fasti Capitolini, a marble inscription listing Roman consuls by year in red-painted lettering" loading="lazy">
     <figcaption>The <strong>Fasti Capitolini</strong> — the marble consular list compiled under Augustus, one column of names per year. Capitoline Museums, Rome. Photo: <a href="https://commons.wikimedia.org/wiki/File:Fasti_capitolini.JPG" target="_blank" rel="noopener">Agnete</a>, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, resized.</figcaption>
   </figure>
+  <div style="clear:both"></div>
 
   <div class="panel">
     <h3>Consuls and imperium — the military heart of the Republic</h3>
@@ -1645,6 +1676,11 @@ select.cal-select:focus{
 </section>
 </div><!-- /ts-notes -->
 </main>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 
 <script>
 // ==================== CORE DATA ====================
@@ -3028,6 +3064,29 @@ document.getElementById('calYear').addEventListener('keydown', e=>{
       window.scrollTo({ top:0, behavior:'smooth' });
     });
   });
+})();
+
+// ==================== IMAGE LIGHTBOX ====================
+(function(){
+  const overlay = document.getElementById('lightboxOverlay');
+  const imgEl = document.getElementById('lightboxImg');
+  const closeBtn = document.getElementById('lightboxClose');
+  if(!overlay) return;
+  function open(src, alt){
+    imgEl.src = src;
+    imgEl.alt = alt || '';
+    overlay.classList.add('active');
+  }
+  function close(){
+    overlay.classList.remove('active');
+    imgEl.src = '';
+  }
+  document.querySelectorAll('.artifact-figure img').forEach(img=>{
+    img.addEventListener('click', ()=> open(img.currentSrc || img.src, img.alt));
+  });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
 })();
 
 // ==================== INITIAL RENDER ====================

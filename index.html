@@ -429,6 +429,15 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
   position:relative;
   overflow:hidden;
 }
+@media(min-width:1120px){
+  /* Break out of main's narrower prose width — this panel is a wide grid, not text */
+  .dual-cal{
+    width:100vw;
+    max-width:1500px;
+    left:50%;
+    transform:translateX(-50%);
+  }
+}
 .dual-cal::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);
@@ -586,6 +595,9 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:.6rem;
+}
+@media(min-width:1120px){
+  .mini-months{grid-template-columns:repeat(4,1fr);}
 }
 .mini-month{
   background:var(--panel);
@@ -947,17 +959,6 @@ select.cal-select:focus{
       </div>
     </div>
 
-    <div class="cal-panels">
-      <div class="cal-panel">
-        <div class="cal-panel-header" id="romanPanelHeader">Roman Calendar<span class="year-info" id="romanYearInfo"></span></div>
-        <div class="mini-months" id="romanCalGrid"></div>
-      </div>
-      <div class="cal-panel">
-        <div class="cal-panel-header" id="modernPanelHeader">Modern Calendar<span class="year-info" id="modernYearInfo"></span></div>
-        <div class="mini-months" id="modernCalGrid"></div>
-      </div>
-    </div>
-
     <div class="cal-selected-info" id="calSelectedInfo">
       <div class="sel-label">Selected Date</div>
       <div class="sel-columns">
@@ -971,6 +972,17 @@ select.cal-select:focus{
         </div>
       </div>
       <div class="doy-info" id="selDoyInfo">Day 74 of 365 · Julian calendar</div>
+    </div>
+
+    <div class="cal-panels">
+      <div class="cal-panel">
+        <div class="cal-panel-header" id="romanPanelHeader">Roman Calendar<span class="year-info" id="romanYearInfo"></span></div>
+        <div class="mini-months" id="romanCalGrid"></div>
+      </div>
+      <div class="cal-panel">
+        <div class="cal-panel-header" id="modernPanelHeader">Modern Calendar<span class="year-info" id="modernYearInfo"></span></div>
+        <div class="mini-months" id="modernCalGrid"></div>
+      </div>
     </div>
   </div>
 </section>

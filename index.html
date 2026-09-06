@@ -315,6 +315,17 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
   min-height:1.2em;
   font-size:1.2rem;
 }
+.quote-block{
+  display:block;
+  margin:.6rem 0;
+  padding:.7rem 1.1rem;
+  background:var(--bg);
+  border:1px dashed var(--line);
+  border-left:3px solid var(--gold);
+  border-radius:0 4px 4px 0;
+}
+.quote-block .quote-lat{display:block;font-style:italic;color:var(--ink-bright);}
+.quote-block .quote-en{display:block;margin-top:.4rem;color:var(--dim);font-style:normal;}
 
 /* === Month grid (Republican) === */
 .monthgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin:1rem 0;}
@@ -1184,6 +1195,10 @@ select.cal-select:focus{
     <p>You will have noticed the exception: in <strong>March, May, July, and October</strong>, the Nones fall on the <strong>VII</strong> (7th) and the Ides on the <strong>XV</strong> (15th) — two days later than in all other months (Nones = V, Ides = XIII). Why?</p>
     <p>These four months were the original <strong>"full" (<em>pleni</em>) 31-day months</strong> in Romulus's 10-month calendar. The remaining six were <strong>"hollow" (<em>cavi</em>)</strong> — <strong>30</strong> days under Romulus, then 29 after Numa cut a day from each (odd numbers being lucky). The extra two days in the full months sit <em>before</em> the Ides: they push the first-quarter marker (Nones) from day V to day VII, and the full-moon marker (Ides) from day XIII to day XV, so the phase names still land at roughly the right point in a longer month.</p>
     <p>When Numa added <strong>January</strong> and <strong>February</strong>, he gave them the short-month pattern (Nones = V, Ides = XIII). What then <strong>froze</strong> is not "31 days ⇒ Nones on the 7th", but the four named months: March, May, Quintilis/July, October. Caesar later made January, Sextilis, and December 31 days <em>without</em> moving their Nones — he inserted the extra days after each month's festivals (Macrobius 1.14.8), so those three 31-day months still have Nones on the 5th. Long after the lunar connection was forgotten, Romans still counted <em>ante diem III Idus Martias</em> differently from <em>ante diem III Idus Aprilis</em>. The moon was gone; its fingerprint remained on four months, not on every long month.</p>
+    <figure class="artifact-figure">
+      <img src="images/menologium-rusticum.jpg" alt="One marble face of the Menologium Rusticum Colotianum, showing three inscribed columns for January, February, and March" loading="lazy">
+      <figcaption>The <strong>Menologium Rusticum Colotianum</strong> (1st c. AD, Naples Archaeological Museum) — a four-sided marble "farmer's almanac" pillar, one column per month. This face carries the exact pattern above, carved in stone: <em>MENSIS IANVAR(ius) · DIES XXXI · NON(ae) QUINT(o)</em> (Nones on the 5th) and <em>MENSIS FEBRAR(ius) · DIES XXVIII · NON(ae) QUINT(o)</em> (5th again), then <em>MENSIS MARTIVS · DIES XXXI · NON(ae) SEPTIM(o)</em> — Nones on the <strong>7th</strong>. Below that, each column lists the day/night hour-length, zodiac sign, tutelary god, and the month's farming tasks and festivals — <em>PARENTALIA</em> and <em>LVPERCALIA</em> are both legible under February. Photo: <a href="https://commons.wikimedia.org/wiki/File:CIL_VI_2305_-_Menologium_Rusticum_Colotianum_01_Ian-Mar.jpg" target="_blank" rel="noopener">Accurimbono</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, resized.</figcaption>
+    </figure>
   </div>
 
   <!-- Full vs Hollow month comparison axis -->
@@ -1516,9 +1531,14 @@ select.cal-select:focus{
 
   <div class="panel">
     <h3>In letters and books</h3>
-    <p><strong class="lede">Cicero</strong>, <em>Epistulae ad Atticum</em> (68–43 BC), is dated throughout by the Roman formula — <em>a.d. XVI Kal. Sextiles</em> ("the 16th day before the Kalends of Sextilis"), hundreds of times across sixteen books of letters. His most urgent letter of all, headed <em>a.d. XIII Kal. Apr.</em> (20 March 44 BC) — five days after Caesar's murder, in Caesar's own fifth consulship, colleague <strong>M. Antonius</strong> — opens: <em>"O mi Attice, vereor ne nobis Idus Martiae nihil dederint praeter laetitiam et odi poenam ac doloris."</em> ("O my Atticus, I fear the Ides of March have given us nothing but joy and the satisfaction of our hatred and our pain," <em>Ad Atticum</em> 14.1).</p>
-    <p><strong class="lede">Augustus</strong>'s own inscribed autobiography, the <em>Res Gestae Divi Augusti</em> — best preserved on a temple wall at Ancyra, modern Ankara — opens: <em>"Rerum gestarum divi Augusti, quibus orbem terrarum imperio populi Romani subiecit, et impensarum quas in rem publicam populumque Romanum fecit, incisarum in duabus aheneis pilis, quae sunt Romae positae, exemplar subiectum."</em> ("Below is a copy of the achievements of the deified Augustus, by which he brought the whole world under the rule of the Roman people, and of the sums he spent on the state and people of Rome, as inscribed on two bronze pillars set up at Rome.") Augustus also popularised a new dating convention that outlived the consulship itself: citing his <em>tribunicia potestas</em> ("tribunician power") year-count on coins and inscriptions — every later emperor kept doing it.</p>
-    <p><strong class="lede">Pliny the Younger</strong> — not the Elder, who died in the eruption he describes — dates the destruction of Pompeii in a letter to the historian Tacitus: <em>"Nonum Kal. Septembres hora fere septima mater mea indicat ei apparere nubem inusitata et magnitudine et specie."</em> ("On the ninth day before the Kalends of September, at about the seventh hour, my mother pointed out to him a cloud of unusual size and appearance" — 24 August, in the surviving manuscripts, <em>Epistulae</em> 6.16.) Modern archaeology — autumn fruit and braziers found at Pompeii — has led some scholars to suspect the true date was weeks later and the transmitted figure a copying error; a good reminder that even a named, dated eyewitness letter isn't automatically the last word.</p>
+    <p><strong class="lede">Cicero</strong>, <em>Epistulae ad Atticum</em> (68–43 BC), is dated throughout by the Roman formula — <em>a.d. XVI Kal. Sextiles</em> ("the 16th day before the Kalends of Sextilis"), hundreds of times across sixteen books of letters. His most urgent letter of all, headed <em>a.d. XIII Kal. Apr.</em> (20 March 44 BC) — five days after Caesar's murder, in Caesar's own fifth consulship, colleague <strong>M. Antonius</strong> — opens:</p>
+    <div class="quote-block"><span class="quote-lat">"O mi Attice, vereor ne nobis Idus Martiae nihil dederint praeter laetitiam et odi poenam ac doloris."</span><span class="quote-en">"O my Atticus, I fear the Ides of March have given us nothing but joy and the satisfaction of our hatred and our pain." — <em>Ad Atticum</em> 14.1</span></div>
+    <p><strong class="lede">Augustus</strong>'s own inscribed autobiography, the <em>Res Gestae Divi Augusti</em> — best preserved on a temple wall at Ancyra, modern Ankara — opens:</p>
+    <div class="quote-block"><span class="quote-lat">"Rerum gestarum divi Augusti, quibus orbem terrarum imperio populi Romani subiecit, et impensarum quas in rem publicam populumque Romanum fecit, incisarum in duabus aheneis pilis, quae sunt Romae positae, exemplar subiectum."</span><span class="quote-en">"Below is a copy of the achievements of the deified Augustus, by which he brought the whole world under the rule of the Roman people, and of the sums he spent on the state and people of Rome, as inscribed on two bronze pillars set up at Rome."</span></div>
+    <p>Augustus also popularised a new dating convention that outlived the consulship itself: citing his <em>tribunicia potestas</em> ("tribunician power") year-count on coins and inscriptions — every later emperor kept doing it.</p>
+    <p><strong class="lede">Pliny the Younger</strong> — not the Elder, who died in the eruption he describes — dates the destruction of Pompeii in a letter to the historian Tacitus:</p>
+    <div class="quote-block"><span class="quote-lat">"Nonum Kal. Septembres hora fere septima mater mea indicat ei apparere nubem inusitata et magnitudine et specie."</span><span class="quote-en">"On the ninth day before the Kalends of September, at about the seventh hour, my mother pointed out to him a cloud of unusual size and appearance." — <em>Epistulae</em> 6.16 (24 August, in the surviving manuscripts)</span></div>
+    <p>Modern archaeology — autumn fruit and braziers found at Pompeii — has led some scholars to suspect the true date was weeks later and the transmitted figure a copying error; a good reminder that even a named, dated eyewitness letter isn't automatically the last word.</p>
   </div>
 
   <div class="panel">

@@ -96,7 +96,7 @@ nav.tabs .tab.active{
 .tab-section.active{display:block;}
 .tab-section > section:first-child{margin-top:1.5rem;}
 
-main{max-width:1080px;margin:0 auto;padding:0 1.25rem 4rem;}
+main{max-width:1600px;margin:0 auto;padding:0 1.5rem 4rem;}
 section{margin:2.5rem 0;}
 
 /* === Typography === */
@@ -428,15 +428,6 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
   margin:1rem 0;
   position:relative;
   overflow:hidden;
-}
-@media(min-width:1120px){
-  /* Break out of main's narrower prose width — this panel is a wide grid, not text */
-  .dual-cal{
-    width:100vw;
-    max-width:1500px;
-    left:50%;
-    transform:translateX(-50%);
-  }
 }
 .dual-cal::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;

@@ -18,6 +18,7 @@
   --ink-bright:#ebe4d3;
   --dim:#9a958a;
   --dimmer:#6e6960;
+  --silver:#cbd0da;
   --gold:#b8893d;
   --gold-bright:#d4af6a;
   --red:#b8543f;
@@ -68,7 +69,7 @@ nav.tabs .nav-brand{
 }
 nav.tabs .tab{
   background:transparent;
-  color:var(--dim);
+  color:var(--silver);
   border:none;
   border-bottom:2px solid transparent;
   border-radius:0;
@@ -96,7 +97,7 @@ nav.tabs .tab.active{
 .tab-section.active{display:block;}
 .tab-section > section:first-child{margin-top:1.5rem;}
 
-main{max-width:1600px;margin:0 auto;padding:0 1.5rem 4rem;}
+main{max-width:1900px;margin:0 auto;padding:0 1rem 4rem;}
 section{margin:2.5rem 0;}
 
 /* === Typography === */
@@ -142,6 +143,7 @@ p{margin:.7rem 0;}
 ul{margin:.7rem 0 .7rem 1.4rem;}
 li{margin:.3rem 0;}
 strong{color:var(--ink-bright);font-weight:600;}
+strong.lede{color:var(--gold-bright);}
 a{color:var(--gold-bright);text-decoration-color:var(--gold);}
 a:hover{color:var(--gold);}
 em{color:var(--ink);}
@@ -1029,11 +1031,11 @@ select.cal-select:focus{
   <div class="panel">
     <h3>Why the Kalends stopped following the moon</h3>
     <p>The new crescent is still a perfect observable. If the pontiffs had kept <em>waiting</em> for it, the Kalends would still have fallen on the new moon. They stopped waiting. The Kalends became a <strong>scheduled civil day</strong>, and a scheduled day cannot depend on last night's sky.</p>
-    <p><strong>A state calendar has to be knowable in advance.</strong> Debts fell due on the Kalends; festivals, court days, and the consular year were written on the fasti. Once Gnaeus Flavius published the calendar (c. 304 BC), the year was a document, not a nightly watch. You cannot collect a loan on a day that might slip because of clouds.</p>
-    <p><strong>Fixed month lengths are already not lunations.</strong> A true lunar month is ~29.53 days. Republican months were locked at 29 or 31. The next Kalends arrived because 29 or 31 days had elapsed — not because someone had seen the crescent.</p>
-    <p><strong>355 days is already wrong for twelve moons.</strong> Twelve lunations are ~354.37 days. Numa's 355-day year runs about 15 hours past the moon each year. After a decade the civil Kalends is days away from the crescent, even with no other interference.</p>
-    <p><strong>Intercalation was a solar patch that permanently unsynced the moon.</strong> The extra month was inserted after the Terminalia (23 Feb). In the reconstruction Rüpke shares with Michels, Intercalaris is written as 27 days, but its last five days are the same as February's last five (Regifugium and the countdown to 1 March). Net gain: 22 or 23 days — not a lunation. The next civil year therefore opens five or six days off the full moon, and nothing in the system can put it back. The names Kalends, Nones, Ides stay; the correspondence to the sky is gone. Political skipping or doubling of that month then made the <em>solar</em> error irregular as well.</p>
-    <p><strong>The ritual outlived the observation.</strong> Pontiffs still "called" the Kalends and counted out the days to the Nones (Macrobius 1.15.9–10) long after the count was predetermined. The words stayed; the sky was no longer consulted. Rüpke's point: the moon is a democratic clock — anyone can see it. A solar year needs specialists and the power to enforce their decision. Publishing the fasti (Gnaeus Flavius, c. 304 BC, scribe of the pontiff Appius Claudius Caecus) was that enforcement.</p>
+    <p><strong class="lede">A state calendar has to be knowable in advance.</strong> Debts fell due on the Kalends; festivals, court days, and the consular year were written on the fasti. Once Gnaeus Flavius published the calendar (c. 304 BC), the year was a document, not a nightly watch. You cannot collect a loan on a day that might slip because of clouds.</p>
+    <p><strong class="lede">Fixed month lengths are already not lunations.</strong> A true lunar month is ~29.53 days. Republican months were locked at 29 or 31. The next Kalends arrived because 29 or 31 days had elapsed — not because someone had seen the crescent.</p>
+    <p><strong class="lede">355 days is already wrong for twelve moons.</strong> Twelve lunations are ~354.37 days. Numa's 355-day year runs about 15 hours past the moon each year. After a decade the civil Kalends is days away from the crescent, even with no other interference.</p>
+    <p><strong class="lede">Intercalation was a solar patch that permanently unsynced the moon.</strong> The extra month was inserted after the Terminalia (23 Feb). In the reconstruction Rüpke shares with Michels, Intercalaris is written as 27 days, but its last five days are the same as February's last five (Regifugium and the countdown to 1 March). Net gain: 22 or 23 days — not a lunation. The next civil year therefore opens five or six days off the full moon, and nothing in the system can put it back. The names Kalends, Nones, Ides stay; the correspondence to the sky is gone. Political skipping or doubling of that month then made the <em>solar</em> error irregular as well.</p>
+    <p><strong class="lede">The ritual outlived the observation.</strong> Pontiffs still "called" the Kalends and counted out the days to the Nones (Macrobius 1.15.9–10) long after the count was predetermined. The words stayed; the sky was no longer consulted. Rüpke's point: the moon is a democratic clock — anyone can see it. A solar year needs specialists and the power to enforce their decision. Publishing the fasti (Gnaeus Flavius, c. 304 BC, scribe of the pontiff Appius Claudius Caecus) was that enforcement.</p>
     <p>So two clocks diverged. The moon in the sky remained a clean observable. The state's Kalends became a named day in a pre-written year. The architecture — three (or four) anchors, counting backwards — is the fossil of the observable. What was switched off was not the moon but the <em>practice of waiting for it</em>: civic time had to be fixed and published before the year began, so Rome locked every month at 29 or 31 days instead of tracking the real lunation (see <strong>Fixed month lengths are already not lunations</strong>, above) — a fixed approximation, not a prediction of the sky. Other cultures (Babylon, later Greek astronomers) show the moon <em>could</em> have been calculated in advance instead of watched; Rome's fix was cruder — it stopped consulting the sky rather than learning to predict it.</p>
   </div>
 
@@ -1227,24 +1229,25 @@ select.cal-select:focus{
         <div class="month-compare-tick kalends" style="left:0%;"></div>
         <div class="month-compare-num" style="left:0%;">I</div>
         <div class="month-compare-name k" style="left:0%;">Kal.</div>
-        <!-- Nones at day V = 4/28 = 14.3% -->
-        <div class="month-compare-tick nones" style="left:14.3%;"></div>
-        <div class="month-compare-num" style="left:14.3%;">V</div>
-        <div class="month-compare-name n" style="left:14.3%;">Non.</div>
-        <!-- Ides at day XIII = 12/28 = 42.9% -->
-        <div class="month-compare-tick ides" style="left:42.9%;"></div>
-        <div class="month-compare-num" style="left:42.9%;">XIII</div>
-        <div class="month-compare-name i" style="left:42.9%;">Id.</div>
-        <!-- Day XVIII at 17/28 = 60.7% -->
-        <div class="month-compare-tick" style="left:60.7%;"></div>
-        <div class="month-compare-num" style="left:60.7%;">XVIII</div>
-        <!-- Day XXIII at 22/28 = 78.6% -->
-        <div class="month-compare-tick" style="left:78.6%;"></div>
-        <div class="month-compare-num" style="left:78.6%;">XXIII</div>
-        <!-- Last day = pridie Kalendas of the next month -->
-        <div class="month-compare-tick kalends" style="left:100%;"></div>
-        <div class="month-compare-num" style="left:100%;">XXIX</div>
-        <div class="month-compare-name k" style="left:100%;">prid.</div>
+        <!-- Nones at day V, on the SAME 30-interval scale as the full month above = 4/30 = 13.3% -->
+        <div class="month-compare-tick nones" style="left:13.3%;"></div>
+        <div class="month-compare-num" style="left:13.3%;">V</div>
+        <div class="month-compare-name n" style="left:13.3%;">Non.</div>
+        <!-- Ides at day XIII = 12/30 = 40% -->
+        <div class="month-compare-tick ides" style="left:40%;"></div>
+        <div class="month-compare-num" style="left:40%;">XIII</div>
+        <div class="month-compare-name i" style="left:40%;">Id.</div>
+        <!-- Day XVIII at 17/30 = 56.7% -->
+        <div class="month-compare-tick" style="left:56.7%;"></div>
+        <div class="month-compare-num" style="left:56.7%;">XVIII</div>
+        <!-- Day XXIII at 22/30 = 73.3% -->
+        <div class="month-compare-tick" style="left:73.3%;"></div>
+        <div class="month-compare-num" style="left:73.3%;">XXIII</div>
+        <!-- Last day (pridie Kalendas) at day XXIX = 28/30 = 93.3% — genuinely short of the
+             full month's 100%, since the hollow month really does end two days sooner -->
+        <div class="month-compare-tick kalends" style="left:93.3%;"></div>
+        <div class="month-compare-num" style="left:93.3%;">XXIX</div>
+        <div class="month-compare-name k" style="left:93.3%;">prid.</div>
       </div>
     </div>
 

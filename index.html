@@ -3062,7 +3062,7 @@ document.getElementById('calYear').addEventListener('keydown', e=>{
 (function(){
   const tabs = document.querySelectorAll('nav.tabs .tab');
   const sections = document.querySelectorAll('.tab-section');
-  const hero = document.querySelector('.hero');
+  const heroLines = document.querySelectorAll('.hero .subtitle, .hero .roman-live, .hero .roman-live-sub');
   tabs.forEach(tab=>{
     tab.addEventListener('click', ()=>{
       const target = tab.dataset.tab;
@@ -3072,9 +3072,10 @@ document.getElementById('calYear').addEventListener('keydown', e=>{
       sections.forEach(s=>{
         s.classList.toggle('active', s.id === 'ts-'+target);
       });
-      // The hero (title, live date) only belongs on the first tab — repeating it
-      // above every other tab was just noise once you'd already seen it once.
-      if(hero) hero.hidden = (target !== 'dualcal');
+      // The title stays on every tab; the subtitle and live-date lines only
+      // belong on the first tab — repeating those above every other tab was
+      // just noise once you'd already seen them once.
+      heroLines.forEach(el => el.hidden = (target !== 'dualcal'));
       // Scroll to top of content area
       window.scrollTo({ top:0, behavior:'smooth' });
     });

@@ -1052,16 +1052,16 @@ select.cal-select:focus{
 
   <!-- Orbital drift animation -->
   <div class="orbit-drift">
-    <div class="orbit-drift-title">Two orbits — a 355-day year against the sun</div>
+    <div class="orbit-drift-title">A clock running short — a 355-day year against the sun</div>
     <div class="orbit-drift-sub">
-      <p>Schematic of <strong>seasonal</strong> drift: outer ring = the solar year (365¼ days); inner ring = a 355-day Roman year with no intercalation. Roman "March" slides against the seasons. This is <em>not</em> a picture of the live moon still locking the Kalends — that lock was already off once months had fixed lengths (see above).</p>
-      <p id="orbitExplain">Year 0: both orbits aligned. March = spring on both rings. This animation shows seasonal drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.</p>
+      <p>Read this as a clock, not a map. One hand is fixed at <strong>true spring</strong> — the sun doesn't care what year it is. The other hand marks wherever the civil calendar's "March" <em>actually</em> falls that year. A 355-day civil year is short, so its hand creeps forward around the dial every year; after about 37 years (365¼ ÷ ~10¼ drift-days a year) it has swept a full circle and the two hands line back up. This is <em>not</em> a picture of the live moon still locking the Kalends — that lock was already off once months had fixed lengths (see above).</p>
+      <p id="orbitExplain">Year 0: both hands aligned. Civil "March" and true spring are the same point. This animation shows seasonal drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.</p>
     </div>
     <svg class="orbit-drift-svg" id="orbitSvg" viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="orbit-drift-legend">
-      <span><span class="dot" style="background:var(--gold);"></span>Solar year (365¼ d)</span>
-      <span><span class="dot" style="background:var(--red);"></span>Roman year (355 d)</span>
-      <span>🌑 Kalends · 🌓 Nones · 🌕 Ides</span>
+      <span><span class="dot" style="background:var(--gold);"></span>True spring (fixed)</span>
+      <span><span class="dot" style="background:var(--red);"></span>Civil "March" (drifts)</span>
+      <span>Shaded wedge = accumulated drift</span>
     </div>
     <div class="orbit-drift-controls">
       <button id="orbitPlay">▶ Play 37 years with no intercalation</button>
@@ -1897,7 +1897,7 @@ function romanDay(mi, day, bis){
   {p:21.9, t:'Spring equinox: 21 March (calendar aligned)', y:'aligned'},
   {p:30.1, t:'After ~3 skipped years: equinox ~20 April', y:'~3 yr off'},
   {p:38.4, t:'After ~6 skipped years: equinox ~20 May', y:'~6 yr off'},
-  {p:46.6, t:'After ~9 skipped years: equinox ~19 June — ~3 months off, the scale of 46 BC', y:'~9 yr off'}
+  {p:46.6, t:'After ~9 skipped years: equinox ~19 June — ~3 months off, the situation as of 46 BC before Caesar\'s reforms', y:'~9 yr off'}
  ];
  btn.addEventListener('click', ()=>{
   if(running) return; running = true;
@@ -1919,7 +1919,7 @@ function romanDay(mi, day, bis){
  });
 })();
 
-// ==================== ORBITAL DRIFT ANIMATION (SVG) ====================
+// ==================== DRIFT CLOCK ANIMATION (SVG) ====================
 (function(){
  const svg = document.getElementById('orbitSvg');
  const playBtn = document.getElementById('orbitPlay');
@@ -1930,28 +1930,21 @@ function romanDay(mi, day, bis){
  const START_BC = 300;
 
  const NS = 'http://www.w3.org/2000/svg';
- const CX = 410, CY = 240;
- const RX_OUTER = 350, RY_OUTER = 150;
- const RX_INNER = 305, RY_INNER = 128;
+ const CX = 410, CY = 240, R = 170;
  const NUM_YEARS = 37;
  const DRIFT = 365.25 - 355;
- const LUNAR = 29.53;
  const SOLAR = 365.25;
+ const MONTHS = ['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'];
 
  function el(tag, attrs) {
   const e = document.createElementNS(NS, tag);
   for(const k in attrs) e.setAttribute(k, attrs[k]);
   return e;
  }
- function pt(rx, ry, deg) {
+ // Clock-face point: 0deg = 12 o'clock (true spring / civil March at year 0), clockwise positive
+ function cpt(r, deg) {
   const a = deg * Math.PI / 180;
-  return [CX + rx * Math.cos(a), CY + ry * Math.sin(a)];
- }
- function arc(rx, ry, s, e) {
-  const [sx, sy] = pt(rx, ry, s);
-  const [ex, ey] = pt(rx, ry, e);
-  const la = (e - s) > 180 ? 1 : 0;
-  return `M ${sx} ${sy} A ${rx} ${ry} 0 ${la} 1 ${ex} ${ey}`;
+  return [CX + r * Math.sin(a), CY - r * Math.cos(a)];
  }
  function sName(d) {
   const m = d % 365;
@@ -1971,71 +1964,74 @@ function romanDay(mi, day, bis){
   defs.innerHTML = '<filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
   svg.appendChild(defs);
 
-  // Season arcs
+  // Season quadrants, painted as wedges of the clock face itself (Mar-May, Jun-Aug, Sep-Nov, Dec-Feb)
   const seasons = [
-   {s:200,e:290,c:'rgba(107,142,90,0.12)',l:'Spring'},
-   {s:290,e:380,c:'rgba(184,137,61,0.12)',l:'Summer'},
-   {s:20,e:110,c:'rgba(184,84,63,0.12)',l:'Autumn'},
-   {s:110,e:200,c:'rgba(93,123,156,0.12)',l:'Winter'}
+   {s:0,e:90,c:'rgba(107,142,90,0.14)',l:'Spring'},
+   {s:90,e:180,c:'rgba(184,137,61,0.14)',l:'Summer'},
+   {s:180,e:270,c:'rgba(184,84,63,0.14)',l:'Autumn'},
+   {s:270,e:360,c:'rgba(93,123,156,0.14)',l:'Winter'}
   ];
   seasons.forEach(s => {
-   svg.appendChild(el('path', {d: arc(RX_OUTER, RY_OUTER, s.s, s.e), fill:'none', stroke:s.c, 'stroke-width':'24'}));
+   const [sx, sy] = cpt(R, s.s);
+   const [ex, ey] = cpt(R, s.e);
+   const large = (s.e - s.s) > 180 ? 1 : 0;
+   svg.appendChild(el('path', {d: `M ${CX} ${CY} L ${sx} ${sy} A ${R} ${R} 0 ${large} 1 ${ex} ${ey} Z`, fill:s.c, stroke:'none'}));
    const mid = (s.s + s.e) / 2;
-   const [lx, ly] = pt(RX_OUTER + 30, RY_OUTER + 25, mid);
+   const [lx, ly] = cpt(R + 28, mid);
    const t = el('text', {x:lx, y:ly, fill:'#9a958a', 'font-family':'sans-serif', 'font-size':'14', 'text-anchor':'middle'});
    t.textContent = s.l; svg.appendChild(t);
   });
 
-  // Orbits
-  svg.appendChild(el('ellipse', {cx:CX, cy:CY, rx:RX_OUTER, ry:RY_OUTER, fill:'none', stroke:'#b8893d', 'stroke-width':'1.5', 'stroke-dasharray':'4 3'}));
-  svg.appendChild(el('ellipse', {cx:CX, cy:CY, rx:RX_INNER, ry:RY_INNER, fill:'none', stroke:'#b8543f', 'stroke-width':'1.5', 'stroke-dasharray':'4 3'}));
+  // Clock rim
+  svg.appendChild(el('circle', {cx:CX, cy:CY, r:R, fill:'none', stroke:'#4a5060', 'stroke-width':'2'}));
 
-  // Earth
-  svg.appendChild(el('circle', {cx:CX, cy:CY, r:12, fill:'#5d7b9c', filter:'url(#glow)'}));
-  const et = el('text', {x:CX, y:CY+30, fill:'#9a958a', 'font-family':'sans-serif', 'font-size':'13', 'text-anchor':'middle'});
-  et.textContent = 'Terra'; svg.appendChild(et);
+  // Month ticks
+  MONTHS.forEach((mo, i) => {
+   const deg = i * 30;
+   const [tx1, ty1] = cpt(R - 10, deg), [tx2, ty2] = cpt(R, deg);
+   svg.appendChild(el('line', {x1:tx1, y1:ty1, x2:tx2, y2:ty2, stroke:'#6e6960', 'stroke-width':'2'}));
+   const [lx, ly] = cpt(R - 28, deg);
+   const t = el('text', {x:lx, y:ly + 4, fill:'#cbc4b3', 'font-family':'sans-serif', 'font-size':'13', 'text-anchor':'middle'});
+   t.textContent = mo; svg.appendChild(t);
+  });
 
-  // Solar orbit moons (12 cycles, fixed)
-  const mCol = ['#2a2a3e','#7a7a9e','#e8e4d3','#7a7a9e'];
-  const mSz = [4, 5, 7, 5];
-  for(let m = 0; m < 12; m++) {
-   const ang = (m * LUNAR / SOLAR) * 360;
-   const [x, y] = pt(RX_OUTER, RY_OUTER, ang);
-   svg.appendChild(el('circle', {cx:x, cy:y, r:mSz[m%4], fill:mCol[m%4], opacity:'0.8'}));
-  }
-
-  // Roman orbit moons (12 cycles, shifted by drift)
   const dd = DRIFT * yi;
-  for(let m = 0; m < 12; m++) {
-   let ang = ((m * LUNAR - dd) / SOLAR) * 360;
-   while(ang < 0) ang += 360;
-   const [x, y] = pt(RX_INNER, RY_INNER, ang);
-   svg.appendChild(el('circle', {cx:x, cy:y, r:mSz[m%4]-0.5, fill:mCol[m%4], opacity:'0.7', stroke:'#b8543f', 'stroke-width':'0.5'}));
-  }
+  // Civil "March" drifts backward — a short year arrives early, so it lands progressively
+  // deeper into what is still, astronomically, winter (matching sName() below). fwdDeg is
+  // the magnitude of that drift; driftDeg is the hand's position, swept counterclockwise.
+  const fwdDeg = ((dd / SOLAR) * 360) % 360;
+  const driftDeg = (360 - fwdDeg) % 360;
 
-  // March markers
-  const marchAng = (80 / SOLAR) * 360;
-  const [mx, my] = pt(RX_OUTER, RY_OUTER, marchAng);
-  svg.appendChild(el('circle', {cx:mx, cy:my, r:8, fill:'#6b8e5a', stroke:'#b8893d', 'stroke-width':'2'}));
-  const mt = el('text', {x:mx+16, y:my-8, fill:'#6b8e5a', 'font-family':'serif', 'font-size':'14', 'font-weight':'bold'});
-  mt.textContent = 'March (solar)'; svg.appendChild(mt);
-
-  let rAng = ((80 - dd) / SOLAR) * 360;
-  while(rAng < 0) rAng += 360;
-  const [rx2, ry2] = pt(RX_INNER, RY_INNER, rAng);
-  svg.appendChild(el('circle', {cx:rx2, cy:ry2, r:8, fill:'#b8543f', stroke:'#b8893d', 'stroke-width':'2'}));
-  const rt = el('text', {x:rx2+14, y:ry2+18, fill:'#b8543f', 'font-family':'serif', 'font-size':'14', 'font-weight':'bold'});
-  rt.textContent = 'March (Roman)'; svg.appendChild(rt);
-
+  // Shaded wedge: how far the "civil March" hand has swept (counterclockwise) from true spring
   if(yi > 0) {
-   svg.appendChild(el('line', {x1:mx, y1:my, x2:rx2, y2:ry2, stroke:'#b8893d', 'stroke-width':'1', 'stroke-dasharray':'2 2', opacity:'0.5'}));
+   const [wx, wy] = cpt(R - 4, driftDeg);
+   const large = fwdDeg > 180 ? 1 : 0;
+   svg.appendChild(el('path', {d: `M ${CX} ${CY} L ${CX} ${CY - (R - 4)} A ${R - 4} ${R - 4} 0 ${large} 0 ${wx} ${wy} Z`, fill:'rgba(184,137,61,0.15)', stroke:'none'}));
   }
+
+  // Central pivot
+  svg.appendChild(el('circle', {cx:CX, cy:CY, r:6, fill:'#3d4250', stroke:'#6e6960', 'stroke-width':'1'}));
+
+  // Fixed hand: true spring, always 12 o'clock
+  const [fx, fy] = cpt(R - 4, 0);
+  svg.appendChild(el('line', {x1:CX, y1:CY, x2:fx, y2:fy, stroke:'#b8893d', 'stroke-width':'3', 'stroke-linecap':'round'}));
+  svg.appendChild(el('circle', {cx:fx, cy:fy, r:8, fill:'#b8893d', filter:'url(#glow)'}));
+  const ft = el('text', {x:fx, y:fy - 16, fill:'#d4af6a', 'font-family':'serif', 'font-size':'14', 'font-weight':'bold', 'text-anchor':'middle'});
+  ft.textContent = 'True spring'; svg.appendChild(ft);
+
+  // Moving hand: where civil "March" now falls
+  const [rx2, ry2] = cpt(R - 4, driftDeg);
+  svg.appendChild(el('line', {x1:CX, y1:CY, x2:rx2, y2:ry2, stroke:'#b8543f', 'stroke-width':'3', 'stroke-linecap':'round'}));
+  svg.appendChild(el('circle', {cx:rx2, cy:ry2, r:8, fill:'#b8543f', filter:'url(#glow)'}));
+  const [rlx, rly] = cpt(R + 34, driftDeg);
+  const rt = el('text', {x:rlx, y:rly, fill:'#e08668', 'font-family':'serif', 'font-size':'14', 'font-weight':'bold', 'text-anchor':'middle'});
+  rt.textContent = 'Civil "March"'; svg.appendChild(rt);
 
   const rdd = Math.round(dd);
   const bcYear = START_BC - yi;
   if(yearEl) yearEl.textContent = bcYear + ' BC';
-  if(yi === 0) explain.innerHTML = 'Both orbits aligned. March = spring on both rings. This animation shows <em>seasonal</em> drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.';
-  else explain.innerHTML = 'The Roman year has drifted <span style="color:var(--gold-bright);font-weight:600;">~' + rdd + ' days</span> against the sun. Roman “March” now falls in <span style="color:var(--gold-bright);font-weight:600;">' + sName(rdd) + '</span>. Schematic only: real pontiffs did intercalate, irregularly, until the system failed in the 50s–40s BC.';
+  if(yi === 0) explain.innerHTML = 'Year 0: both hands aligned. Civil "March" and true spring are the same point. This animation shows <em>seasonal</em> drift from a 355-day year with no intercalation — not a claim that the Kalends still tracked the live moon.';
+  else explain.innerHTML = 'The civil "March" hand has swept <span style="color:var(--gold-bright);font-weight:600;">~' + rdd + ' days</span> away from true spring. Civil "March" now falls in <span style="color:var(--gold-bright);font-weight:600;">' + sName(rdd) + '</span>. Schematic only: real pontiffs did intercalate, irregularly, until the system failed in the 50s–40s BC.';
  }
 
  let running = false, cur = 0;

@@ -323,6 +323,7 @@ button.secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
   border:1px dashed var(--line);
   border-left:3px solid var(--gold);
   border-radius:0 4px 4px 0;
+  overflow-wrap:anywhere;
 }
 .quote-block .quote-lat{display:block;font-style:italic;color:var(--ink-bright);}
 .quote-block .quote-en{display:block;margin-top:.4rem;color:var(--dim);font-style:normal;}
@@ -865,20 +866,34 @@ select.cal-select:focus{
 .notes-src{margin:.8rem 0;font-size:.92rem;line-height:1.6;color:var(--dim);}
 
 /* === Artifact photos === */
+/* Image on the left, caption beside it on the right, both in one shaded card.
+   Keeping the caption beside (not under) the image keeps the whole block
+   short, so it doesn't outlast the paragraph text wrapping past it. */
 .artifact-figure{
   float:right;clear:right;
-  width:200px;
+  width:clamp(260px, 42%, 520px);
   margin:.2rem 0 1rem 1.5rem;
-  text-align:center;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:.8rem;
+  display:flex;
+  align-items:flex-start;
+  gap:1rem;
 }
-.artifact-figure img{max-width:100%;width:100%;height:auto;border-radius:6px;border:1px solid var(--line);display:block;margin:0 auto;cursor:zoom-in;transition:opacity .15s,border-color .15s;}
+.artifact-figure img{flex:0 0 42%;width:42%;max-width:230px;height:auto;border-radius:5px;border:1px solid var(--line);display:block;cursor:zoom-in;transition:opacity .15s,border-color .15s;}
 .artifact-figure img:hover{opacity:.88;border-color:var(--gold);}
-.artifact-figure figcaption{font-size:.78rem;color:var(--dim);margin-top:.5rem;line-height:1.4;text-align:left;}
+.artifact-figure figcaption{font-size:.92rem;color:var(--dim);line-height:1.55;text-align:left;flex:1 1 auto;min-width:0;overflow-wrap:anywhere;}
 .artifact-figure figcaption a{color:var(--gold-bright);}
 /* Contain the floated figure within whichever block holds it, without clipping anything */
 .panel,section{display:flow-root;}
-@media(max-width:760px){
-  .artifact-figure{float:none;width:100%;max-width:280px;margin:1.5rem auto;}
+/* Stay floated (beside the text) down to genuine phone widths */
+@media(max-width:480px){
+  .artifact-figure{float:none;width:100%;margin:1.5rem 0;}
+}
+@media(max-width:380px){
+  .artifact-figure{flex-direction:column;align-items:center;}
+  .artifact-figure img{width:100%;max-width:280px;flex-basis:auto;}
 }
 
 /* === Image lightbox === */
@@ -925,7 +940,7 @@ select.cal-select:focus{
 <body>
 <nav class="tabs">
   <span class="nav-brand">SPQR</span>
-  <button class="tab active" data-tab="dualcal">Dual Kalendar</button>
+  <button class="tab active" data-tab="dualcal">The Kalendar</button>
   <button class="tab" data-tab="beginning">Lunar Origin</button>
   <button class="tab" data-tab="rhythm">Rhythm of Time</button>
   <button class="tab" data-tab="republican">Month Lengths</button>
